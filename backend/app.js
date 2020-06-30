@@ -92,7 +92,6 @@ app.get('/oauth2callback',function(req,res){
           throw err;
         }
         googleOauth.credentials = tokens;
-        res.redirect("http://localhost:5500/firstLogin.html");
         /*
         res.send('Got the token = '+tokens.access_token+"<br><br><button onclick='window.location.href=\"/getVideo?name=Ready Player One\"'>Get Video</button>"+
         "<br><br><button onclick='window.location.href=\"/getPlaylist\"'>Get Playlist</button>"+
@@ -102,8 +101,7 @@ app.get('/oauth2callback',function(req,res){
         "<br><br><button onclick='window.location.href=\"/playlist/update\"'>Update Playlist</button>");
         */
     });
-    
-    
+    res.redirect("http://localhost:5500/frontend/firstLogin.html");
 })
 
 //Try to get a film :)
@@ -304,13 +302,18 @@ app.get('/playlist/delete',function(req,res){
 app.post('/categories', function(req,res){
     var user_cat = "";
     for (var i=0; i<req.body.categories.length; i++){
-        user_cat=user_cat+(req.body.categories[i])+"&";
-        if (i == req.body.categories.length - 1){
-            user_cat=user_cat+(req.body.categories[i]);    
+        if(i == req.body.categories.length -1){
+            user_cat=user_cat+(req.body.categories[i]);
+        }
+        else{
+            user_cat=user_cat+(req.body.categories[i])+"&";
         }
     }
+    
     console.log(req.body);
     console.log(user_cat);
+
+    res.sendStatus(200);
     
     //con user_cat dovrei costruire url per GET a tmdb -->
     //parametri
