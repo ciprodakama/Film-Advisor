@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head> 
+    <title> Suggeritore Film </title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width-device-width, initial scale=1"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="./bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/playlist.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> 
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script type="text/javascript" lang="javascript" src="./bootstrap/js/bootstrap.min.js"></script>    
+    
+    
+    </head>
+    <body>
+        <nav class="black">
+            <ul>
+                <li><a href="index.html"> <img src="/images/LJk8AmLX_400x400.png" height="50" widht="50" alt=""></a></li>
+                <li style="float:right"><a href="main.html">Torna alla pagina principale</a></li>
+            </ul>
+        </nav>
+
+
+        <h1 class="text-center">Qui troverai tutte le tue playlist!</h1>
+        <h4 class="text-center">Ricordati che potrai creare e modificare sia le playlist che hai su Youtube che quelle create all'interno del sito</h4>
+        <br>
+        
+        <div class="container" id="playlistUtente">
+            <h3 class="text-left">Le Tue Playlist</h3>
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Titolo</th>
+                    <th>Numero Video</th>
+                    <th>Link Youtube</th>
+                    <th>Ispeziona</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Tanta Palestra</td>
+                    <td>
+                      5
+                    </td>
+                    <td><a href="#">Link alla Playlist</a></td>
+                    <td><button type ="button" class = "btn btn-default btn-sm ispeziona">Gestisci Playlist</button></td>
+                  </tr>
+
+                  <tr>
+                    <td>Come diventare Biondo</td>
+                    <td>
+                      1
+                    </td>
+                    <td><a href="#">Link alla Playlist</a></td>
+                    <td><button type ="button" class = "btn btn-default btn-sm ispeziona">Gestisci Playlist</button></td>
+                  </tr>
+
+                  <tr>
+                    <td>Ricette Pazze</td>
+                    <td>
+                      10
+                    </td>
+                    <td><a href="#">Link alla Playlist</a></td>
+                    <td><button type ="button" class ="btn btn-default btn-sm ispeziona">Gestisci Playlist</button></td>
+                  </tr>
+                </tbody>
+            </table>  
+              
+            <div class="container" id="dettaglioPlaylist">
+                <h3 style="justify-self: left;">Titolo Dinamico</h3>
+                <button style="float:none;" class="nascondi">nascondi</button>
+
+                <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Titolo</th>
+                        <th>Specifica 1</th>
+                        <th>Link Youtube</th>
+                        <th>Elimina</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Video 1</td>
+                        <td>
+                          Qualcosa
+                        </td>
+                        <td><a href="#">Link</a></td>
+                        <td><button class="btn btn-danger" style="background-color: red;">-</button></td>
+                      </tr>
+    
+                      <tr>
+                        <td>Video 2</td>
+                        <td>
+                          Qualcosa
+                        </td>
+                        <td><a href="#">Link</a></td>
+                        <td><button class="btn btn-danger" style="background-color: red;">-</button></td>
+                      </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <script src="js/playlist.js" type="text/javascript" lang="javascript"></script>
+    </body>
+</html>
