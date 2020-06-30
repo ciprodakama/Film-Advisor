@@ -14,6 +14,10 @@ var Promise = require('promise');
 
 const app = express();
 
+var cors = require('cors');
+
+app.use(cors());
+
 app.use(body_parser.urlencoded({extended:false}));
 
 var user = require('./db/user');
@@ -72,7 +76,9 @@ app.get('/login', function(req,res){
         scope : config.scopes[0]
     });
 
-    res.send("<br><br><button onclick='window.location.href=\""+url+"\"'>Login</button>");
+    //questo url viene mandato al client per farlo accedere al suo account
+    res.send(url);
+    //res.send("<br><br><button onclick='window.location.href=\""+url+"\"'>Login</button>");
 
 });
 
@@ -86,12 +92,15 @@ app.get('/oauth2callback',function(req,res){
           throw err;
         }
         googleOauth.credentials = tokens;
+        res.redirect("http://localhost:5500/firstLogin.html");
+        /*
         res.send('Got the token = '+tokens.access_token+"<br><br><button onclick='window.location.href=\"/getVideo?name=Ready Player One\"'>Get Video</button>"+
-    "<br><br><button onclick='window.location.href=\"/getPlaylist\"'>Get Playlist</button>"+
-    "<br><br><button onclick='window.location.href=\"/createPlaylist?title=La_mia_nuova_playlist&description=Creata tramite restuful API\"'>Create Playlist</button>"+
-    "<br><br><button onclick='window.location.href=\"/playlist/insertVideo\"'>Add Video</button>"+
-    "<br><br><button onclick='window.location.href=\"/playlist/delete\"'>Delete Playlist</button>"+
-    "<br><br><button onclick='window.location.href=\"/playlist/update\"'>Update Playlist</button>");
+        "<br><br><button onclick='window.location.href=\"/getPlaylist\"'>Get Playlist</button>"+
+        "<br><br><button onclick='window.location.href=\"/createPlaylist?title=La_mia_nuova_playlist&description=Creata tramite restuful API\"'>Create Playlist</button>"+
+        "<br><br><button onclick='window.location.href=\"/playlist/insertVideo\"'>Add Video</button>"+
+        "<br><br><button onclick='window.location.href=\"/playlist/delete\"'>Delete Playlist</button>"+
+        "<br><br><button onclick='window.location.href=\"/playlist/update\"'>Update Playlist</button>");
+        */
     });
     
     
@@ -145,7 +154,9 @@ app.get('/getPlaylist',function(req,res){
                 playlistLink: url_playlist
             };
     
-            array.push(obj);
+            PlaylistDb('5eb6717f9fcdff2d983201c2',obj.title,obj.playlistLink,(k)=>{
+                array.push(obj);
+            });
 
             
         };
@@ -289,6 +300,33 @@ app.get('/playlist/delete',function(req,res){
 
 })
 
+
+app.post('/categories', function(req,res){
+    var user_cat = "";
+    for (var i=0; i<req.body.categories.length; i++){
+        user_cat=user_cat+(req.body.categories[i])+"&";
+        if (i == req.body.categories.length - 1){
+            user_cat=user_cat+(req.body.categories[i]);    
+        }
+    }
+    console.log(req.body);
+    console.log(user_cat);
+    
+    //con user_cat dovrei costruire url per GET a tmdb -->
+    //parametri
+    //api_key=27bfe195970e9f6efcfc1a9c0557ae5d
+    //language=en-US
+    //sort_by=popularity.desc
+    //include_adult=false
+    //include_video=false
+    //with_genres=user_cat
+    //https://api.themoviedb.org/3/discover/movie?api_key=27bfe195970e9f6efcfc1a9c0557ae5d&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&with_genres=10402&12&26&878
+    
+    //da qui andrebbero estratti i titoli e passati al GET dei video, il cui JSON andrebbe mandato nuovamente al Client per mostrare i link dei trailer
+});
+
+
+
 //FUNCTIONS USEFUL FOR THE INTERACTION WITH THE DB 
 
 //Sing in of a new user
@@ -320,7 +358,7 @@ function login(mail,callback){
 
 //Add a playlist object in the db of the user identified by userid
 
-function PlaylistDb(userid,nome,url) {
+function PlaylistDb(userid,nome,url,callback) {
 
     var request = require('request');
     
@@ -343,6 +381,7 @@ function PlaylistDb(userid,nome,url) {
         }
         else{
             console.log(body);
+            callback(response.statusCode);
         }
     });
     
@@ -450,6 +489,7 @@ function PlaylistUp(userid,vecchio_nome,nuovo_nome){
     });
 
 }
+
 
 
 module.exports = app;
