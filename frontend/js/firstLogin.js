@@ -61,7 +61,7 @@ $(document).ready(function(){
                 contentType: 'application/json',
                 data: JSON.stringify(body),
                 }).done(function(){
-                    window.location.href = "http://localhost:5500/main.html";
+                    window.location.href = "http://localhost:5500/frontend/main.html";
                 }).fail(function(){
                     alert("Errore! Prova a rimandare le tue categorie!");
                 })

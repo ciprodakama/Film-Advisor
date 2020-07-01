@@ -22,6 +22,11 @@ app.use(body_parser.urlencoded({extended:false}));
 
 var user = require('./db/user');
 
+var trailers = {
+    videoLink: [],
+    embedLink: []
+};
+
 //Configurazion for the db
 
 mongoose.connect('mongodb+srv://admin:admin@cluster0-hjbla.mongodb.net/test?retryWrites=true&w=majority', { useUnifiedTopology: true,useNewUrlParser: true });
@@ -108,7 +113,6 @@ app.get('/oauth2callback',function(req,res){
 
 app.get('/getVideo',function(req,res){
 
-
     var youtube = google.youtube('v3');
 
     var name = req.query.name;
@@ -116,17 +120,17 @@ app.get('/getVideo',function(req,res){
     youtube.search.list({
         part: 'snippet',
         type: 'video',
-        q : name+'Trailer'
+        q : name+' Trailer',
+        maxResult: 2
     }).then((response)=>{
-        console.log(response);
+        //console.log(response);
         var url_video = 'https://www.youtube.com/watch?v='+response.data.items[0].id.videoId;
-        res.send({videoLink:url_video});
+        var url_embed = 'https://www.youtube.com/embed/'+response.data.items[0].id.videoId;
+        res.send({videoLink:url_video, embedLink:url_embed});
     }).catch((err)=>{
         console.log(err);
         res.redirect('/login');
     });
-    
-
 })
 
 //Try to get all client's playlists on youtube ---> maybe useless!!!!
@@ -298,8 +302,72 @@ app.get('/playlist/delete',function(req,res){
 
 })
 
+function getTitles(cat){
 
-app.post('/categories', function(req,res){
+    var request = require("request");
+    let options = {json: true};
+
+    //parameters
+    var key = "27bfe195970e9f6efcfc1a9c0557ae5d";
+    var lang = "en-US";
+    var genres = cat;
+
+    let url = "https://api.themoviedb.org/3/discover/movie?api_key="+key+"&language="+lang+"&sort_by=popularity.desc&include_adult=false&include_video=false&with_genres="+genres;
+
+    var titles = [];
+    return new Promise(function(resolve, reject){
+        request(url, options, (error, res, body) => {
+            if (error){
+                reject(error);
+                //return console.log(error)
+            } else {
+                body.results.slice(0,2).forEach(element => {
+                    titles.push(element.title);
+                });
+                console.log(titles);
+                resolve(titles);
+            }
+        })
+    })
+}
+
+function getTrailer(titles){
+
+    var request = require("request");
+    let options = {json: true};
+
+    //parameters
+    let url = "http://localhost:3001/getVideo?name=";
+
+    //var videos = [];
+    if (trailers.videoLink === undefined || trailers.videoLink.length == 0) {
+        titles.forEach(element => {
+            request(url+element, options, (error, res, body) => {
+                if (error){
+                    //reject(error);
+                    return console.log(error)
+                } else {
+                    console.log(body.videoLink);
+                    trailers.videoLink.push(body.videoLink);
+                    trailers.embedLink.push(body.embedLink);
+                    console.log(trailers);
+                }   
+            }) 
+        });
+    }
+    else{
+        trailers.videoLink.splice(0, trailers.videoLink.length);
+        trailers.embedLink.splice(0, trailers.embedLink.length);
+    }
+}
+    /*
+    return new Promise(function(resolve, reject){
+        
+        resolve(videos);
+    })
+    */
+
+app.post('/categories', async function(req,res){
     var user_cat = "";
     for (var i=0; i<req.body.categories.length; i++){
         if(i == req.body.categories.length -1){
@@ -309,26 +377,27 @@ app.post('/categories', function(req,res){
             user_cat=user_cat+(req.body.categories[i])+"&";
         }
     }
+
+    var titles = await getTitles(user_cat);
+    getTrailer(titles);
     
+    /*
+    console.log("Those are the cat I sent\n")
     console.log(req.body);
+    console.log("Those are the cat for sent\n")
     console.log(user_cat);
+    console.log("Those are Titles I got\n")
+    console.log(titles);
+    console.log("Those are Trailers I got\n")
+    console.log(trailers);
+    */
 
     res.sendStatus(200);
-    
-    //con user_cat dovrei costruire url per GET a tmdb -->
-    //parametri
-    //api_key=27bfe195970e9f6efcfc1a9c0557ae5d
-    //language=en-US
-    //sort_by=popularity.desc
-    //include_adult=false
-    //include_video=false
-    //with_genres=user_cat
-    //https://api.themoviedb.org/3/discover/movie?api_key=27bfe195970e9f6efcfc1a9c0557ae5d&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&with_genres=10402&12&26&878
-    
-    //da qui andrebbero estratti i titoli e passati al GET dei video, il cui JSON andrebbe mandato nuovamente al Client per mostrare i link dei trailer
 });
 
-
+app.get('/trailers', function(req,res){
+    res.send({trailers: trailers});
+})
 
 //FUNCTIONS USEFUL FOR THE INTERACTION WITH THE DB 
 

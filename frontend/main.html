@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" lang="javascript" src="./bootstrap/js/bootstrap.min.js"></script>    
     
     
@@ -18,7 +18,7 @@
     <body>
         <nav class="black">
             <ul>
-                <li><a href="index.html"> <img src="/images/LJk8AmLX_400x400.png" height="50" widht="50" alt=""></a></li>
+                <li><a href="index.html"> <img src="./images/LJk8AmLX_400x400.png" height="50" widht="50" alt=""></a></li>
                 <li style="float:right"><a href="playlist.html">Playlist</a></li>
             </ul>
         </nav>
@@ -27,26 +27,32 @@
         <h1 class="text-center">Ora sei pronto ad utilizzare il nostro sito!</h1>
         <h4 class="text-center">Sentiti come se fossi a casa tua</h4>
         <br>
-        <h3 class="text-center">Zona Film Suggeriti</h3>
-        <div class="container" id="filmSuggeriti">
+        <div class="container">
             <div class="row justify-content-center">
-                    <iframe width="280" height="150" src="https://www.youtube.com/embed/A5vKIUyLDXE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    <iframe width="280" height="150" src="https://www.youtube.com/embed/A5vKIUyLDXE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    <iframe width="280" height="150" src="https://www.youtube.com/embed/A5vKIUyLDXE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    <iframe width="280" height="150" src="https://www.youtube.com/embed/A5vKIUyLDXE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    <iframe width="280" height="150" src="https://www.youtube.com/embed/A5vKIUyLDXE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    <iframe width="280" height="150" src="https://www.youtube.com/embed/A5vKIUyLDXE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <button class="btn btn-primary mb-2" id="mostraSuggeriti"> Scopri i tuoi Trailer!</button>
             </div>  
+        </div>
+        <br>
+        <div class="titolo">
+            <h3 class="text-center">Zona Film Suggeriti</h3>      
+        </div>
+        <div class="contSuggeriti">
+            <div class="box">
+                <iframe class="video" width="560" height="300" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <a class="link" href="" target="_blank">Link Esterno</a>
+                <button class="btn btn-primary mb-2" id="addPlaylist"> Aggiungi alla tua Playlist! </button>
+            </div>
+            <div class="box">
+                <iframe class="video" width="560" height="300" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <a class="link" href="" target="_blank">Link Esterno</a>
+                <button class="btn btn-primary mb-2" id="addPlaylist"> Aggiungi alla tua Playlist! </button>
+            </div>
         </div>
         <br>
         <h3 class="text-center">Zona Cerca Trailer</h3>
 
         <form id="cercaTrailer">
             <div class="form-row">
-                <div class="form-group">
-                    <label for="Year">Year</label>
-                    <textarea class="form-control" id="Ins_Title" rows="1"></textarea>
-                </div>
                 <div class="form-group">
                     <label for="Title">Title</label>
                     <textarea class="form-control" id="Ins_Title" rows="1"></textarea>                
@@ -56,15 +62,13 @@
                 <button type="submit" class="btn btn-primary mb-2" id="findTrailer">Search</button>
             </div>
         </form>
-        <div class="container" id="risTrailer">
+        <div class="container" id="contTrailer">
             <h3 class="text-center">Zona Ris Cerca Trailer</h3>
             <div class="row justify-content-center">
-                    <iframe width="280" height="150" src="https://www.youtube.com/embed/A5vKIUyLDXE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    <iframe width="280" height="150" src="https://www.youtube.com/embed/A5vKIUyLDXE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    <iframe width="280" height="150" src="https://www.youtube.com/embed/A5vKIUyLDXE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe id="risTrailer" width="280" height="150" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
             <div class="row justify-content-center">
-                <button class="btn btn-primary mb-2" id="nascondiRis"> Nascondi Ris </button>
+                <button class="btn btn-primary mb-2" id="aggiungiRis"> Aggiungi alla tua Playlist </button>
             </div>    
         </div>
         
