@@ -29,6 +29,8 @@ var trailers = {
     embedLink: []
 };
 
+var id_us = ""   //parameter that indicates the user id inside the db
+
 //Configurazion for the db
 
 mongoose.connect('mongodb+srv://admin:admin@cluster0-hjbla.mongodb.net/test?retryWrites=true&w=majority', { useUnifiedTopology: true,useNewUrlParser: true });
@@ -70,14 +72,17 @@ google.options({auth: googleOauth});
 
 app.get('/login', function(req,res){
     
-    /*var email = req.query.mail;
+    var email = req.query.mail;
 
-    login(email,function(status){
+    interaction.login(email,function(status,body){
         if (status!=201){
-            console.log('sei già resistrato');
+            console.log('sei già resistrato-->ben tornato');
         }
-    })*/
-
+        var obj = JSON.parse(body);
+        //console.log(obj._id);
+        id_us = obj._id;
+    })
+    
     const url = googleOauth.generateAuthUrl({
         access_type: 'offline',
         scope : config.scopes[0]
@@ -161,7 +166,7 @@ app.get('/getPlaylist',function(req,res){
             array.push(obj);
             
         };
-        interaction.PlaylistDb('5eb6717f9fcdff2d983201c2',null,null,null,array);
+        interaction.PlaylistDb(id_us,null,null,null,array);
         res.send(array);
     
     }).catch((err)=>{
@@ -199,7 +204,7 @@ app.post('/createPlaylist',function(req,res){
     }).then((response)=>{
         console.log(response);
         var playlist_url='https://www.youtube.com/playlist?list='+response.data.id;
-        interaction.PlaylistDb('5eb6717f9fcdff2d983201c2',title,playlist_url,response.data.id,null); //updated
+        interaction.PlaylistDb(id_us,title,playlist_url,response.data.id,null); //updated
         res.send({
             'message':'Created a playlist successfully',
             playlist_url:playlist_url,
@@ -222,13 +227,15 @@ app.post('/playlist/insertVideo',function(req,res){
             "snippet": {
                 "playlistId": "PLccv7pMO8il8o5drlMEygqi0l6MJb1hGa",
                 "resourceId": {
-                    "videoId": "",
+                    "videoId": req.body.videoId,
                     "kind": "youtube#video"
                 }
             }
     };
 
-    var array = [];
+
+
+    /*var array = [];
     var id1 = req.body.video1;
     var id2 = req.body.video2;
     var id3 = req.body.video3;
@@ -238,29 +245,27 @@ app.post('/playlist/insertVideo',function(req,res){
     array.push(id2);
     array.push(id3);
     array.push(id4);
-    array.push(id5);
+    array.push(id5);*/
 
     //var array = ["CwXOrWvPBPk","2xvEUt8lVNg","zg23CSUm1qk"]  //here go the video_id of the videos selected by the client
     
-    for(i=0;i<array.length;i++) {
-        if (array[i]!=null) {
-            resource.snippet.resourceId.videoId = array[i];
-            youtube.playlistItems.insert({
-                part : 'snippet',
-                resource : resource,
-            }).then((response)=>{
-                console.log(response);
-                interaction.VideoDb('5eb6717f9fcdff2d983201c2','La_mia_nuova_playlist',response.data.snippet.title,resource.snippet.resourceId.videoId);
-                res.send({
-                    message : 'added video to your playlist',
-                    url : 'https://www.youtube.com/playlist?list='+resource.snippet.playlistId,
-                });
-            }).catch((err)=>{
-                console.log(err);
-                res.send('error in adding the video');
+    youtube.playlistItems.insert({
+            part : 'snippet',
+            resource : resource,
+        }).then((response)=>{
+            console.log(response);
+            var video_url = 'https://www.youtube.com/watch?v='+resource.snippet.resourceId.videoId;
+            interaction.VideoDb('5eb6717f9fcdff2d983201c2','La_mia_nuova_playlist',response.data.snippet.title,video_url);
+            res.send({
+                message : 'added video to your playlist',
+                url : 'https://www.youtube.com/playlist?list='+resource.snippet.playlistId,
             });
-        }
-    }
+        }).catch((err)=>{
+            console.log(err);
+            res.send('error in adding the video');
+    });
+    
+    
 })
 
 //Try to update a playlist
@@ -284,7 +289,7 @@ app.put('/playlist/update',function(req,res){
         resource : resource
     }).then((response)=>{
         console.log(response);
-        interaction.PlaylistUp('5eb6717f9fcdff2d983201c2',vecchio_nome,resource.snippet.title);
+        interaction.PlaylistUp(id_us,vecchio_nome,resource.snippet.title);
         res.send({
             message : 'playlist updated successfully',
             link : 'https://www.youtube.com/playlist?list='+response.data.id
@@ -303,11 +308,13 @@ app.delete('/playlist/delete',function(req,res){
 
     var youtube = google.youtube('v3');
 
+    var name = req.body.name;
+
     youtube.playlists.delete({
         id : 'PLccv7pMO8il-YtkwGAUJEYSg0t9sTtFpT'
     }).then((response)=>{
         console.log(response);
-        interaction.deletePL('5eb6717f9fcdff2d983201c2',"cavolo")
+        interaction.deletePL(id_us,name);
         res.send('Playlist deleted successfully');
     }).catch((err)=>{
         console.log(err);
