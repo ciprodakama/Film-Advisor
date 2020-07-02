@@ -22,6 +22,8 @@ app.use(body_parser.urlencoded({extended:false}));
 
 var user = require('./db/user');
 
+var interaction = require('./bd_interaction/interaction');  //require the function for the interaction with the db
+
 var trailers = {
     videoLink: [],
     embedLink: []
@@ -151,22 +153,17 @@ app.get('/getPlaylist',function(req,res){
         for(i=0;i<num_playlist;i++){
             var url_playlist = 'https://www.youtube.com/playlist?list='+response.data.items[i].id;
             var obj = {
-                title : response.data.items[i].snippet.title,
-                id : response.data.items[i].id,
-                playlistLink: url_playlist
+                nome : response.data.items[i].snippet.title,
+                url: url_playlist,
+                url_id : response.data.items[i].id,
             };
-    
-            PlaylistDb('5eb6717f9fcdff2d983201c2',obj.title,obj.playlistLink,(k)=>{
-                array.push(obj);
-            });
-
+            
+            array.push(obj);
             
         };
+        interaction.PlaylistDb('5eb6717f9fcdff2d983201c2',null,null,null,array);
         res.send(array);
-        //PlaylistDb('5eb6717f9fcdff2d983201c2',obj.title,obj.playlistLink);
-        
-
-        
+    
     }).catch((err)=>{
         console.log(err);
         res.redirect('/login');
@@ -177,12 +174,12 @@ app.get('/getPlaylist',function(req,res){
 
 //Try to create a playlist
 
-app.get('/createPlaylist',function(req,res){
+app.post('/createPlaylist',function(req,res){
 
     var youtube = google.youtube('v3');
 
-    var title = req.query.title;
-    var description = req.query.description;
+    var title = req.body.title;
+    var description = req.body.description;
 
 
     // plylist resource that I want to create
@@ -202,7 +199,7 @@ app.get('/createPlaylist',function(req,res){
     }).then((response)=>{
         console.log(response);
         var playlist_url='https://www.youtube.com/playlist?list='+response.data.id;
-        PlaylistDb('5eb6717f9fcdff2d983201c2',title,playlist_url);
+        interaction.PlaylistDb('5eb6717f9fcdff2d983201c2',title,playlist_url,response.data.id,null); //updated
         res.send({
             'message':'Created a playlist successfully',
             playlist_url:playlist_url,
@@ -216,7 +213,7 @@ app.get('/createPlaylist',function(req,res){
 
 //Try to add a video to a playlist
 
-app.get('/playlist/insertVideo',function(req,res){
+app.post('/playlist/insertVideo',function(req,res){
 
     var youtube = google.youtube('v3');
     
@@ -231,37 +228,54 @@ app.get('/playlist/insertVideo',function(req,res){
             }
     };
 
-    var array = ["CwXOrWvPBPk","2xvEUt8lVNg","zg23CSUm1qk"]  //here go the video_id of the videos selected by the client
+    var array = [];
+    var id1 = req.body.video1;
+    var id2 = req.body.video2;
+    var id3 = req.body.video3;
+    var id4 = req.body.video4;
+    var id5 = req.body.video5;
+    array.push(id1);
+    array.push(id2);
+    array.push(id3);
+    array.push(id4);
+    array.push(id5);
+
+    //var array = ["CwXOrWvPBPk","2xvEUt8lVNg","zg23CSUm1qk"]  //here go the video_id of the videos selected by the client
     
     for(i=0;i<array.length;i++) {
-        resource.snippet.resourceId.videoId = array[i];
-        youtube.playlistItems.insert({
-            part : 'snippet',
-            resource : resource,
-        }).then((response)=>{
-            console.log(response);
-            VideoDb('5eb6717f9fcdff2d983201c2','La_mia_nuova_playlist',response.data.snippet.title,resource.snippet.resourceId.videoId);
-            res.send({
-                message : 'added video to your playlist',
-                url : 'https://www.youtube.com/playlist?list='+resource.snippet.playlistId,
+        if (array[i]!=null) {
+            resource.snippet.resourceId.videoId = array[i];
+            youtube.playlistItems.insert({
+                part : 'snippet',
+                resource : resource,
+            }).then((response)=>{
+                console.log(response);
+                interaction.VideoDb('5eb6717f9fcdff2d983201c2','La_mia_nuova_playlist',response.data.snippet.title,resource.snippet.resourceId.videoId);
+                res.send({
+                    message : 'added video to your playlist',
+                    url : 'https://www.youtube.com/playlist?list='+resource.snippet.playlistId,
+                });
+            }).catch((err)=>{
+                console.log(err);
+                res.send('error in adding the video');
             });
-        }).catch((err)=>{
-            console.log(err);
-            res.send('error in adding the video');
-        });
+        }
     }
 })
 
 //Try to update a playlist
 
-app.get('/playlist/update',function(req,res){
+app.put('/playlist/update',function(req,res){
 
     var youtube = google.youtube('v3');
+
+    var vecchio_nome = req.body.vecchio_nome;
+    var nuovo_nome = req.body.nuovo_nome;
 
     var resource = {
         id : 'PLccv7pMO8il8o5drlMEygqi0l6MJb1hGa',
         snippet : {
-            title : "Cambio_nome_test"
+            title : nuovo_nome
         }
     }
 
@@ -270,7 +284,7 @@ app.get('/playlist/update',function(req,res){
         resource : resource
     }).then((response)=>{
         console.log(response);
-        PlaylistUp('5eb6717f9fcdff2d983201c2',"La_mia_nuova_playlist",resource.snippet.title);
+        interaction.PlaylistUp('5eb6717f9fcdff2d983201c2',vecchio_nome,resource.snippet.title);
         res.send({
             message : 'playlist updated successfully',
             link : 'https://www.youtube.com/playlist?list='+response.data.id
@@ -285,7 +299,7 @@ app.get('/playlist/update',function(req,res){
 
 //Try delete a playlist
 
-app.get('/playlist/delete',function(req,res){
+app.delete('/playlist/delete',function(req,res){
 
     var youtube = google.youtube('v3');
 
@@ -293,7 +307,7 @@ app.get('/playlist/delete',function(req,res){
         id : 'PLccv7pMO8il-YtkwGAUJEYSg0t9sTtFpT'
     }).then((response)=>{
         console.log(response);
-        deletePL('5eb6717f9fcdff2d983201c2',"cavolo")
+        interaction.deletePL('5eb6717f9fcdff2d983201c2',"cavolo")
         res.send('Playlist deleted successfully');
     }).catch((err)=>{
         console.log(err);
@@ -398,169 +412,6 @@ app.post('/categories', async function(req,res){
 app.get('/trailers', function(req,res){
     res.send({trailers: trailers});
 })
-
-//FUNCTIONS USEFUL FOR THE INTERACTION WITH THE DB 
-
-//Sing in of a new user
-
-function login(mail,callback){
-    
-    var request = require('request');
-    
-    var body = {
-        "mail":mail,
-    };
-
-    request.post({
-        url : 'http://localhost:3001/user/',
-        headers : {
-            'Content-Type' : 'application/json; charset=utf-8',
-        },
-        body : JSON.stringify(body),
-    },function(err,response,body){
-        if(err) {
-            console.log(err);
-        }
-        else{
-            console.log(body);
-            callback(response.statusCode);
-        }
-    })
-}
-
-//Add a playlist object in the db of the user identified by userid
-
-function PlaylistDb(userid,nome,url,callback) {
-
-    var request = require('request');
-    
-    var body = {
-        "nome" : nome,
-        "pl_url" : url,
-    };
-
-    var url = 'http://localhost:3001/user/playlist/'+userid;
-
-    request.post({
-        url : url,
-        headers : {
-           'Content-Type' : 'application/json; charset=utf-8',
-        },
-        body : JSON.stringify(body),
-    },function(error,response,body){
-        if(error){
-            console.log(error);
-        }
-        else{
-            console.log(body);
-            callback(response.statusCode);
-        }
-    });
-    
-
-    
-
-};
-
-//Add a video object in the db in the playlist pl_name of the user userid
-
-function VideoDb(userid,pl_name,vd_name,vd_id) {
-
-    var request = require('request');
-
-    var body = {
-        "nome":vd_name,
-        "url": "https://www.youtube.com/watch?v="+vd_id,
-    };
-
-    var url = 'http://localhost:3001/user/playlist/elements/'+userid+'/'+pl_name;
-
-    var headers = {
-        'Content-Type' : 'application/json; charset=utf-8',
-    };
-
-    request.post({
-        url : url,
-        headers : headers,
-        body : JSON.stringify(body)
-    },function(error,response,body){
-        if (error) {
-            console.log(error);
-        }
-        else {
-            console.log('daje\n');
-            console.log(body);
-        };
-    });
-
-}
-
-
-//Delete a playlist pl_name of a user user_id from the db
-
-function deletePL(userid,pl_name) {
-
-    var request = require('request');
-
-    var url = 'http://localhost:3001/user/playlist/'+userid;
-
-    var body = {
-        "nome":pl_name,
-    };
-
-    var headers = {
-        'Content-Type' : 'application/json; charset=utf-8',
-    };
-
-    request.delete({
-        url : url,
-        headers : headers,
-        body : JSON.stringify(body),
-    },function(error,response,body){
-        if(error) {
-            console.log(error);
-        }
-        else{
-            console.log(body);
-        }
-    });
-
-
-}
-
-
-//Update a playlist of a user user_id
-
-function PlaylistUp(userid,vecchio_nome,nuovo_nome){
-
-    var request = require('request');
-
-    var url = "http://localhost:3001/user/playlist/"+userid;
-
-    var headers = {
-        'Content-Type' : 'application/json; charset=utf-8',
-    };
-
-    var obj = {
-        "vecchio_nome" : vecchio_nome,
-        "nuovo_nome" : nuovo_nome
-
-    }
-
-    request.put({
-        url : url,
-        headers : headers,
-        body : JSON.stringify(obj)
-    },function(error,response,body){
-        if (error) {
-            console.log(error);
-        }
-        else {
-            console.log(body);
-        }
-    });
-
-}
 
 
 
