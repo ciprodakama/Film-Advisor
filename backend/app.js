@@ -250,6 +250,8 @@ app.post('/playlist/insertVideo',function(req,res){
     array.push(id5);*/
 
     //var array = ["CwXOrWvPBPk","2xvEUt8lVNg","zg23CSUm1qk"]  //here go the video_id of the videos selected by the client
+
+    var pl_name = req.body.pl_name;
     
     youtube.playlistItems.insert({
             part : 'snippet',
@@ -257,7 +259,7 @@ app.post('/playlist/insertVideo',function(req,res){
         }).then((response)=>{
             console.log(response);
             var video_url = 'https://www.youtube.com/watch?v='+resource.snippet.resourceId.videoId;
-            interaction.VideoDb('5eb6717f9fcdff2d983201c2','La_mia_nuova_playlist',response.data.snippet.title,video_url);
+            interaction.VideoDb(id_us,pl_name,response.data.snippet.title,video_url);
             res.send({
                 message : 'added video to your playlist',
                 url : 'https://www.youtube.com/playlist?list='+resource.snippet.playlistId,
