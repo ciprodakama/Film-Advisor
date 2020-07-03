@@ -9,7 +9,12 @@ var model = mongoose.Schema({
         unique: true, 
         match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
     },
-    token: String, 
+    token: String,
+    cat1: {type: String, default: null},
+    cat2: {type: String, default: null},
+    cat3: {type: String, default: null},
+    cat4: {type: String, default: null},
+    cat5: {type: String, default: null},
     playlist: Array
 });
 
