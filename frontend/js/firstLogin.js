@@ -5,12 +5,14 @@ var url = base_url+'/categories';
 var max_Cat = 5;
 var count = 0;
 
+var body = {
+    "categories": []
+};
 //salveremo qui in un array gli id delle singole categorie da mandare poi al server
-var categories = [];
 
 function findId(id){
-    if(categories.includes(id)){
-        return categories.indexOf(id);
+    if(body.categories.includes(id)){
+        return body.categories.indexOf(id);
     }
     else{
         return -1;
@@ -19,26 +21,26 @@ function findId(id){
 
 $(document).ready(function(){
     $(".list-group-item").click(function(){
-        console.log(categories);
+        console.log(body.categories);
         console.log(count);
-        var video_id = $(this).attr('id');
+        var id = $(this).attr('id');
         if(count < max_Cat){
             if(($(this).hasClass("active"))){
                 $(this).removeClass("active");
                 count--;
-                categories.splice(findId(video_id),1);
+                body.categories.splice(findId(id),1);
             }
             else{
                 $(this).addClass("active");
                 count++;
-                categories.push(video_id);
+                body.categories.push(id);
             }
         }
         else{
             if(($(this).hasClass("active"))){
                 $(this).removeClass("active");
                 count--;
-                categories.splice(findId(video_id),1);
+                body.categories.splice(findId(id),1);
             }
             else{
                 alert("Hai già selezionato 5 categorie!");
@@ -53,16 +55,13 @@ $(document).ready(function(){
             return false;
         }
         else{
-            for(var i=0; i<max_Cat - categories.length(); i++){
-                categories.push("-1");
-            }
-            console.log("the dimension of the cat array is: "+categories.length());
             $.ajax({
                 url: url,
                 type: 'POST',
-                data: {categories: categories},
+                contentType: 'application/json',
+                data: JSON.stringify(body),
                 }).done(function(){
-                    window.location.href = "http://localhost:5500/frontend/main.html";
+                    //window.location.href = "http://localhost:5500/frontend/main.html";
                 }).fail(function(){
                     alert("Errore! Prova a rimandare le tue categorie!");
                 })

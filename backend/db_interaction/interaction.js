@@ -125,10 +125,14 @@ function deletePL(userid,pl_name) {
         body : JSON.stringify(body),
     },function(error,response,body){
         if(error) {
+            //console.log("error in Int for Cat");
             console.log(error);
+            //callback(error);
         }
         else{
+            //console.log("body Int for Cat");
             console.log(body);
+            //callback(response);
         }
     });
 
@@ -171,7 +175,7 @@ function PlaylistUp(userid,vecchio_nome,nuovo_nome){
 
 //Change the categories of a user
 
-function categories(userid,cat1,cat2,cat3,cat4,cat5) {
+function categories(userid,cat1,cat2,cat3,cat4,cat5,callback) {
 
     var request = require('request');
 
@@ -194,11 +198,15 @@ function categories(userid,cat1,cat2,cat3,cat4,cat5) {
         headers : headers,
         body : JSON.stringify(body)
     },function(error,response,body){
-        if (error) {
+        if(error) {
+            console.log("error in Int for Cat");
             console.log(error);
+            callback(error);
         }
-        else {
+        else{
+            console.log("body Int for Cat");
             console.log(body);
+            callback(response);
         }
     });
 

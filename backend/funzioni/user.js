@@ -101,7 +101,7 @@ exports.get_user = (req, res, next) => {
                 category3: fulfilled.cat3,                    
                 category4: fulfilled.cat4,
                 category5: fulfilled.cat5,
-                message: 'Crea conplaylist con POST all\'url: http://localhost:8888/user/playlist/' + id
+                message: 'Crea con playlist con POST all\'url: http://localhost:8888/user/playlist/' + id
             })
         }).catch(rejected => {
             res.status(500).json({

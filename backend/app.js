@@ -77,8 +77,11 @@ app.get('/login', function(req,res){
 
     
     interaction.login(email,function(status,body){
-        if (status!=201){
-            console.log('sei già resistrato-->ben tornato');
+        if (status.statusCode == 409){
+            console.log('sei già registrato-->ben tornato');
+        }
+        else if (status.statusCode == 500){
+            console.log('Errore da DB!');
         } 
         //console.log(obj._id);
         id_us = status._id;
@@ -391,16 +394,49 @@ function getTrailer(titles){
     */
 
 app.post('/categories', async function(req,res){
-    var user_cat = "";
-    for (var i=0; i<req.body.categories.length; i++){
-        if(i == req.body.categories.length -1){
-            user_cat=user_cat+(req.body.categories[i]);
-        }
-        else{
-            user_cat=user_cat+(req.body.categories[i])+"&";
-        }
+
+    var catDB = [];
+    for (var j = 0; j<req.body.categories.length; j++){
+        catDB.push(req.body.categories[j]);
     }
 
+    var num_cat = catDB.length;
+    var cat_toAdd = 5 - num_cat;
+    for(var i=0; i<cat_toAdd; i++){
+        catDB.push("0");
+    }
+    var cat1 = catDB[0];
+    var cat2 = catDB[1];
+    var cat3 = catDB[2];
+    var cat4 = catDB[3];
+    var cat5 = catDB[4];
+    console.log(catDB);
+    console.log(req.body.categories);
+    console.log(cat1,cat2,cat3,cat4,cat5);
+
+    /*
+    interaction.categories(id_us,cat1,cat2,cat3,cat4,cat5,function(status,body){
+        if (status.statusCode == 200){
+            console.log("Cat aggiunte al DB!");
+        }
+        else{
+            console.log("Errore aggiunta Cat");
+        }
+    })
+
+    /*
+    var user_cat = "";
+    for (var i=0; i<req.body.categories.length; i++){
+        if(req.body.categories != "0"){
+            if(i == req.body.categories.length -1){
+                user_cat=user_cat+(req.body.categories[i]);
+            }
+            else{
+                user_cat=user_cat+(req.body.categories[i])+"&";
+            }
+        }
+    }
+    /*
     var titles = await getTitles(user_cat);
     getTrailer(titles);
     
