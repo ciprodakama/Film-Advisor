@@ -6,15 +6,16 @@ var Element = require('../schema/elements');
 
 exports.get_all_user = (req, res, next) => {
     var password = req.body.password;
-    var pw = 'password';
+    /* var pw = 'password';
     if(!password || password !== pw )
     {
         res.status(500).json({
-            message: 'Accesso alla funzione negato'
+            message: 'Accesso alla funzione negato',
+            mess2: "hai inserito: " + password
         })
     }
     else
-    {
+    { */
         User.find().select('_id mail playlist cat1 cat2 cat3 cat4 cat5').exec()
             .then( fulfilled => {
                 if(!fulfilled[0])
@@ -30,7 +31,7 @@ exports.get_all_user = (req, res, next) => {
             .catch(rejected => {
                 res.status(500).json({Error: rejected})
             });
-    }
+   // }
 };
 
 exports.post_user = (req, res, next) => {
@@ -50,7 +51,6 @@ exports.post_user = (req, res, next) => {
                 {
                     return res.status(409).json({
                         Message: 'Utente già registrato; accedi alle tue playlist all\'url',
-                        _id: fulfilled[0]._id,
                         Url: 'http://localhost:8888/user/' + fulfilled[0]._id
                     });
                 }
@@ -101,7 +101,7 @@ exports.get_user = (req, res, next) => {
                 category3: fulfilled.cat3,                    
                 category4: fulfilled.cat4,
                 category5: fulfilled.cat5,
-                message: 'Crea con playlist con POST all\'url: http://localhost:8888/user/playlist/' + id
+                message: 'Crea conplaylist con POST all\'url: http://localhost:8888/user/playlist/' + id
             })
         }).catch(rejected => {
             res.status(500).json({
