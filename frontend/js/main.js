@@ -6,6 +6,25 @@ var url_playlist = base_url+"/getPlaylist";
 //evito di refreshare pagina on submit
 var form = document.getElementById("cercaTrailer");
 
+var play = {
+    name: [],
+    id: []
+}
+
+var resp = [{
+    "nome": "Horror",
+    "url": "https://www.youtube.com/playlist?list=PLpqvGu8plhgWr9LWI3XalomY_kaIheh5G",
+    "url_id": "PLpqvGu8plhgWr9LWI3XalomY_kaIheh5G"
+}, {
+    "nome": "Comedy",
+    "url": "https://www.youtube.com/playlist?list=PLpqvGu8plhgXNkYhImNpiooVveA3uFJSK",
+    "url_id": "PLpqvGu8plhgXNkYhImNpiooVveA3uFJSK"
+}, {
+    "nome": "Action",
+    "url": "https://www.youtube.com/playlist?list=PLpqvGu8plhgWmHQUBnNvp2wrVLvL_UMqz",
+    "url_id": "PLpqvGu8plhgWmHQUBnNvp2wrVLvL_UMqz"
+}]
+
 
 function getUrlVars (url) {
     var vars = {};
@@ -53,7 +72,35 @@ $(document).ready(function() {
          $('#contTrailer').show();
     });
 
+    $(".addPlaylist").on('click', function(event){
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+
+        console.log(resp);
+        console.log(resp.length);
+        for (var j= 0; j<resp.length; j++){
+            console.log(resp[j].url_id)
+            console.log(resp[j].nome)
+            play.name.push(resp[j].nome)
+            play.id.push(resp[j].url_id)
+        }
+        console.log(play)
+
+        //populatePlaylist(resp);
+
+        //console.log(resp[0].nome);
+
+        /*
+        $.get(url_playlist, function(data){
+            console.log(data);
+        })
+        */
+    });
+    /*
     $('#addPlaylist').click(function(){
+        var temp = $(this).html();
+        console.log(temp);
+        /*
         $.get(url_playlist, function(data){
             console.log(data)
             var playlist = data;
@@ -61,5 +108,7 @@ $(document).ready(function() {
                 console.log(playlist[i]);
             }
         })
+        
     });
+    */
 });
