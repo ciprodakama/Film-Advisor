@@ -22,7 +22,7 @@ app.use(body_parser.urlencoded({extended:false}));
 
 var user = require('./db/user');
 
-var interaction = require('./bd_interaction/interaction');  //require the function for the interaction with the db
+var interaction = require('./db_interaction/interaction');  //require the function for the interaction with the db
 
 var trailers = {
     videoLink: [],
