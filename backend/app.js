@@ -73,7 +73,9 @@ google.options({auth: googleOauth});
 app.get('/login', function(req,res){
     
     var email = req.query.mail;
+    console.log(email)
 
+    /*
     interaction.login(email,function(status,body){
         if (status!=201){
             console.log('sei già resistrato-->ben tornato');
@@ -82,6 +84,7 @@ app.get('/login', function(req,res){
         //console.log(obj._id);
         id_us = obj._id;
     })
+    */
     
     const url = googleOauth.generateAuthUrl({
         access_type: 'offline',
