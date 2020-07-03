@@ -1,0 +1,19 @@
+h1, h2 {
+    text-align: center; 
+    align-content: center;
+}
+
+#cointainerLogin{
+    display: flex;
+    flex-flow: column;
+}
+
+.form-row{
+    display: flex;
+    align-self: center;
+    text-align: center;
+}
+
+.form-control{
+    text-align: center;
+}
