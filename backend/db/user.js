@@ -14,6 +14,8 @@ user.post('/', usr.post_user );
 
 user.get('/:usrID', usr.get_user );
 
+user.put('/:usrID', usr.change_categories );
+
 user.delete('/:usrID', usr.delete_user );
 
 
