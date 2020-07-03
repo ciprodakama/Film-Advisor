@@ -5,14 +5,12 @@ var url = base_url+'/categories';
 var max_Cat = 5;
 var count = 0;
 
-var body = {
-    "categories": []
-};
 //salveremo qui in un array gli id delle singole categorie da mandare poi al server
+var categories = [];
 
 function findId(id){
-    if(body.categories.includes(id)){
-        return body.categories.indexOf(id);
+    if(categories.includes(id)){
+        return categories.indexOf(id);
     }
     else{
         return -1;
@@ -21,26 +19,26 @@ function findId(id){
 
 $(document).ready(function(){
     $(".list-group-item").click(function(){
-        console.log(body.categories);
+        console.log(categories);
         console.log(count);
-        var id = $(this).attr('id');
+        var video_id = $(this).attr('id');
         if(count < max_Cat){
             if(($(this).hasClass("active"))){
                 $(this).removeClass("active");
                 count--;
-                body.categories.splice(findId(id),1);
+                categories.splice(findId(video_id),1);
             }
             else{
                 $(this).addClass("active");
                 count++;
-                body.categories.push(id);
+                categories.push(video_id);
             }
         }
         else{
             if(($(this).hasClass("active"))){
                 $(this).removeClass("active");
                 count--;
-                body.categories.splice(findId(id),1);
+                categories.splice(findId(video_id),1);
             }
             else{
                 alert("Hai già selezionato 5 categorie!");
@@ -55,11 +53,14 @@ $(document).ready(function(){
             return false;
         }
         else{
+            for(var i=0; i<max_Cat - categories.length(); i++){
+                categories.push("-1");
+            }
+            console.log("the dimension of the cat array is: "+categories.length());
             $.ajax({
                 url: url,
                 type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(body),
+                data: {categories: categories},
                 }).done(function(){
                     window.location.href = "http://localhost:5500/frontend/main.html";
                 }).fail(function(){

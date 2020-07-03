@@ -75,16 +75,15 @@ app.get('/login', function(req,res){
     var email = req.query.mail;
     console.log(email)
 
-    /*
+    
     interaction.login(email,function(status,body){
         if (status!=201){
             console.log('sei già resistrato-->ben tornato');
-        }
-        var obj = JSON.parse(body);
+        } 
         //console.log(obj._id);
-        id_us = obj._id;
+        id_us = status._id;
     })
-    */
+    
     
     const url = googleOauth.generateAuthUrl({
         access_type: 'offline',

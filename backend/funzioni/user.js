@@ -50,6 +50,7 @@ exports.post_user = (req, res, next) => {
                 {
                     return res.status(409).json({
                         Message: 'Utente già registrato; accedi alle tue playlist all\'url',
+                        _id: fulfilled[0]._id,
                         Url: 'http://localhost:8888/user/' + fulfilled[0]._id
                     });
                 }

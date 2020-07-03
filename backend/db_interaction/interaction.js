@@ -25,8 +25,7 @@ function login(mail,callback){
             console.log(err);
         }
         else{
-            console.log(body);
-            callback(response.statusCode);
+            callback(response);
         }
     })
 }
