@@ -9,7 +9,6 @@ exports.get_playlist = (req, res, next) => {
     var nome = req.body.nome;
     User.findById(id)
         .then(fulfilled => {
-            
             if (!fulfilled)
             {
                 res.status(404).json({
@@ -36,6 +35,7 @@ exports.get_playlist = (req, res, next) => {
                         res.status(200).json({
                             nome: ob.nome,
                             url: ob.url,
+                            url_id: ob.url_id,
                             numero_elem: ob.numero_elem,
                             elements: ob.elements,
                             message: 'Per modificare gli elementi riferirsi all\'url',
@@ -66,14 +66,82 @@ exports.create_playlist = (req, res, next) => {
     var id = req.params.userID;
     var nome = req.body.nome;
     var url = req.body.pl_url;
-    if(!url || !nome )
+    var url_id = req.body.url_id;
+    var array = req.body.array;
+    if ( array )
+    {
+        var ob_split, i = 0, newA = [];
+        for( var ob of array )
+        {   
+            if( !ob.nome || !ob.url || !ob.url_id )
+            {
+                return res.status(500).json({
+                    message: 'almeno uno degli elementi in input non rispetta i requisti delle playlist',
+                    nome: 'controllare il nome (può contenere spazi)',
+                    url: 'controllare url',
+                    url_id: 'controllare url_id'
+                })
+            }
+            ob_split = ob.nome.split(' ');
+            if( ob_split.length != 1)
+            {
+                for ( var i = 1; i <= ob_split.length - 1; i++ )
+                    ob.nome = ob_split[i-1].concat('_',ob_split[i]);
+            }
+            var pl = new Playlist({
+                nome: ob.nome,
+                url: ob.url,
+                url_id: ob.url_id
+            });
+            newA.push(pl);
+            i++;
+        }
+        User.findById(id)
+            .then( fulfilled => {
+                var newArray = fulfilled.playlist;
+                for ( var e of newA )
+                {
+                    var b = 1;
+                    for( var o of newArray )
+                    {
+                        if( e.nome === o.nome)
+                            b = 0;
+                    }
+                    if( !b )
+                        newArray.push(e);
+                }
+                fulfilled.playlist = newArray;
+                User.update({_id: id}, { $set: fulfilled}).exec()
+                    .then( result => {
+                        res.status(200).json({
+                            Message: 'Aggiunto tutte le playlist correttamente'
+                        })
+                    })
+                    .catch(rejected => {
+                        res.status(500).json({
+                            Message: 'Errore nella creazione della pl',
+                            Error: rejected.message,
+                        })
+                    });
+            })
+            .catch(rejected => {
+                res.status(500).json({
+                    Message: 'Errore nella creazione della pl',
+                    Error: rejected.message
+                })
+            });
+
+    }
+    else if( !url || !nome || !url_id )
     {
         res.status(500).json({
             message: 'Passa i Parametri corretti',
             pl_url: 'url valido',
+            url_id: 'id valido per un url',
             nome: 'nome senza spazi'
         })
     }
+    
     else
     { 
         nome_split = nome.split(' ');
@@ -109,7 +177,8 @@ exports.create_playlist = (req, res, next) => {
                     {
                         var pl = new Playlist({
                             nome: nome,
-                            url: url
+                            url: url,
+                            url_id: url_id
                         })
                         fulfilled.playlist.push(pl);
                         if( fulfilled.playlist.length - 1 !== num_pl )
@@ -154,61 +223,61 @@ exports.rename_playlist = (req, res, next) => {
     }
     else
     {
-    var id = req.params.userID;
-    var name_split = name.split(' ');
-    if( name_split.length > 1 )
-        res.status(500).json({
-            message: 'nome playlist non valido, non inserire spazi'
-        });
-    else
-    {
-        User.findById(id)
-            .then(fulfilled => {
-                if (!fulfilled)
-                {
-                    res.status(404).json({
-                        message: 'Utente non trovato, impossibile fare il fetch delle playlist'
-                    });
-                }
-                else
-                {
-                    var usr_pl = fulfilled.playlist;
-                    var newObj = {};
-                    var i = 0;
-                    for( var ob of usr_pl)
-                    {
-                        if( ob.nome === old)
-                        {
-                            newObj = ob;
-                            newObj.nome = name;
-                            fulfilled.playlist.splice(i, 1);
-                            break;
-                        }
-                        i = i +1;
-                    }
-                    fulfilled.playlist.unshift(newObj);
-                    User.update({_id: id}, { $set: fulfilled}).exec()
-                        .then(r => {
-                            res.status(200).json({
-                                message: 'Nome Playlist Modificato',
-                                nome: name
-                            });
-                        })
-                        .catch(rejected => {
-                        res.status(500).json({
-                            Message: 'Errore nella fetch delle playlist di: ' + id,
-                            Error: rejected.message
-                        })
-                    })
-                }
-            }) 
-            .catch(rejected => {
-                res.status(500).json({
-                    Message: 'Errore nella fetch delle playlist di: ' + id,
-                    Error: rejected.message,
-                })
+        var id = req.params.userID;
+        var name_split = name.split(' ');
+        if( name_split.length > 1 )
+            res.status(500).json({
+                message: 'nome playlist non valido, non inserire spazi'
             });
-        }
+        else
+        {
+            User.findById(id)
+                .then(fulfilled => {
+                    if (!fulfilled)
+                    {
+                        res.status(404).json({
+                            message: 'Utente non trovato, impossibile fare il fetch delle playlist'
+                        });
+                    }
+                    else
+                    {
+                        var usr_pl = fulfilled.playlist;
+                        var newObj = {};
+                        var i = 0;
+                        for( var ob of usr_pl)
+                        {
+                            if( ob.nome === old)
+                            {
+                                newObj = ob;
+                                newObj.nome = name;
+                                fulfilled.playlist.splice(i, 1);
+                                break;
+                            }
+                            i = i +1;
+                        }
+                        fulfilled.playlist.unshift(newObj);
+                        User.update({_id: id}, { $set: fulfilled}).exec()
+                            .then(r => {
+                                res.status(200).json({
+                                    message: 'Nome Playlist Modificato',
+                                    nome: name
+                                });
+                            })
+                            .catch(rejected => {
+                            res.status(500).json({
+                                Message: 'Errore nella fetch delle playlist di: ' + id,
+                                Error: rejected.message
+                            })
+                        })
+                    }
+                }) 
+                .catch(rejected => {
+                    res.status(500).json({
+                        Message: 'Errore nella fetch delle playlist di: ' + id,
+                        Error: rejected.message,
+                    })
+                });
+            }
     }
 };
 
