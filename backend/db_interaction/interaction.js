@@ -170,8 +170,76 @@ function PlaylistUp(userid,vecchio_nome,nuovo_nome){
 
 }
 
+//Change the categories of a user
+
+function categories(userid,cat1,cat2,cat3,cat4,cat5) {
+
+    var request = require('request');
+
+    var url = "http://localhost:3001/user/"+userid;
+
+    var headers = {
+        'Content-Type' : 'application/json; charset=utf-8',
+    };
+
+    var body = {
+        "category1":cat1,
+        "category2":cat2,
+        "category3":cat3,
+        "category4":cat4,
+        "category5":cat5
+    };
+
+    request.put({
+        url : url,
+        headers : headers,
+        body : JSON.stringify(body)
+    },function(error,response,body){
+        if (error) {
+            console.log(error);
+        }
+        else {
+            console.log(body);
+        }
+    });
+
+}
+
+//Delete a video from a playlist (pl_id) of a user (user_id)
+
+function deleteVd (user_id,pl_id,vd_name) {
+
+    var request = require('request');
+
+    var url = "http://localhost:3001/user/playlist/elements/"+user_id+"/"+pl_id;
+
+    var headers = {
+        'Content-Type' : 'application/json; charset=utf-8',
+    };
+
+    var body = {
+        "nome" : vd_name
+    }
+
+    request.delete({
+        url : url,
+        headers : headers,
+        body : JSON.stringify(body),
+    },function(error,response,body){
+        if(error) {
+            console.log(error);
+        }
+        else{
+            console.log(body);
+        }
+    });
+
+}
+
 exports.login = login;
 exports.PlaylistUp = PlaylistUp;
 exports.deletePL = deletePL;
 exports.VideoDb = VideoDb;
 exports.PlaylistDb = PlaylistDb;
+exports.categories = categories;
+exports.deleteVd = deleteVd;
