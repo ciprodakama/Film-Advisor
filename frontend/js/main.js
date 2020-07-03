@@ -6,6 +6,18 @@ var url_suggestions = base_url+'/trailers';
 //evito di refreshare pagina on submit
 var form = document.getElementById("cercaTrailer");
 
+
+function getUrlVars (url) {
+    var vars = {};
+    url.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) { vars[key] = value; });
+    return vars;
+}
+
+var urlValues = getUrlVars(window.location.href);
+//console.log(urlValues)
+var trailers = JSON.parse(decodeURIComponent(urlValues.trailers));
+//console.log(trailers)
+
 function handleForm(event) { 
     event.preventDefault(); 
 }
@@ -15,18 +27,20 @@ form.addEventListener('submit', handleForm);
 
 $(document).ready(function() {
     $('#mostraSuggeriti').click(function(){
+        console.log(trailers);
+        var count_video = 0;
+        var count_embed = 0;
+        $(".box").children(".video").each(function(){
+            $(this).attr("src",data.trailers.embedLink[count_video]);
+            count_video++;    
+        });
+        $(".box").children(".link").each(function(){
+            $(this).attr("href",data.trailers.videoLink[count_embed]);
+            count_embed++;
+        })
+    })
         $.get(url_suggestions, function(data) {
-            console.log(data);
-            var count_video = 0;
-            var count_embed = 0;
-            $(".box").children(".video").each(function(){
-                $(this).attr("src",data.trailers.embedLink[count_video]);
-                count_video++;    
-            });
-            $(".box").children(".link").each(function(){
-                $(this).attr("href",data.trailers.videoLink[count_embed]);
-                count_embed++;
-            })
+            
         }).fail(function(){
             alert("Errore! Non è stato possibile caricare Trailer.");
         })

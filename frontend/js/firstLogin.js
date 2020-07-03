@@ -10,6 +10,8 @@ var body = {
 };
 //salveremo qui in un array gli id delle singole categorie da mandare poi al server
 
+var trailers = [];
+
 function findId(id){
     if(body.categories.includes(id)){
         return body.categories.indexOf(id);
@@ -60,8 +62,10 @@ $(document).ready(function(){
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(body),
-                }).done(function(){
-                    //window.location.href = "http://localhost:5500/frontend/main.html";
+                }).done(function(body){
+                    console.log(JSON.stringify(body));
+                    trailers = JSON.stringify(body);
+                    window.location.href = "http://localhost:5500/frontend/main.html?trailers="+trailers;
                 }).fail(function(){
                     alert("Errore! Prova a rimandare le tue categorie!");
                 })

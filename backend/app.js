@@ -24,10 +24,12 @@ var user = require('./db/user');
 
 var interaction = require('./db_interaction/interaction');  //require the function for the interaction with the db
 
+/*
 var trailers = {
     videoLink: [],
     embedLink: []
 };
+*/
 
 var id_us = ""   //parameter that indicates the user id inside the db
 
@@ -365,7 +367,69 @@ function getTrailer(titles){
     //parameters
     let url = "http://localhost:3001/getVideo?name=";
 
-    //var videos = [];
+    /*
+    var dummy_vid = ["https://www.youtube.com/watch?v=r9jxKlzWWlI&t=60s",
+                    "https://www.youtube.com/watch?v=r9jxKlzWWlI&t=70s",
+                    "https://www.youtube.com/watch?v=r9jxKlzWWlI&t=80s"
+                ]
+    */
+
+    var videos = {
+        videoLink: [],
+        embedLink: []
+    };
+    
+    return new Promise(function(resolve, reject){
+        titles.forEach(element => {
+            request(url+element, options, (error, res, body) => {
+                if (error){
+                    console.log(error);
+                    reject(error);
+                } else {
+                    //console.log(body.videoLink);
+                    videos.videoLink.push(body.videoLink);
+                    videos.embedLink.push(body.embedLink);
+                    //console.log(trailers);
+                }   
+            }) 
+        });
+        resolve(videos);
+    })
+}
+    /*
+    return new Promise(function(resolve, reject){
+        var count = 0;
+
+        titles.forEach(element => {
+            var vid = dummy_vid[count];
+            videos.videoLink.push(vid);
+            videos.embedLink.push(vid);
+            count++;
+        })
+
+        resolve(videos);
+    })
+    */
+        /*
+        request(url+element, options, (error, res, body) => {
+                if (error){
+                    console.log(error)
+                    return reject(error);
+                } else {
+                    console.log(body.videoLink);
+                    videos.videoLink.push(body.videoLink);
+                    videos.embedLink.push(body.embedLink);
+                    console.log(videos);
+                }
+            })
+        }); 
+        */
+    /*
+    return new Promise(function(resolve, reject){
+        
+        resolve(videos);
+    })
+
     if (trailers.videoLink === undefined || trailers.videoLink.length == 0) {
         titles.forEach(element => {
             request(url+element, options, (error, res, body) => {
@@ -385,13 +449,13 @@ function getTrailer(titles){
         trailers.videoLink.splice(0, trailers.videoLink.length);
         trailers.embedLink.splice(0, trailers.embedLink.length);
     }
-}
-    /*
-    return new Promise(function(resolve, reject){
-        
-        resolve(videos);
-    })
     */
+
+function sleep(ms) {
+    return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+    });
+} 
 
 app.post('/categories', async function(req,res){
 
@@ -424,7 +488,7 @@ app.post('/categories', async function(req,res){
         }
     })
 
-    /*
+    */
     var user_cat = "";
     for (var i=0; i<req.body.categories.length; i++){
         if(req.body.categories != "0"){
@@ -436,28 +500,22 @@ app.post('/categories', async function(req,res){
             }
         }
     }
-    /*
-    var titles = await getTitles(user_cat);
-    getTrailer(titles);
     
-    /*
-    console.log("Those are the cat I sent\n")
-    console.log(req.body);
-    console.log("Those are the cat for sent\n")
-    console.log(user_cat);
-    console.log("Those are Titles I got\n")
-    console.log(titles);
-    console.log("Those are Trailers I got\n")
-    console.log(trailers);
-    */
 
-    res.sendStatus(200);
+    var titles = await getTitles(user_cat);
+    
+    var trailers = await getTrailer(titles);
+    console.log("Prima della sleep")
+    await sleep(1000)
+    console.log("Dopo la sleep")
+    res.status(200).send(trailers); 
 });
 
+/*
 app.get('/trailers', function(req,res){
     res.send({trailers: trailers});
 })
-
+*/
 
 
 module.exports = app;
