@@ -12,7 +12,7 @@ $(document).ready(function() {
         }
         else{
             $.get(url+mail, function(data) {
-                //console.log(data);
+                console.log(data)
                 window.location.href = data;
             }).fail(function(){
                 alert("Errore! Non è stato possibile autentificarsi con Google.");

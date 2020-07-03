@@ -73,32 +73,47 @@ google.options({auth: googleOauth});
 //Getting the code
 
 app.get('/login', function(req,res){
-    
-    var email = req.query.mail;
-    console.log(email)
+    console.log(req.query);
+    if ( typeof req.query !== 'undefined' && req.query !== {}){
+        console.log("Sono nel controllo mail")
+        var email = req.query.mail;
+        console.log("La mail nella query è")
+        console.log(email)
+        
+        interaction.login(email,function(status,body){
+            body=JSON.parse(status.body);
+            console.log(body);
+            if (status.statusCode != 500){
+                console.log(body._id);
+                id_us = body._id;
+            }
+            else{
+                console.log('Errore da DB!');
+                res.status(500);
+            } 
+        })
+        const url = googleOauth.generateAuthUrl({
+            access_type: 'offline',
+            scope : config.scopes[0]
+        });
 
+        console.log(url)
     
-    interaction.login(email,function(status,body){
-        if (status.statusCode == 409){
-            console.log('sei già registrato-->ben tornato');
-        }
-        else if (status.statusCode == 500){
-            console.log('Errore da DB!');
-        } 
-        //console.log(obj._id);
-        id_us = status._id;
-    })
+        //questo url viene mandato al client per farlo accedere al suo account
+        res.send(url);
+    }
+    else{
+        console.log("Sono nel redirect di default")
+        const url = googleOauth.generateAuthUrl({
+            access_type: 'offline',
+            scope : config.scopes[0]
+        });
+        console.log(url)
     
-    
-    const url = googleOauth.generateAuthUrl({
-        access_type: 'offline',
-        scope : config.scopes[0]
-    });
-
-    //questo url viene mandato al client per farlo accedere al suo account
-    res.send(url);
-    //res.send("<br><br><button onclick='window.location.href=\""+url+"\"'>Login</button>");
-
+        //questo url viene mandato al client per farlo accedere al suo account
+        res.redirect(url);
+        //res.send("<br><br><button onclick='window.location.href=\""+url+"\"'>Login</button>");
+    }
 });
 
 //Getting the access_token
@@ -135,13 +150,16 @@ app.get('/getVideo',function(req,res){
         part: 'snippet',
         type: 'video',
         q : name+' Trailer',
-        maxResult: 2
+        maxResult: 4
     }).then((response)=>{
         //console.log(response);
         var url_video = 'https://www.youtube.com/watch?v='+response.data.items[0].id.videoId;
         var url_embed = 'https://www.youtube.com/embed/'+response.data.items[0].id.videoId;
+        console.log("Url del getVideo")
+        console.log(url_video)
         res.send({videoLink:url_video, embedLink:url_embed});
     }).catch((err)=>{
+        console.log("Errore nel getVideo")
         console.log(err);
         res.redirect('/login');
     });
@@ -159,10 +177,10 @@ app.get('/getPlaylist',function(req,res){
         part : 'snippet',
         mine : 'true',
     }).then((response)=>{
-        console.log(response);
         var array = [];
         var num_playlist = response.data.pageInfo.totalResults;
         for(i=0;i<num_playlist;i++){
+            console.log(response.data.items[i].snippet);
             var url_playlist = 'https://www.youtube.com/playlist?list='+response.data.items[i].id;
             var obj = {
                 nome : response.data.items[i].snippet.title,
@@ -174,7 +192,7 @@ app.get('/getPlaylist',function(req,res){
             
         };
         interaction.PlaylistDb(id_us,null,null,null,array);
-        res.send(array);
+        res.status(200).send(array);
     
     }).catch((err)=>{
         console.log(err);
@@ -351,7 +369,7 @@ function getTitles(cat){
                 reject(error);
                 //return console.log(error)
             } else {
-                body.results.slice(0,2).forEach(element => {
+                body.results.slice(0,4).forEach(element => {
                     titles.push(element.title);
                 });
                 console.log(titles);
@@ -368,13 +386,6 @@ function getTrailer(titles){
 
     //parameters
     let url = "http://localhost:3001/getVideo?name=";
-
-    /*
-    var dummy_vid = ["https://www.youtube.com/watch?v=r9jxKlzWWlI&t=60s",
-                    "https://www.youtube.com/watch?v=r9jxKlzWWlI&t=70s",
-                    "https://www.youtube.com/watch?v=r9jxKlzWWlI&t=80s"
-                ]
-    */
 
     var videos = {
         videoLink: [],
@@ -395,63 +406,9 @@ function getTrailer(titles){
                 }   
             }) 
         });
-        resolve(videos);
+    resolve(videos);    
     })
 }
-    /*
-    return new Promise(function(resolve, reject){
-        var count = 0;
-
-        titles.forEach(element => {
-            var vid = dummy_vid[count];
-            videos.videoLink.push(vid);
-            videos.embedLink.push(vid);
-            count++;
-        })
-
-        resolve(videos);
-    })
-    */
-        /*
-        request(url+element, options, (error, res, body) => {
-                if (error){
-                    console.log(error)
-                    return reject(error);
-                } else {
-                    console.log(body.videoLink);
-                    videos.videoLink.push(body.videoLink);
-                    videos.embedLink.push(body.embedLink);
-                    console.log(videos);
-                }
-            })
-        }); 
-        */
-    /*
-    return new Promise(function(resolve, reject){
-        
-        resolve(videos);
-    })
-
-    if (trailers.videoLink === undefined || trailers.videoLink.length == 0) {
-        titles.forEach(element => {
-            request(url+element, options, (error, res, body) => {
-                if (error){
-                    //reject(error);
-                    return console.log(error)
-                } else {
-                    console.log(body.videoLink);
-                    trailers.videoLink.push(body.videoLink);
-                    trailers.embedLink.push(body.embedLink);
-                    console.log(trailers);
-                }   
-            }) 
-        });
-    }
-    else{
-        trailers.videoLink.splice(0, trailers.videoLink.length);
-        trailers.embedLink.splice(0, trailers.embedLink.length);
-    }
-    */
 
 function sleep(ms) {
     return new Promise((resolve) => {
@@ -502,15 +459,13 @@ app.post('/categories', async function(req,res){
             }
         }
     }
-    
 
     var titles = await getTitles(user_cat);
-    
     var trailers = await getTrailer(titles);
     console.log("Prima della sleep")
-    await sleep(1000)
+    await sleep(1500)
     console.log("Dopo la sleep")
-    res.status(200).send(trailers); 
+    res.status(200).send(trailers);
 });
 
 /*
