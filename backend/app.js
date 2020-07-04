@@ -202,6 +202,48 @@ app.get('/getPlaylist',function(req,res){
 
 })
 
+// Try to get videos of a specified playlist
+
+app.get('/playlist/videos',function(req,res) {
+
+    var youtube = google.youtube('v3');
+    
+    var title = req.query.title;  //playlist name useful for adding the video in the rigth playlist inside the db
+
+    var pl_id = req.query.pl_id;  //youtube id of the playlist useful for getting its videos
+
+    var elements = [];
+
+
+    youtube.playlistItems.list({
+        part:'snippet',
+        playlistId:pl_id,
+        maxResults:20
+    }).then(async (response)=>{
+        console.log(response);
+        res.send(response);
+        var num = response.data.pageInfo.totalResults;
+        for(j=0; j<num; j++){
+            var video_url = 'https://www.youtube.com/watch?v='+response.data.items[j].snippet.resourceId.videoId;
+            var video_name = response.data.items[j].snippet.title;
+            await sleep(300);
+            interaction.VideoDb(id_us,title,video_name,video_url)
+            var obj = {
+                'video_url':video_url,
+                'video_name':video_name
+            }
+            elements.push(obj);
+        }
+
+        res.send(elements)
+
+    }).catch((err)=>{
+        console.log(err);
+        res.send(error);
+    })   
+
+})
+
 //Try to create a playlist
 
 app.post('/createPlaylist',function(req,res){
