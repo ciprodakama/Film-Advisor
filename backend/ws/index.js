@@ -8,6 +8,8 @@ mongoose.connect('mongodb+srv://admin:admin@cluster0-hjbla.mongodb.net/test?retr
 mongoose.set('useCreateIndex', true);
 
 let translate = (arr) => {
+    if( !arr )
+        return null
     for (ob of arr)
     {
         if( ob.nome == 28)
@@ -92,7 +94,6 @@ serv.on('connection', function(ws) {
                     i++;
                 }
                 sum = sum / i;
-                sum = Math.floor(sum)
                 ws.send(col + "Il numero di Playlist madio è: " + sum);
             });
             
@@ -119,7 +120,6 @@ serv.on('connection', function(ws) {
                     }
                 }
                 sum = sum / i;
-                sum = Math.floor(sum)
                 ws.send(col + "Il numero medio di Elementi in una Playlist è: " + sum);
             });
         }
@@ -245,10 +245,20 @@ serv.on('connection', function(ws) {
                     }
                 }
                 var sorted_array = insertionSort(arr);
-                var return_array = []
-                for(var i = 0; i < 5; i++)
+                var return_array = [];
+                if( sorted_array.length >= 5 )
                 {
-                    return_array.unshift(sorted_array[i]);
+                    for(var i = 0; i < 5; i++)
+                    {
+                        return_array.unshift(sorted_array[i]);
+                    }
+                }
+                else
+                {
+                    for(var i = 0; i < sorted_array.length; i++)
+                    {
+                        return_array.unshift(sorted_array[i]);
+                    }
                 }
                 var return_array = translate(return_array);
                 ws.send(col + JSON.stringify(return_array));
