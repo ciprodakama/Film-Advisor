@@ -74,9 +74,10 @@ google.options({auth: googleOauth});
 
 app.get('/login', function(req,res){
     console.log(req.query);
-    if ( typeof req.query !== 'undefined' && req.query !== {}){
+    var email = req.query.mail;
+    if ( typeof email !== 'undefined' ){
         console.log("Sono nel controllo mail")
-        var email = req.query.mail;
+        
         console.log("La mail nella query è")
         console.log(email)
         
