@@ -175,11 +175,11 @@ function PlaylistUp(userid,vecchio_nome,nuovo_nome){
 
 //Change the categories of a user
 
-function categories(userid,cat1,cat2,cat3,cat4,cat5,callback) {
+function categories(usrID,cat1,cat2,cat3,cat4,cat5,callback) {
 
     var request = require('request');
-
-    var url = "http://localhost:3001/user/"+userid;
+    
+    var url = "http://localhost:3001/user/"+usrID;
 
     var headers = {
         'Content-Type' : 'application/json; charset=utf-8',

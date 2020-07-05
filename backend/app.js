@@ -81,9 +81,11 @@ app.get('/login', function(req,res){
         console.log(email)
         
         interaction.login(email,function(status,body){
+            console.log("Questo è il body dal DB")
             body=JSON.parse(status.body);
             console.log(body);
             if (status.statusCode != 500){
+                console.log("Questo è l'id dal DB")
                 console.log(body._id);
                 id_us = body._id;
             }
@@ -470,6 +472,7 @@ app.post('/categories', async function(req,res){
     for(var i=0; i<cat_toAdd; i++){
         catDB.push("0");
     }
+    var user = id_us;
     var cat1 = catDB[0];
     var cat2 = catDB[1];
     var cat3 = catDB[2];
@@ -478,9 +481,10 @@ app.post('/categories', async function(req,res){
     console.log(catDB);
     console.log(req.body.categories);
     console.log(cat1,cat2,cat3,cat4,cat5);
+    console.log(user);
 
-    /*
-    interaction.categories(id_us,cat1,cat2,cat3,cat4,cat5,function(status,body){
+    
+    interaction.categories(user,cat1,cat2,cat3,cat4,cat5,function(status,body){
         if (status.statusCode == 200){
             console.log("Cat aggiunte al DB!");
         }
@@ -489,7 +493,7 @@ app.post('/categories', async function(req,res){
         }
     })
 
-    */
+    
     var user_cat = "";
     for (var i=0; i<req.body.categories.length; i++){
         if(req.body.categories != "0"){
