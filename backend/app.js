@@ -304,11 +304,13 @@ app.post('/createPlaylist',function(req,res){
 app.post('/playlist/insertVideo',function(req,res){
 
     var youtube = google.youtube('v3');
+
+    var pl_id = req.body.pl_id;
     
     //youtube video resource
     var resource = {
             "snippet": {
-                "playlistId": "PLccv7pMO8il8o5drlMEygqi0l6MJb1hGa",
+                "playlistId": pl_id,
                 "resourceId": {
                     "videoId": req.body.videoId,
                     "kind": "youtube#video"
@@ -361,9 +363,10 @@ app.put('/playlist/update',function(req,res){
 
     var vecchio_nome = req.body.vecchio_nome;
     var nuovo_nome = req.body.nuovo_nome;
+    var pl_id = req.body.pl_id;
 
     var resource = {
-        id : 'PLccv7pMO8il8o5drlMEygqi0l6MJb1hGa',
+        id : pl_id,
         snippet : {
             title : nuovo_nome
         }
@@ -394,9 +397,10 @@ app.delete('/playlist/delete',function(req,res){
     var youtube = google.youtube('v3');
 
     var name = req.body.name;
+    var pl_id = req.body.pl_id;
 
     youtube.playlists.delete({
-        id : 'PLccv7pMO8il-YtkwGAUJEYSg0t9sTtFpT'
+        id : pl_id
     }).then((response)=>{
         console.log(response);
         interaction.deletePL(id_us,name);
