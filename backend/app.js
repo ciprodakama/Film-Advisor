@@ -110,7 +110,7 @@ app.get('/login', function(req,res){
         console.log(url)
     
         //questo url viene mandato al client per farlo accedere al suo account
-        res.send(url);
+        res.status(200).send(url);
     }
     else{
         console.log("Sono nel redirect di default")
@@ -121,7 +121,7 @@ app.get('/login', function(req,res){
         console.log(url)
     
         //questo url viene mandato al client per farlo accedere al suo account
-        res.redirect(url);
+        res.status(200).send(url);
         //res.send("<br><br><button onclick='window.location.href=\""+url+"\"'>Login</button>");
     }
 });
@@ -129,6 +129,7 @@ app.get('/login', function(req,res){
 //Getting the access_token
 
 app.get('/oauth2callback',function(req,res){
+    console.log("Sono nella redirect di Google Login")
     var code = req.query.code;
     googleOauth.getToken(code, (err, tokens) => {
         if (err) {
@@ -136,6 +137,7 @@ app.get('/oauth2callback',function(req,res){
           throw err;
         }
         googleOauth.credentials = tokens;
+        console.log("Token preso")
         /*
         res.send('Got the token = '+tokens.access_token+"<br><br><button onclick='window.location.href=\"/getVideo?name=Ready Player One\"'>Get Video</button>"+
         "<br><br><button onclick='window.location.href=\"/getPlaylist\"'>Get Playlist</button>"+
@@ -145,6 +147,7 @@ app.get('/oauth2callback',function(req,res){
         "<br><br><button onclick='window.location.href=\"/playlist/update\"'>Update Playlist</button>");
         */
     });
+    console.log("Finito di usare getToken")
     res.redirect("http://localhost:5500/frontend/firstLogin.html");
 })
 
