@@ -227,6 +227,8 @@ app.get('/playlist/videos',function(req,res) {
 
     var elements = [];
 
+    //var nVideo = 0;
+    var finalNum;
 
     youtube.playlistItems.list({
         part:'snippet',
@@ -234,20 +236,22 @@ app.get('/playlist/videos',function(req,res) {
         maxResults:20
     }).then(async (response)=>{
         console.log(response);
-        res.send(response);
+        //res.send(response);
         var num = response.data.pageInfo.totalResults;
+        finalNum = num;
         for(j=0; j<num; j++){
             var video_url = 'https://www.youtube.com/watch?v='+response.data.items[j].snippet.resourceId.videoId;
             var video_name = response.data.items[j].snippet.title;
             await sleep(300);
             interaction.VideoDb(id_us,title,video_name,video_url)
             var obj = {
+                'video_name':video_name,
                 'video_url':video_url,
-                'video_name':video_name
             }
             elements.push(obj);
+            //nVideo++;
         }
-
+        elements.push(finalNum)
         res.send(elements)
 
     }).catch((err)=>{
@@ -396,14 +400,14 @@ app.delete('/playlist/delete',function(req,res){
 
     var youtube = google.youtube('v3');
 
-    var name = req.body.name;
+    var title = req.body.title;
     var pl_id = req.body.pl_id;
 
     youtube.playlists.delete({
         id : pl_id
     }).then((response)=>{
         console.log(response);
-        interaction.deletePL(id_us,name);
+        interaction.deletePL(id_us,title);
         res.send('Playlist deleted successfully');
     }).catch((err)=>{
         console.log(err);

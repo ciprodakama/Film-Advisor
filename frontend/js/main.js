@@ -20,7 +20,6 @@ var play = {
 }
 
 
-
 var resp = [{
     "nome": "Horror",
     "url": "https://www.youtube.com/playlist?list=PLpqvGu8plhgWr9LWI3XalomY_kaIheh5G",
@@ -91,11 +90,11 @@ $(document).ready(function() {
                 //console.log(JSON.stringify(play));
                 console.log(play);
                 }).fail(function(resp){
-                    console.log("Sono nella fail della getPlaylist")
-                    var g_url = resp;
-                    console.log("Il server mi ha mandato "+ g_url)
+                    //console.log("Sono nella fail della getPlaylist")
+                    //var g_url = resp;
+                    //console.log("Il server mi ha mandato "+ g_url)
                     //alert("Errore! Non è stato possibile recuperare Playlist.");
-                    $(location).attr("href", g_url);
+                    //$(location).attr("href", g_url);
             });
             $(this).hide();
             $(this).siblings(".show").show();
@@ -158,6 +157,7 @@ $(document).ready(function() {
         console.log(title);
         console.log(description);
 
+        /*
         $.ajax({
             url: url_createPlaylist,
             type: 'POST',
@@ -172,6 +172,7 @@ $(document).ready(function() {
                 //window.location.href=data;
             })
         //location.reload(true);
+        */
     });
     //done
 
@@ -192,4 +193,19 @@ $(document).ready(function() {
          $('#contTrailer').show();
     });
     //done
+
+    $("#userPlaylist").click(function(){
+        /*
+        for (var j= 0; j<resp.length; j++){
+            //console.log(data[j].url_id)
+            //console.log(data[j].nome)
+            play.name.push(resp[j].nome)
+            play.id.push(resp[j].url_id)
+
+        }
+        */
+        var playlist = JSON.stringify(play);
+        $(this).attr("href", "http://localhost:5500/frontend/playlist.html?playlist="+playlist)
+    })
+
 });
