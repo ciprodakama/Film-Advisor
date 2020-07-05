@@ -90,6 +90,13 @@ app.get('/login', function(req,res){
                 console.log(body._id);
                 id_us = body._id;
             }
+            else if (status == 409) {  //user already in the db
+                var obj = JSON.parse(body);
+                var url = obj.Url;
+                var ris = url.split('/');
+                id_us = ris[ris.length-1];
+                console.log('sei già registrato ---> ben tornato');
+            }
             else{
                 console.log('Errore da DB!');
                 res.status(500);
