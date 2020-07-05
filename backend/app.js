@@ -74,9 +74,10 @@ google.options({auth: googleOauth});
 
 app.get('/login', function(req,res){
     console.log(req.query);
-    if ( typeof req.query !== 'undefined' && req.query !== {}){
+    var email = req.query.mail;
+    if ( typeof email !== 'undefined' ){
         console.log("Sono nel controllo mail")
-        var email = req.query.mail;
+        
         console.log("La mail nella query è")
         console.log(email)
         
@@ -88,6 +89,13 @@ app.get('/login', function(req,res){
                 console.log("Questo è l'id dal DB")
                 console.log(body._id);
                 id_us = body._id;
+            }
+            else if (status == 409) {  //user already in the db
+                var obj = JSON.parse(body);
+                var url = obj.Url;
+                var ris = url.split('/');
+                id_us = ris[ris.length-1];
+                console.log('sei già registrato ---> ben tornato');
             }
             else{
                 console.log('Errore da DB!');
