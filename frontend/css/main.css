@@ -22,6 +22,14 @@
     text-align: center;
     padding: 5px;
 }
+.box_playlist{
+    display: flex;
+    flex-direction: column;
+}
+
+.creaPlaylist{
+    display: none;
+}
 
  .containerFilm{
     display: flex;

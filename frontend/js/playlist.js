@@ -7,9 +7,9 @@ function getUrlVars (url) {
     return vars;
 }
 
-var urlValues = getUrlVars(window.location.href);
+//var urlValues = getUrlVars(window.location.href);
 //console.log(urlValues)
-var data = JSON.parse(decodeURIComponent(urlValues.playlist));
+//var data = JSON.parse(decodeURIComponent(urlValues.playlist));
 //console.log(data)
 
 

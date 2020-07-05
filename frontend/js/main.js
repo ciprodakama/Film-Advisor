@@ -2,9 +2,16 @@ const base_url = 'http://localhost:3001';
 
 var url_video = base_url+'/getVideo?name=';
 var url_playlist = base_url+"/getPlaylist";
+var url_createPlaylist = base_url+"/createPlaylist";
 
 //evito di refreshare pagina on submit
 var form = document.getElementById("cercaTrailer");
+
+function handleForm(event) { 
+    event.preventDefault(); 
+}
+
+form.addEventListener('submit', handleForm);
 
 var play = {
     name: [],
@@ -37,14 +44,38 @@ var urlValues = getUrlVars(window.location.href);
 var data = JSON.parse(decodeURIComponent(urlValues.trailers));
 //console.log(data)
 
-function handleForm(event) { 
-    event.preventDefault(); 
-}
-
-form.addEventListener('submit', handleForm);
-
 
 $(document).ready(function() {
+    //retrieve playlist list and populate selector
+    $.get(url_playlist, function(data) {
+        //salvo playlist da mostrare
+        console.log(data);
+        console.log(data.length);
+        for (var j= 0; j<data.length; j++){
+            //console.log(data[j].url_id)
+            //console.log(data[j].nome)
+            play.name.push(data[j].nome)
+            play.id.push(data[j].url_id)
+        }
+        //console.log(play);
+        //console.log(JSON.stringify(play));
+        console.log(play);
+        
+        console.log("nomi disp "+play.name);
+        console.log("Numero di nomi "+play.name.length);
+        for(var z=0; z<play.name.length; z++){
+            console.log(play.name[z]);
+            $("#list1").append($("<option></option>").text(play.name[z]));
+            $("#list2").append($("<option></option>").text(play.name[z]));
+            $("#list3").append($("<option></option>").text(play.name[z]));
+            $("#list4").append($("<option></option>").text(play.name[z]));
+        }
+        }).fail(function(){
+            alert("Errore! Non è stato possibile recuperare Playlist.");
+    });
+    //done
+
+    //faccio embed di video date categorie
     console.log(data);
     var count_video = 0;
     var count_embed = 0;
@@ -58,7 +89,31 @@ $(document).ready(function() {
     })
     $(".titolo").show;
     $('.contSuggeriti').css("display","flex");
+    //done
 
+    //crea Playlist Input Utente
+    $('#creaPlaylist').click(function(){
+        var title = $('#titPlaylist').val();
+        var description = $('#descPlaylist').val();
+        console.log(title);
+        console.log(description);
+
+        $.ajax({
+            url: url_createPlaylist,
+            type: 'POST',
+            data: { "title": title, "description": description},
+            }).done(function(body){
+                console.log(JSON.stringify(body));
+                //trailers = JSON.stringify(body);
+                //window.location.href = "http://localhost:5500/frontend/main.html?trailers="+trailers;
+            }).fail(function(){
+                alert("Errore! Non è stato possibile creare la Playlist!");
+            })
+        //location.reload(true);
+    });
+    //done
+
+    //cerca trailer input utente
     $('#findTrailer').click(function(){
         var q = $('#Ins_Title').val();
         console.log(q);
@@ -71,44 +126,13 @@ $(document).ready(function() {
          });
          $('#contTrailer').show();
     });
+    //done
 
     $(".addPlaylist").on('click', function(event){
         event.stopPropagation();
         event.stopImmediatePropagation();
 
-        console.log(resp);
-        console.log(resp.length);
-        for (var j= 0; j<resp.length; j++){
-            console.log(resp[j].url_id)
-            console.log(resp[j].nome)
-            play.name.push(resp[j].nome)
-            play.id.push(resp[j].url_id)
-        }
-        console.log(play)
-
-        //populatePlaylist(resp);
-
-        //console.log(resp[0].nome);
-
-        /*
-        $.get(url_playlist, function(data){
-            console.log(data);
-        })
-        */
-    });
-    /*
-    $('#addPlaylist').click(function(){
-        var temp = $(this).html();
-        console.log(temp);
-        /*
-        $.get(url_playlist, function(data){
-            console.log(data)
-            var playlist = data;
-            for (var i=0; i< playlist.lenght; i++){
-                console.log(playlist[i]);
-            }
-        })
         
+        //window.location.href = "http://localhost:5500/frontend/playlist.html?playlist="+playlist;
     });
-    */
 });

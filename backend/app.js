@@ -274,10 +274,13 @@ app.post('/createPlaylist',function(req,res){
         console.log(response);
         var playlist_url='https://www.youtube.com/playlist?list='+response.data.id;
         interaction.PlaylistDb(id_us,title,playlist_url,response.data.id,null); //updated
+
+        res.redirect('/')
+        /*
         res.send({
             'message':'Created a playlist successfully',
             playlist_url:playlist_url,
-        });
+        });*/
     }).catch((err)=>{
         console.log(err);
         res.redirect('/login');
