@@ -242,9 +242,11 @@ app.get('/playlist/videos',function(req,res) {
         for(j=0; j<num; j++){
             var video_url = 'https://www.youtube.com/watch?v='+response.data.items[j].snippet.resourceId.videoId;
             var video_name = response.data.items[j].snippet.title;
+            var id_elem = response.data.items[j].id;
             await sleep(300);
             interaction.VideoDb(id_us,title,video_name,video_url)
             var obj = {
+                'id_item': id_elem,
                 'video_name':video_name,
                 'video_url':video_url,
             }
@@ -390,6 +392,36 @@ app.put('/playlist/update',function(req,res){
         console.log(err);
         res.send('There was an error in updating the palylist');
     });
+
+
+})
+
+//Try to remove a video from a playlist
+
+app.delete('/playlist/video',function(req,res){
+
+    var youtube = google.youtube('v3');
+
+    var id_plylistItem = req.body.id;
+
+    var vd_name = req.body.name;  //serve per il db
+
+    var pl_name = req.body.pl_name; //serve per il db
+
+    var resource = {
+        'id': id_plylistItem
+    }
+
+    youtube.playlistItems.delete({
+        resource : resource
+    }).then((response)=>{
+        console.log(response);
+        console.log('elemento rimosso correttamente');
+        //interaction.deleteVd(id_us,pl_id,vd_name);
+    }).catch((err)=>{
+        console.log('problemi nella rimozione del video');
+        console.log(err);
+    })
 
 
 })
