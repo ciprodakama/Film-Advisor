@@ -1,9 +1,33 @@
 const base_url = 'http://localhost:3001';
 
 var url_video = base_url+'/getVideo?name=';
-var url_playlist = base_url+"/getPlaylist";
+var url_playlist = base_url+"/user/playlist/";
 var url_createPlaylist = base_url+"/createPlaylist";
 var url_addvideo = base_url+"/playlist/insertVideo"
+
+
+//cookie
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+}
+
+function sleep(ms) {
+    return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+    });
+} 
 
 //evito di refreshare pagina on submit
 var form = document.getElementById("cercaTrailer");
@@ -46,8 +70,33 @@ var urlValues = getUrlVars(window.location.href);
 var data = JSON.parse(decodeURIComponent(urlValues.trailers));
 //console.log(data)
 
+function getPlaylistDB(cookieID){
+    $.get(url_playlist+cookieID, function(data) {
+        //salvo playlist da mostrare
+        console.log(data);
+        console.log(data.playlist.length);
+
+        for (var j= 0; j<data.playlist.length; j++){
+            //console.log(data[j].url_id)
+            //console.log(data[j].nome)
+            play.name.push(data.playlist[j].nome)
+            play.id.push(data.playlist[j].url_id)
+        }
+        //console.log(play);
+        //console.log(JSON.stringify(play));
+        console.log(play);
+        }).fail(function(resp){
+            //console.log("Sono nella fail della getPlaylist")
+            //var g_url = resp;
+            //console.log("Il server mi ha mandato "+ g_url)
+            //alert("Errore! Non è stato possibile recuperare Playlist.");
+            //$(location).attr("href", g_url);
+    });
+}
 
 $(document).ready(function() {
+    var cookieID = getCookie("id");
+    console.log(cookieID);
     //faccio embed di video date categorie
     console.log(data);
     var count_video = 0;
@@ -76,26 +125,7 @@ $(document).ready(function() {
         }
         else{
             console.log("play va inizializzata")
-            $.get(url_playlist, function(data) {
-                //salvo playlist da mostrare
-                console.log(data);
-                console.log(data.length);
-                for (var j= 0; j<data.length; j++){
-                    //console.log(data[j].url_id)
-                    //console.log(data[j].nome)
-                    play.name.push(data[j].nome)
-                    play.id.push(data[j].url_id)
-                }
-                //console.log(play);
-                //console.log(JSON.stringify(play));
-                console.log(play);
-                }).fail(function(resp){
-                    //console.log("Sono nella fail della getPlaylist")
-                    //var g_url = resp;
-                    //console.log("Il server mi ha mandato "+ g_url)
-                    //alert("Errore! Non è stato possibile recuperare Playlist.");
-                    //$(location).attr("href", g_url);
-            });
+            getPlaylistDB(cookieID);
             $(this).hide();
             $(this).siblings(".show").show();
         }        
@@ -194,18 +224,22 @@ $(document).ready(function() {
     });
     //done
 
-    $("#userPlaylist").click(function(){
-        /*
-        for (var j= 0; j<resp.length; j++){
-            //console.log(data[j].url_id)
-            //console.log(data[j].nome)
-            play.name.push(resp[j].nome)
-            play.id.push(resp[j].url_id)
-
+    $("#userPlaylist").click(async function(){
+        if(play.name != 0){
+            var playlist = JSON.stringify(play);
+            $(this).attr("href", "http://localhost:5500/frontend/playlist.html?playlist="+playlist)
         }
-        */
-        var playlist = JSON.stringify(play);
-        $(this).attr("href", "http://localhost:5500/frontend/playlist.html?playlist="+playlist)
+        else{
+            alert("Premi 'Scopri la Lista delle tue Playlist' prima di procedere")
+            /*
+            console.log("play va inizializzata")
+            getPlaylistDB(cookieID).then();
+            await sleep(200);
+            var playlist = JSON.stringify(play);
+            $(this).attr("href", "http://localhost:5500/frontend/playlist.html?playlist="+playlist)
+            */
+        }        
+        
     })
 
 });

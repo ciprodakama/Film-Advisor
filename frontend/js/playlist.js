@@ -1,11 +1,33 @@
 const base_url = 'http://localhost:3001';
 
-var url_getVideoPL = "/playlist/videos"
+var url_getVideoPL = base_url+"/user/playlist/";
+var url_playlist = base_url+"/user/playlist/";
+
+var url_delVideo = base_url+"/playlist/video"
+
 var title_query = "?title="
 var plID_query = "pl_id="
 
 var url_delPlaylist = "/playlist/delete"
 
+//cookie
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+}
+
+//get playlist names from main.html
 function getUrlVars (url) {
     var vars = {};
     url.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) { vars[key] = value; });
@@ -17,35 +39,21 @@ console.log(urlValues)
 var data = JSON.parse(decodeURIComponent(urlValues.playlist));
 console.log(data)
 
-data['Ispeziona'] = '<button type ="button" class ="btn btn-default btn-sm ispeziona">Recupera Dati</button>';
-data['Mostra'] = '<button type ="button" class ="btn btn-default btn-sm mostra">Mostra Lista</button>';
+var play = {
+    name: [],
+    id: []
+}
 
 var videoPL = [];
 var nVideo;
 var Title;
 var plID;
 
-var BackvideoPL= [
-    {
-        'video_name':'La mappa dei nuovi focolai di Coronavirus in Italia: “Attenzione ai casi dall’estero”',
-        "video_url": "G3Sit1ub3cw",
-        "id_item": "pere"
-    },
-    {
-        'video_name':"Ingressi limitati in Italia, il confronto tra Matteo Bassetti e Andrea Crisanti: La misura è ...",
-        'video_url': "0FoGQZPftz8",
-        "id_item": "mele"
-        
-    },
-    {
-        'video_name': "Trova foto della moglie defunta sul pacchetto di sigarette: chiede 100 milioni di risarcimento",
-        'video_url':"hnLa8IfowvE",
-        "id_item": "ciliege"
-    }
-]
-
 function CreateTableFromURI() {
     var col = ["Titolo Playlist", "Link Youtube", "Ispeziona", "Mostra"];
+
+    data['Ispeziona'] = '<button type ="button" class ="btn btn-default btn-sm ispeziona">Recupera Dati</button>';
+    data['Mostra'] = '<button type ="button" class ="btn btn-default btn-sm mostra">Mostra Lista</button>';
 
     // CREATE DYNAMIC TABLE.
     var table = document.createElement("table");
@@ -158,7 +166,6 @@ function CreateTableFromPlaylist(){
                 var tabCell = tr.insertCell(-1);
                 tabCell.innerHTML = videoPL[i][col[j]];
             }
-            
         }
     }
 
@@ -170,28 +177,69 @@ function CreateTableFromPlaylist(){
     divContainer.appendChild(table);
 }
 
-function initLocalVideoPL(Title, plID){
-    var url = base_url+url_getVideoPL+title_query+Title+"&"+plID_query+plID;
-
+function initLocalVideoPL(Title, plID, cookieID){
+    var url = url_getVideoPL+cookieID;
+    
     videoPL = [];
 
     $.ajax(url).done(function(data) {
         console.log(data);
-        nVideo = data.slice(-1)[0];
-        console.log(nVideo);
+        console.log(data.playlist.length);
 
-        for (var j=0; j<nVideo; j++){
-            videoPL.push(data[j])
-            //console.log(videoPL); 
-            videoPL[j]["id_item"] = '<button class="btn btn-danger rimuoviVid" style="background-color: red;" id='+data[j]["id_item"]+'>-</button>'
+        var playIndex;
+
+        for (var i=0; i<data.playlist.length; i++){
+            console.log("Selecting right Playlist")
+            console.log("val of data "+data.playlist[i].url_id)
+            console.log("val of local "+plID)
+            if(data.playlist[i].url_id == plID){
+                playIndex = i;
+                nVideo = data.playlist[playIndex].numero_elementi;
+                console.log(data.playlist[playIndex].elements.lenghth)
+                for (var z=0; z<nVideo; z++){
+                    videoPL.push(data.playlist[playIndex].elements[z])
+                    videoPL[z]["id_item"] = '<button class="btn btn-danger rimuoviVid" style="background-color: red;" id='+data.playlist[playIndex].elements[z]["id_elem"]+'>-</button>'
+                    delete videoPL[z]["id_elem"];
+                } 
+            }
         }
+    
+        console.log(nVideo);
         console.log("This is localVariable from getVideoPL")
         console.log(videoPL);
+
         alert("Dati recuperati con successo!")  
     });
 }
 
+function getPlaylistDB(cookieID){
+    $.get(url_playlist+cookieID, function(data) {
+        //salvo playlist da mostrare
+        console.log(data);
+        console.log(data.playlist.length);
+
+        for (var j= 0; j<data.playlist.length; j++){
+            //console.log(data[j].url_id)
+            //console.log(data[j].nome)
+            play.name.push(data.playlist[j].nome)
+            play.id.push(data.playlist[j].url_id)
+        }
+        //console.log(play);
+        //console.log(JSON.stringify(play));
+        console.log(play);
+        }).fail(function(resp){
+            //console.log("Sono nella fail della getPlaylist")
+            //var g_url = resp;
+            //console.log("Il server mi ha mandato "+ g_url)
+            //alert("Errore! Non è stato possibile recuperare Playlist.");
+            //$(location).attr("href", g_url);
+    });
+}
+
 $(document).ready(function() {
+    var cookieID = getCookie("id");
+    console.log(cookieID);
+
     CreateTableFromURI();
 
     $('.ispeziona').click(function(){
@@ -200,25 +248,43 @@ $(document).ready(function() {
         console.log(Title)
         console.log(plID)
 
-        initLocalVideoPL(Title,plID);
+        initLocalVideoPL(Title,plID,cookieID);
     });
     
     $('.mostra').click(function(){
         $("#dettaglioPlaylist").empty();
         if (videoPL.lenght != 0){
             CreateTableFromPlaylist();
-        $('#dettaglioPlaylist').show();
+            $('#dettaglioPlaylist').show();
         }
         else{
             alert("Non hai ancora recuperato i Dati riguardo questa playlist! Premi il bottone Ispeziona!")
         }
     });
 
-    $('.rimuoviVid').click(function(){
+    $("#dettaglioPlaylist").on('click', '.rimuoviVid', function(event) {
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+
+        var id_playlistItem = $(this).attr("id");
+        console.log(id_playlistItem);
+
+        var vd_name = $(this).parent().parent().find(".Titolo").html();;
+        console.log(vd_name);
+        console.log(plID);
+        
+        $.ajax({           
+            type: "DELETE",
+            url: url_delVideo,
+            data: { "id_playlistItem": id_playlistItem, "vd_name": vd_name, "pl_id": plID},
+        }).done(function() {
+            alert("Video Rimosso!")
         //da fare lato backend
+        })
+        
     });
 
-    $('.rimuoviPlaylist').click(function(){
+    $('.rimPlaylist').click(function(){
         var url = base_url+url_delPlaylist+title_query+Title+"&"+plID_query+plID;
         $.ajax({           
             type: "DELETE",
@@ -227,5 +293,5 @@ $(document).ready(function() {
             //dovrò rifare una get delle playlist ed inserirle nell'URL della pagina come redirect
             alert("Playlist Cancellata!")
         });
-    });
+    })
 });
