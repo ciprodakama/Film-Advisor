@@ -101,13 +101,17 @@ exports.create_playlist = (req, res, next) => {
                 var newArray = fulfilled.playlist;
                 for ( var e of newA )
                 {
-                    var b = 1;
+                    var b = 1, i = 0;
                     for( var o of newArray )
                     {
                         if( e.nome === o.nome)
+                        {
+                            newArray[i] = e;
                             b = 0;
+                        }
+                        i++;
                     }
-                    if( !b )
+                    if( b )
                         newArray.push(e);
                 }
                 fulfilled.playlist = newArray;
