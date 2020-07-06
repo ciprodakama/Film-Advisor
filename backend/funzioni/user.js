@@ -5,17 +5,26 @@ var Playlist = require('../schema/playlist');
 var Element = require('../schema/elements');
 
 exports.get_all_user = (req, res, next) => {
-    var password = req.body.password;
-    /* var pw = 'password';
-    if(!password || password !== pw )
+    var mail = req.body.mail;
+    if(mail)
     {
-        res.status(500).json({
-            message: 'Accesso alla funzione negato',
-            mess2: "hai inserito: " + password
-        })
+        User.find({mail: mail}).exec()
+            .then(fulfilled => {
+                if(!fulfilled)
+                    return res.status(404).json({ message: 'nessun utente trovato con mail: ' + mail});
+                res.status(200).json({
+                    Message: "_id Utente associato alla mail: "+mail,
+                    _id: fulfilled._id,
+                    mail: fulfilled.mail,
+                })
+            }).catch(rejected => {
+                res.status(500).json({
+                    Error: rejected
+                })
+            });
     }
     else
-    { */
+    {
         User.find().select('_id mail playlist cat1 cat2 cat3 cat4 cat5').exec()
             .then( fulfilled => {
                 if(!fulfilled[0])
@@ -31,7 +40,7 @@ exports.get_all_user = (req, res, next) => {
             .catch(rejected => {
                 res.status(500).json({Error: rejected})
             });
-   // }
+    }
 };
 
 exports.post_user = (req, res, next) => {
@@ -51,8 +60,7 @@ exports.post_user = (req, res, next) => {
                 {
                     return res.status(409).json({
                         Message: 'Utente già registrato; accedi alle tue playlist all\'url',
-                        Url: 'http://localhost:8888/user/' + fulfilled[0]._id,
-                        _id: fulfilled[0]._id
+                        Url: 'http://localhost:8888/user/' + fulfilled[0]._id
                     });
                 }
                 else
@@ -113,7 +121,6 @@ exports.get_user = (req, res, next) => {
 
 exports.change_categories = (req, res, next) => {
     var id = req.params.usrID;
-    console.log(id);
     console.log('instradato correttamente');
     if( !req.body.category1 )
     {
