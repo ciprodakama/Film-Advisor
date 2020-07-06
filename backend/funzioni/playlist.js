@@ -34,7 +34,7 @@ exports.get_playlist = (req, res, next) => {
                     {
                         res.status(200).json({
                             nome: ob.nome,
-                            _id = ob._id,
+                            _id : ob._id,
                             url: ob.url,
                             url_id: ob.url_id,
                             numero_elementi: ob.numero_elementi,
