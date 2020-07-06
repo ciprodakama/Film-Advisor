@@ -117,7 +117,7 @@ function initUserDB(){
 
 //Getting the code
 
-app.get('/login', function(req,res){
+app.get('/login', async function(req,res){
     console.log(req.query);
     var email = req.query.mail;
     if ( typeof email !== 'undefined' ){
@@ -125,7 +125,7 @@ app.get('/login', function(req,res){
         
         console.log("La mail nella query è")
         console.log(email)
-        
+
         interaction.login(email,function(status,body){
             console.log("Questo è il body dal DB")
             body=JSON.parse(status.body);
@@ -135,11 +135,12 @@ app.get('/login', function(req,res){
                 console.log(body._id);
                 id_us = body._id;
             }
-            else if (status == 409) {  //user already in the db
-                var obj = JSON.parse(body);
-                var url = obj.Url;
-                var ris = url.split('/');
-                id_us = ris[ris.length-1];
+            else if (status.statusCode == 409) {  //user already in the db
+                //var obj = JSON.parse(body);
+                //var url = obj.Url;
+                //var ris = url.split('/');
+                console.log(body._id);
+                id_us = body._id;
                 console.log('sei già registrato ---> ben tornato');
             }
             else{
@@ -148,15 +149,17 @@ app.get('/login', function(req,res){
             } 
         })
 
+        await sleep(200)
+
         const url = googleOauth.generateAuthUrl({
             access_type: 'offline',
             scope : config.scopes[0]
         });
 
         console.log(url)
-    
+
         //questo url viene mandato al client per farlo accedere al suo account
-        res.status(200).send(url);
+        res.status(200).send({"url": url, "id": id_us});
     }
     else{
         console.log("Sono nel redirect di default")
@@ -297,7 +300,7 @@ app.get('/playlist/videos',function(req,res) {
             var video_name = response.data.items[j].snippet.title;
             var id_elem = response.data.items[j].id;
             await sleep(300);
-            interaction.VideoDb(id_us,title,video_name,video_url)
+            interaction.VideoDb(id_us,title,video_name,id_elem,video_url)
             var obj = {
                 'video_name':video_name,
                 'video_url':video_url,
@@ -451,18 +454,19 @@ app.put('/playlist/update',function(req,res){
 
 //Try to remove a video from a playlist
 
-app.delete('/playlist/video',function(req,res){
+app.delete('/playlist/video',async function(req,res){
 
     var youtube = google.youtube('v3');
 
-    var id_playlistItem = req.body.id;
+    var id_playlistItem = req.body.id_playlistItem;
 
-    var vd_name = req.body.name;  //serve per il db
+    var vd_name = req.body.vd_name;  //serve per il db
 
-    var pl_name = req.body.pl_name; //serve per il db
+    var pl_id = req.body.pl_id;
+    //var pl_id = "";
+    //var pl_name = req.body.pl_name; //serve per il db
 
-    var pl_id = "";
-
+    /*
     var request = require('request');
 
     var body = {
@@ -470,14 +474,14 @@ app.delete('/playlist/video',function(req,res){
     }
 
     //console.log(id_us);
-
+    
     request.get({
         url:"http://localhost:"+config.port+"/user/playlist/"+id_us,
         headers : {
             'Content-Type' : 'application/json; charset=utf-8',
         },
         body : JSON.stringify(body)
-    },function(error,response,body){
+    },function (error,response,body){
         if (error) {
             console.log(error);
         }
@@ -489,6 +493,7 @@ app.delete('/playlist/video',function(req,res){
     })
 
     await sleep(150);
+    */
 
     youtube.playlistItems.delete({
         id : id_playlistItem

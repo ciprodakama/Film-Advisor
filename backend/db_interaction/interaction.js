@@ -71,13 +71,14 @@ function PlaylistDb(userid,nome,url,pl_id,array) {
 
 //Add a video object in the db in the playlist pl_name of the user userid
 
-function VideoDb(userid,pl_name,vd_name,vd_id) {
+function VideoDb(userid,pl_name,vd_name,id_elem,vd_id) {
 
     var request = require('request');
 
     var body = {
         "nome":vd_name,
-        "url": "https://www.youtube.com/watch?v="+vd_id,
+        "id_elem": id_elem,
+        "url": "https://www.youtube.com/watch?v="+vd_id
     };
 
     var url = 'http://localhost:3001/user/playlist/elements/'+userid+'/'+pl_name;

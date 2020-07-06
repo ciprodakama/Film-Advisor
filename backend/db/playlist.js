@@ -6,7 +6,6 @@ var element = require('./elements');
 
 pl.use('/elements', element);
 
-
 //ritorna sia una singola pl che tutte quelle di un utente se specific nome nel body
 pl.get('/:userID', playlist.get_playlist);
 
