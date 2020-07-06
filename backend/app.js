@@ -455,22 +455,47 @@ app.delete('/playlist/video',function(req,res){
 
     var youtube = google.youtube('v3');
 
-    var id_plylistItem = req.body.id;
+    var id_playlistItem = req.body.id;
 
     var vd_name = req.body.name;  //serve per il db
 
     var pl_name = req.body.pl_name; //serve per il db
 
-    var resource = {
-        'id': id_plylistItem
+    var pl_id = "";
+
+    var request = require('request');
+
+    var body = {
+        "nome":pl_name
     }
 
+    //console.log(id_us);
+
+    request.get({
+        url:"http://localhost:"+config.port+"/user/playlist/"+id_us,
+        headers : {
+            'Content-Type' : 'application/json; charset=utf-8',
+        },
+        body : JSON.stringify(body)
+    },function(error,response,body){
+        if (error) {
+            console.log(error);
+        }
+        else {
+            var obj = JSON.parse(body);
+            pl_id = obj._id;
+            console.log(pl_id);
+        }
+    })
+
+    await sleep(150);
+
     youtube.playlistItems.delete({
-        resource : resource
+        id : id_playlistItem
     }).then((response)=>{
         console.log(response);
         console.log('elemento rimosso correttamente');
-        //interaction.deleteVd(id_us,pl_id,vd_name);
+        interaction.deleteVd(id_us,pl_id,vd_name);
     }).catch((err)=>{
         console.log('problemi nella rimozione del video');
         console.log(err);
