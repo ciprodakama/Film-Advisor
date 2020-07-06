@@ -12,6 +12,8 @@ var morgan = require('morgan');
 
 var Promise = require('promise');
 
+var rp = require('request-promise');
+
 const app = express();
 
 var cors = require('cors');
@@ -70,6 +72,49 @@ const googleOauth = new google.auth.OAuth2(
 
 google.options({auth: googleOauth});
 
+//init values DB for user with id_us
+function initUserDB(){
+    var title_query = "?title="
+    var plID_query = "pl_id="
+
+    const url1 = "http://localhost:3001/getPlaylist"
+    const url2 = "http://localhost:3001/playlist/videos"
+
+    async function doRequests() {
+        let responsePLDef = await rp(url1)
+        console.log("Playlist prese, ecco il ris\n")
+        console.log(responsePLDef)
+        var responsePL=JSON.parse(responsePLDef);
+        console.log(responsePL.length)
+
+        var success = []
+
+        // add stuff from url1 response to url2
+        for(var i=0; i<responsePL.length; i++){
+            var Title = responsePL[i].nome;
+            var plID = responsePL[i].url_id;
+            console.log("Attempting to get Videos from "+url2+title_query+Title+"&"+plID_query+plID)
+            responseGetVideo = await rp(url2+title_query+Title+"&"+plID_query+plID)
+            success.push(Title+"Done!")
+        }
+
+        // do stuff after all requests
+
+        if(responsePL.length == success.length){
+            console.log("DB populated!")
+        }
+
+        // If something went wrong
+        else{
+            throw new Error("Non tutto il DB è stato popolato")
+        }
+    }
+
+    doRequests()
+    .catch(err => console.log)
+}
+
+
 //Getting the code
 
 app.get('/login', function(req,res){
@@ -102,6 +147,7 @@ app.get('/login', function(req,res){
                 res.status(500);
             } 
         })
+
         const url = googleOauth.generateAuthUrl({
             access_type: 'offline',
             scope : config.scopes[0]
@@ -128,7 +174,7 @@ app.get('/login', function(req,res){
 
 //Getting the access_token
 
-app.get('/oauth2callback',function(req,res){
+app.get('/oauth2callback',async function(req,res){
     console.log("Sono nella redirect di Google Login")
     var code = req.query.code;
     googleOauth.getToken(code, (err, tokens) => {
@@ -147,6 +193,11 @@ app.get('/oauth2callback',function(req,res){
         "<br><br><button onclick='window.location.href=\"/playlist/update\"'>Update Playlist</button>");
         */
     });
+    console.log("Prima della sleep")
+    await sleep(3000)
+    console.log("Dopo la sleep")
+    initUserDB();
+
     console.log("Finito di usare getToken")
     res.redirect("http://localhost:5500/frontend/firstLogin.html");
 })
@@ -193,7 +244,9 @@ app.get('/getPlaylist',function(req,res){
         var array = [];
         var num_playlist = response.data.pageInfo.totalResults;
         for(i=0;i<num_playlist;i++){
-            console.log(response.data.items[i].snippet);
+            console.log("Dati della Playlist\n");
+            console.log(response.data.items[i].snippet.title);
+            console.log(response.data.items[i].id);
             var url_playlist = 'https://www.youtube.com/playlist?list='+response.data.items[i].id;
             var obj = {
                 nome : response.data.items[i].snippet.title,
