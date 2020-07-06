@@ -21,7 +21,7 @@ exports.get_playlist = (req, res, next) => {
                 res.status(200).json({
                     _id: fulfilled._id,
                     mail: fulfilled.mail,
-                    numero_elem: fulfilled.numero_elem,
+                    numero_elementi: fulfilled.playlist.numero_elementi,
                     playlist: fulfilled.playlist
                 });
             }
@@ -34,10 +34,10 @@ exports.get_playlist = (req, res, next) => {
                     {
                         res.status(200).json({
                             nome: ob.nome,
-                            _id : ob._id,
+                            _id = ob._id,
                             url: ob.url,
                             url_id: ob.url_id,
-                            numero_elem: ob.numero_elem,
+                            numero_elementi: ob.numero_elementi,
                             elements: ob.elements,
                             message: 'Per modificare gli elementi riferirsi all\'url',
                             url: 'http://localhost:8888/user/playlist/elements/' + id + '/' + nome
