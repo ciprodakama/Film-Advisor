@@ -280,8 +280,9 @@ $(document).ready(function() {
         }).done(function() {
             alert("Video Rimosso!")
         //da fare lato backend
+        }).fail(function(){
+            alert("Problema con la rimozione del video!")
         })
-        
     });
 
     $('.rimPlaylist').click(function(){

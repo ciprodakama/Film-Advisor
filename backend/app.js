@@ -505,8 +505,6 @@ app.delete('/playlist/video',async function(req,res){
         console.log('problemi nella rimozione del video');
         console.log(err);
     })
-
-
 })
 
 //Try delete a playlist

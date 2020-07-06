@@ -52,7 +52,7 @@ exports.add_element = (req, res, next ) => {
     var id = req.params.usrID;
     var pl = req.params.plName;
     var elem = req.body.nome;
-    var id_elem = req.body.id_elem;
+	var id_elem = req.body.id_elem;
     var url = req.body.url;
     if( !url || ! elem )
     {
@@ -67,7 +67,7 @@ exports.add_element = (req, res, next ) => {
             var e = new Element({
                 _id: mongoose.Types.ObjectId,
                 nome: elem,
-                id_elem: id_elem,
+				id_elem: id_elem,
                 url_film: url
             })
             var i = 0, len = fulfilled.playlist.length;
@@ -122,7 +122,7 @@ exports.remove_element = (req, res, next ) => {
     User.findById(id)
         .then( fulfilled => {
             // i indice di playlist, b = boolean
-            var i = 0, b = 0, len = fulfilled.playlist.numero_elementi;
+            var i = 0, b = 0, a = 0, len = fulfilled.playlist.numero_elementi;
             var newPlaylist = {}, newElem = {}, collection;
             for ( var ob of fulfilled.playlist )
             {
@@ -131,6 +131,7 @@ exports.remove_element = (req, res, next ) => {
                 {
                     // j indice di elemento nella playlist
                     var j = 0;
+                    a = 1;
                     for( var e of ob.elements )
                     {
                         //elemento trovato
@@ -161,7 +162,7 @@ exports.remove_element = (req, res, next ) => {
                 }
                 i++;
             }
-            if(!b)
+            if(!a)
                 return res.status(404).json({
                     message: 'Playlist non trovata nell\'utente: ' + id
                 })
