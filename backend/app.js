@@ -246,9 +246,9 @@ app.get('/playlist/videos',function(req,res) {
             await sleep(300);
             interaction.VideoDb(id_us,title,video_name,video_url)
             var obj = {
-                'id_item': id_elem,
                 'video_name':video_name,
                 'video_url':video_url,
+                'id_item': id_elem,
             }
             elements.push(obj);
             //nVideo++;

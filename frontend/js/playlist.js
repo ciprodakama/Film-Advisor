@@ -28,17 +28,19 @@ var plID;
 var BackvideoPL= [
     {
         'video_name':'La mappa dei nuovi focolai di Coronavirus in Italia: “Attenzione ai casi dall’estero”',
-        "video_url": "G3Sit1ub3cw"
+        "video_url": "G3Sit1ub3cw",
+        "id_item": "pere"
     },
     {
         'video_name':"Ingressi limitati in Italia, il confronto tra Matteo Bassetti e Andrea Crisanti: La misura è ...",
-        'video_url': "0FoGQZPftz8"
+        'video_url': "0FoGQZPftz8",
+        "id_item": "mele"
         
     },
     {
         'video_name': "Trova foto della moglie defunta sul pacchetto di sigarette: chiede 100 milioni di risarcimento",
-        'video_url':"hnLa8IfowvE"
-        
+        'video_url':"hnLa8IfowvE",
+        "id_item": "ciliege"
     }
 ]
 
@@ -181,7 +183,7 @@ function initLocalVideoPL(Title, plID){
         for (var j=0; j<nVideo; j++){
             videoPL.push(data[j])
             //console.log(videoPL); 
-            videoPL[j]["button"] = '<button class="btn btn-danger rimuoviVid" style="background-color: red;">-</button>'
+            videoPL[j]["id_item"] = '<button class="btn btn-danger rimuoviVid" style="background-color: red;" id='+data[j]["id_item"]+'>-</button>'
         }
         console.log("This is localVariable from getVideoPL")
         console.log(videoPL);
