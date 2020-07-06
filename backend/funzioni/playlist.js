@@ -107,7 +107,7 @@ exports.create_playlist = (req, res, next) => {
                         if( e.nome === o.nome)
                             b = 0;
                     }
-                    if( !b )
+                    if( b )
                         newArray.push(e);
                 }
                 fulfilled.playlist = newArray;
