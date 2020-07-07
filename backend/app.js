@@ -417,10 +417,12 @@ app.post('/playlist/insertVideo',function(req,res){
         }).then((response)=>{
             console.log(response);
             var video_url = 'https://www.youtube.com/watch?v='+resource.snippet.resourceId.videoId;
+            var id_elem = resource.id;
             interaction.VideoDb(id_us,pl_name,response.data.snippet.title,video_url);
             res.send({
                 message : 'added video to your playlist',
                 url : 'https://www.youtube.com/playlist?list='+resource.snippet.playlistId,
+                id_elem : id_elem
             });
         }).catch((err)=>{
             console.log(err);
