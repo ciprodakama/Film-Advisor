@@ -215,11 +215,11 @@ function categories(usrID,cat1,cat2,cat3,cat4,cat5,callback) {
 
 //Delete a video from a playlist (pl_id) of a user (user_id)
 
-function deleteVd (user_id,pl_id,vd_name) {
+function deleteVd (user_id,pl_name,vd_name) {
 
     var request = require('request');
 
-    var url = "http://localhost:3001/user/playlist/elements/"+user_id+"/"+pl_id;
+    var url = "http://localhost:3001/user/playlist/elements/"+user_id+"/"+pl_name;
 
     var headers = {
         'Content-Type' : 'application/json; charset=utf-8',

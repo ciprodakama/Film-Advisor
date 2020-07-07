@@ -3,12 +3,13 @@ const base_url = 'http://localhost:3001';
 var url_getVideoPL = base_url+"/user/playlist/";
 var url_playlist = base_url+"/user/playlist/";
 
+var url_delPlaylist = base_url+"/playlist/delete"
 var url_delVideo = base_url+"/playlist/video"
 
 var title_query = "?title="
 var plID_query = "pl_id="
 
-var url_delPlaylist = "/playlist/delete"
+
 
 //cookie
 function getCookie(cname) {
@@ -271,28 +272,39 @@ $(document).ready(function() {
 
         var vd_name = $(this).parent().parent().find(".Titolo").html();;
         console.log(vd_name);
-        console.log(plID);
+        console.log(Title);
         
+        /*
         $.ajax({           
             type: "DELETE",
             url: url_delVideo,
-            data: { "id_playlistItem": id_playlistItem, "vd_name": vd_name, "pl_id": plID},
+            data: { "id_playlistItem": id_playlistItem, "vd_name": vd_name, "pl_name": Title},
         }).done(function() {
             alert("Video Rimosso!")
         //da fare lato backend
         }).fail(function(){
             alert("Problema con la rimozione del video!")
         })
+        */
     });
 
-    $('.rimPlaylist').click(function(){
-        var url = base_url+url_delPlaylist+title_query+Title+"&"+plID_query+plID;
+    $("#dettaglioPlaylist").on('click', '.rimPlaylist', function(event) {
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+
+        console.log($(this).html())
+
+        /*
         $.ajax({           
             type: "DELETE",
-            url: url
+            url: url_delPlaylist,
+            data: { "title": Title, "pl_id": plID},
         }).done(function(data) {
             //dovrò rifare una get delle playlist ed inserirle nell'URL della pagina come redirect
             alert("Playlist Cancellata!")
+        }).fail(function(){
+            alert("Problema con la rimozione del video!")
         });
+        */
     })
 });

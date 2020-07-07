@@ -52,6 +52,7 @@ exports.add_element = (req, res, next ) => {
     var id = req.params.usrID;
     var pl = req.params.plName;
     var elem = req.body.nome;
+    var id_elem = req.body.id_elem;
     var url = req.body.url;
     if( !url || ! elem )
     {
@@ -66,6 +67,7 @@ exports.add_element = (req, res, next ) => {
             var e = new Element({
                 _id: mongoose.Types.ObjectId,
                 nome: elem,
+                id_elem: id_elem,
                 url_film: url
             })
             var i = 0, len = fulfilled.playlist.length;

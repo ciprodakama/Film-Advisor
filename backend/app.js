@@ -462,7 +462,7 @@ app.delete('/playlist/video',async function(req,res){
 
     var vd_name = req.body.vd_name;  //serve per il db
 
-    var pl_id = req.body.pl_id;
+    var pl_name = req.body.pl_name;
     //var pl_id = "";
     //var pl_name = req.body.pl_name; //serve per il db
 
@@ -500,7 +500,7 @@ app.delete('/playlist/video',async function(req,res){
     }).then((response)=>{
         console.log(response);
         console.log('elemento rimosso correttamente');
-        interaction.deleteVd(id_us,pl_id,vd_name);
+        interaction.deleteVd(id_us,pl_name,vd_name);
     }).catch((err)=>{
         console.log('problemi nella rimozione del video');
         console.log(err);
