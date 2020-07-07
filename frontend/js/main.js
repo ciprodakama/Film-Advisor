@@ -143,7 +143,8 @@ $(document).ready(function() {
         console.log("Numero di nomi "+play.name.length);
         for(var z=0; z<play.name.length; z++){
             console.log(play.name[z]);
-            $(this).parent().siblings('.list').find(".form-control").append($("<option></option>").text(play.name[z]));
+            var option = '<option id='+play.id[z]+'>'+play.name[z]+'</option>'
+            $(this).parent().siblings('.list').find(".form-control").append(option);
         }
         
         $(this).hide();
@@ -152,37 +153,37 @@ $(document).ready(function() {
     })
     //done
 
-    //confirm choise and contact backend
+    //confirm choice and contact backend
     $(".addPlaylist").on('click', function(event){
         event.stopPropagation();
         event.stopImmediatePropagation();
 
-        var selected = $(this).parent().siblings(".list").find(":selected").text();
-        console.log(selected);
+        var id_selected = $(this).parent().siblings(".list").find(":selected").attr("id");
+        console.log(id_selected);
         
         var link = $(this).closest(".box_playlist").siblings(".link").attr("href");
-        console.log(link);
+        var start = link.indexOf("=")
+        var id_video = link.substring(start+1)
+        console.log(id_video);
+
+        var pl_name = $(this).parent().siblings(".list").find(":selected").html();
+        console.log(pl_name);
+
         
-        /*
         $.ajax({
             url: url_addvideo,
             type: 'POST',
-            data: { "pl_name": selected, "videoId": link},
+            data: { "pl_id": id_selected, "videoId": id_video, "pl_name": pl_name},
             }).done(function(body){
                 console.log(JSON.stringify(body));
-                //trailers = JSON.stringify(body);
-                //window.location.href = "http://localhost:5500/frontend/main.html?trailers="+trailers;
-            }).fail(function(){
-                alert("Errore! Non è stato possibile aggiungere il video alla Playlist!");
+                alert("Video Aggiunto con Successo!")
+            }).fail(function(data){
+                alert("Errore nell'aggiunta Video! Riprova!")
             })
-        */
-
-        //window.location.href = "http://localhost:5500/frontend/playlist.html?playlist="+playlist;
     });
 
 
     //crea Playlist Input Utente
-    //DA GESTIRE ANCORA REDIRECT A QUESTA STESSA PAGINA
     $('#creaPlaylist').click(function(){
         var title = $('#titPlaylist').val();
         var status = $("#tipoPlaylist").find(":selected").attr("id");
@@ -197,15 +198,13 @@ $(document).ready(function() {
             type: 'POST',
             data: {"title": title, "description": description, "status": status},
             }).done(function(body){
-                alert("Playlist Creata con Successo!")
                 console.log(JSON.stringify(body));
-                //trailers = JSON.stringify(body);
-                //window.location.href = "http://localhost:5500/frontend/main.html?trailers="+trailers;
+                var r = confirm("Playlist Creata con Successo! Premendo OK la pagina verrà ricaricata!")
+                if (r == true){
+                    location.reload(true);
+                }
             }).fail(function(data){
-                alert("Errore durante la creazione!")
-                //console.log(data)
-                //alert("Errore! Non è stato possibile creare la Playlist!");
-                //window.location.href=data;
+                alert("Errore durante la creazione! Prova a rientrare!")
             })
         //location.reload(true);
     });
@@ -225,9 +224,36 @@ $(document).ready(function() {
                 //alert("Errore! Non è stato possibile caricare Trailer.");
                 //window.location.href = data;
          });
-         $('#contTrailer').show();
+         $('#contTrailer').css("display","flex");
+         //$('#contTrailer').show();
     });
     //done
+
+    //confirm choice and contact backend
+    $(".addTrailer").click(function(){
+        var id_selected = $(this).parent().siblings(".list").find(":selected").attr("id");
+        console.log(id_selected);
+
+        var link = $(this).closest(".box_risTrailer").siblings("#risTrailer").attr("src");
+        var start = link.lastIndexOf("/")
+        var id_video = link.substring(start+1)
+        console.log(id_video);
+
+        var pl_name = $(this).parent().siblings(".list").find(":selected").html();
+        console.log(pl_name);
+
+        $.ajax({
+            url: url_addvideo,
+            type: 'POST',
+            data: { "pl_id": id_selected, "videoId": id_video, "pl_name": pl_name},
+            }).done(function(body){
+                console.log(JSON.stringify(body));
+                alert("Video Aggiunto con Successo!")
+            }).fail(function(data){
+                alert("Errore nell'aggiunta Video! Riprova!")
+            })
+    });
+
 
     $("#userPlaylist").click(async function(){
         if(play.name != 0){
@@ -244,7 +270,5 @@ $(document).ready(function() {
             $(this).attr("href", "http://localhost:5500/frontend/playlist.html?playlist="+playlist)
             */
         }        
-        
     })
-
 });

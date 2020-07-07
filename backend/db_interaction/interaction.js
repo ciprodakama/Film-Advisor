@@ -74,7 +74,7 @@ function PlaylistDb(userid,nome,url,pl_id,array,callback) {
 
 //Add a video object in the db in the playlist pl_name of the user userid
 
-function VideoDb(userid,pl_name,vd_name,id_elem,vd_id) {
+function VideoDb(userid,pl_name,vd_name,id_elem,vd_id,callback) {
 
     var request = require('request');
 
@@ -97,10 +97,12 @@ function VideoDb(userid,pl_name,vd_name,id_elem,vd_id) {
     },function(error,response,body){
         if (error) {
             console.log(error);
+            callback(error);
         }
         else {
             console.log('daje\n');
             console.log(body);
+            callback(response);
         };
     });
 

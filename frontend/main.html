@@ -166,14 +166,28 @@
                 <button type="submit" class="btn btn-primary mb-2" id="findTrailer">Search</button>
             </div>
         </form>
-        <div class="container" id="contTrailer">
+
+        <div id="contTrailer">
             <h3 class="text-center">Zona Ris Cerca Trailer</h3>
-            <div class="row justify-content-center">
-                    <iframe id="risTrailer" width="280" height="150" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-            <div class="row justify-content-center">
-                <button class="btn btn-primary mb-2 addPlaylist"> Aggiungi alla tua Playlist! </button>
-            </div>    
+            <iframe id="risTrailer" width="280" height="150" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="box_risTrailer">
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary btn-sm getPlaylist">Scopri la lista delle tue Playlist</button>
+                    <div class="show">
+                        <button type="button" class="btn btn-primary btn-sm showPlaylist">Scegli il nome della Playlist</button>
+                    </div>
+                    <br>
+                    <div class="list">
+                        <label for="exampleFormControlSelect1"><b>Scegli la playlist!</b></label>
+                        <select class="form-control form-control-lg">
+                        </select>
+                    </div>
+                    <br>
+                    <div class="confirm">
+                        <button type="button" class="btn btn-primary btn-sm addTrailer">Conferma</button>
+                    </div>
+                </div>
+            </div>  
         </div>
         
         <script src="js/main.js" type="text/javascript" lang="javascript"></script>

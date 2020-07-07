@@ -44,7 +44,7 @@
  }
 
  .form-group{
-     padding: 12px;
+     padding: 13px;
  }
 
 
@@ -53,6 +53,10 @@
 }
 
  #contTrailer{
-     display: none;
-     flex-direction: column;
+    display: none;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+    padding: 5px;
  }

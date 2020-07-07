@@ -303,18 +303,24 @@ app.get('/playlist/videos',function(req,res) {
         var num = response.data.pageInfo.totalResults;
         finalNum = num;
         for(j=0; j<num; j++){
-            var video_url = 'https://www.youtube.com/watch?v='+response.data.items[j].snippet.resourceId.videoId;
+            var video_id = response.data.items[j].snippet.resourceId.videoId;
             var video_name = response.data.items[j].snippet.title;
             var id_elem = response.data.items[j].id;
             await sleep(300);
-            interaction.VideoDb(id_us,title,video_name,id_elem,video_url)
+            interaction.VideoDb(id_us,title,video_name,id_elem,video_id,function(status,body){
+                if(status.statusCode == 201){
+                    console.log("Collected Videos of PL DB SUCCESS!") //updated
+                }
+                else if (status.statusCode == 500){
+                    console.log("Collected Videos of PL DB FAILED!")
+                }
+            });
             var obj = {
                 'video_name':video_name,
-                'video_url':video_url,
-                'id_item': id_elem,
+                'video_id':video_id,
+                'id_elem': id_elem,
             }
             elements.push(obj);
-            //nVideo++;
         }
         elements.push(finalNum)
         res.send(elements)
@@ -375,25 +381,23 @@ app.post('/createPlaylist',function(req,res){
 })
 
 //Try to add a video to a playlist
-
 app.post('/playlist/insertVideo',function(req,res){
 
     var youtube = google.youtube('v3');
 
     var pl_id = req.body.pl_id;
+    var video_id = req.body.videoId;
     
     //youtube video resource
     var resource = {
             "snippet": {
                 "playlistId": pl_id,
                 "resourceId": {
-                    "videoId": req.body.videoId,
+                    "videoId": video_id,
                     "kind": "youtube#video"
                 }
             }
     };
-
-
 
     /*var array = [];
     var id1 = req.body.video1;
@@ -408,16 +412,24 @@ app.post('/playlist/insertVideo',function(req,res){
     array.push(id5);*/
 
     //var array = ["CwXOrWvPBPk","2xvEUt8lVNg","zg23CSUm1qk"]  //here go the video_id of the videos selected by the client
-
-    var pl_name = req.body.pl_name;
     
+    var pl_name = req.body.pl_name;
+
     youtube.playlistItems.insert({
             part : 'snippet',
             resource : resource,
         }).then((response)=>{
             console.log(response);
-            var video_url = 'https://www.youtube.com/watch?v='+resource.snippet.resourceId.videoId;
-            interaction.VideoDb(id_us,pl_name,response.data.snippet.title,video_url);
+            //var video_url = 'https://www.youtube.com/watch?v='+resource.snippet.resourceId.videoId;
+
+            interaction.VideoDb(id_us,pl_name,response.data.snippet.title,null,video_id,function(status,body){
+                if(status.statusCode == 201){
+                    console.log("Added Video DB SUCCESS!")
+                }
+                else if(status.statusCode == 500){
+                    console.log("Added Video DB FAILED!")
+                };
+            })
             res.send({
                 message : 'added video to your playlist',
                 url : 'https://www.youtube.com/playlist?list='+resource.snippet.playlistId,
@@ -476,37 +488,6 @@ app.delete('/playlist/video',async function(req,res){
     var vd_name = req.body.vd_name;  //serve per il db
 
     var pl_name = req.body.pl_name;
-    //var pl_id = "";
-    //var pl_name = req.body.pl_name; //serve per il db
-
-    /*
-    var request = require('request');
-
-    var body = {
-        "nome":pl_name
-    }
-
-    //console.log(id_us);
-    
-    request.get({
-        url:"http://localhost:"+config.port+"/user/playlist/"+id_us,
-        headers : {
-            'Content-Type' : 'application/json; charset=utf-8',
-        },
-        body : JSON.stringify(body)
-    },function (error,response,body){
-        if (error) {
-            console.log(error);
-        }
-        else {
-            var obj = JSON.parse(body);
-            pl_id = obj._id;
-            console.log(pl_id);
-        }
-    })
-
-    await sleep(150);
-    */
 
     youtube.playlistItems.delete({
         id : id_playlistItem
@@ -517,7 +498,6 @@ app.delete('/playlist/video',async function(req,res){
     }).catch((err)=>{
         console.log('problemi nella rimozione del video');
         console.log(err);
-        res.send({"message": "Success!"});
     })
     await sleep(300);
     res.status(200).send({"message": "Success!"});
@@ -535,7 +515,7 @@ app.delete('/playlist/delete',function(req,res){
     youtube.playlists.delete({
         id : pl_id
     }).then((response)=>{
-        console.log(response);
+        console.log("YT response" + response.status);
         interaction.deletePL(id_us,title, function(status,body){
             if(status.statusCode == 200){
                 console.log("Removed from DB SUCCESS!")

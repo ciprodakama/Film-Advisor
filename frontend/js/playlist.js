@@ -9,6 +9,79 @@ var url_delVideo = base_url+"/playlist/video"
 var title_query = "?title="
 var plID_query = "pl_id="
 
+var test = {
+    "_id": "5f046133ed856b1ad88dd9da",
+    "mail": "reti@gmail.com",
+    "playlist": [{
+        "numero_elementi": 3,
+        "elements": [{
+            "nome": "Eternal Eclipse - Dawn of Faith (The OA Part II Trailer Music)",
+            "id_elem": "UExwcXZHdThwbGhnWE1wYlVWQ2VNeDYwNVlfNm5OMmxxcy41NkI0NEY2RDEwNTU3Q0M2",
+            "url_film": "https://www.youtube.com/watch?v=6FTr73B4Wz0"
+        }, {
+            "nome": "Journey 2: The Mysterious Island Official Trailer #1 - Dwayne Johnson, Vanessa Hudgens (2012) HD",
+            "id_elem": "UExwcXZHdThwbGhnWE1wYlVWQ2VNeDYwNVlfNm5OMmxxcy4yODlGNEE0NkRGMEEzMEQy",
+            "url_film": "https://www.youtube.com/watch?v=qdFCjwcK8IE"
+        }, {
+            "nome": "ZOO Official Trailer (2019) NEW Apocalypse Movie Trailers HD",
+            "id_elem": "UExwcXZHdThwbGhnWE1wYlVWQ2VNeDYwNVlfNm5OMmxxcy4wMTcyMDhGQUE4NTIzM0Y5",
+            "url_film": "https://www.youtube.com/watch?v=7VWcfaoGBGo"
+        }],
+        "_id": "5f046ea2753adc0aa8200770",
+        "nome": "ToBeDeleted",
+        "url": "https://www.youtube.com/playlist?list=PLpqvGu8plhgXMpbUVCeMx605Y_6nN2lqs",
+        "url_id": "PLpqvGu8plhgXMpbUVCeMx605Y_6nN2lqs"
+    }, {
+        "numero_elementi": 0,
+        "elements": [],
+        "_id": "5f046ea2753adc0aa8200771",
+        "nome": "Comedy",
+        "url": "https://www.youtube.com/playlist?list=PLpqvGu8plhgVFn42stYS5Q1Teb-OFOTBO",
+        "url_id": "PLpqvGu8plhgVFn42stYS5Q1Teb-OFOTBO"
+    }, {
+        "numero_elementi": 2,
+        "elements": [{
+            "nome": "Suspiria - Official Trailer | Amazon Studios",
+            "id_elem": "UExwcXZHdThwbGhnV3I5TFdJM1hhbG9tWV9rYUloZWg1Ry4yODlGNEE0NkRGMEEzMEQy",
+            "url_film": "https://www.youtube.com/watch?v=BY6QKRl56Ok"
+        }, {
+            "nome": "Sonic The Hedgehog (2020) - New Official Trailer - Paramount Pictures",
+            "id_elem": "UExwcXZHdThwbGhnV3I5TFdJM1hhbG9tWV9rYUloZWg1Ry4wMTcyMDhGQUE4NTIzM0Y5",
+            "url_film": "https://www.youtube.com/watch?v=szby7ZHLnkA"
+        }],
+        "_id": "5f046ea2753adc0aa8200772",
+        "nome": "Horror",
+        "url": "https://www.youtube.com/playlist?list=PLpqvGu8plhgWr9LWI3XalomY_kaIheh5G",
+        "url_id": "PLpqvGu8plhgWr9LWI3XalomY_kaIheh5G"
+    }, {
+        "numero_elementi": 1,
+        "elements": [{
+            "nome": "The foxes that go HEHEHE",
+            "id_elem": "UExwcXZHdThwbGhnV21IUVVCbk52cDJ3clZMdkxfVU1xei41NkI0NEY2RDEwNTU3Q0M2",
+            "url_film": "https://www.youtube.com/watch?v=fQVhppRP4Wo"
+        }],
+        "_id": "5f046ea2753adc0aa8200773",
+        "nome": "Action",
+        "url": "https://www.youtube.com/playlist?list=PLpqvGu8plhgWmHQUBnNvp2wrVLvL_UMqz",
+        "url_id": "PLpqvGu8plhgWmHQUBnNvp2wrVLvL_UMqz"
+    }, {
+        "numero_elementi": 2,
+        "elements": [{
+            "nome": "The Dark Knight (2008) Official Trailer #1 - Christopher Nolan Movie HD",
+            "id_elem": "UExwcXZHdThwbGhnVzNDbDByS3dlYUVRSnFiZ3ZMRkJxSS41NkI0NEY2RDEwNTU3Q0M2",
+            "url_film": "https://www.youtube.com/watch?v=EXeTwQWrcwY"
+        }, {
+            "nome": "Journey 2: The Mysterious Island Official Trailer #1 - Dwayne Johnson, Vanessa Hudgens (2012) HD",
+            "id_elem": "UExwcXZHdThwbGhnVzNDbDByS3dlYUVRSnFiZ3ZMRkJxSS4yODlGNEE0NkRGMEEzMEQy",
+            "url_film": "https://www.youtube.com/watch?v=qdFCjwcK8IE"
+        }],
+        "_id": "5f046ea2753adc0aa820076f",
+        "nome": "Test2",
+        "url": "https://www.youtube.com/playlist?list=PLpqvGu8plhgW3Cl0rKweaEQJqbgvLFBqI",
+        "url_id": "PLpqvGu8plhgW3Cl0rKweaEQJqbgvLFBqI"
+    }]
+}
+
 
 
 //cookie
@@ -120,15 +193,6 @@ function CreateTableFromURI() {
 }
 
 function CreateTableFromPlaylist(){
-    var col = [];
-    for (var i = 0; i < videoPL.length; i++) {
-        for (var key in videoPL[i]) {
-            if (col.indexOf(key) === -1) {
-                col.push(key);
-            }
-        }
-    }
-    console.log(col);
     
     var Theader = ["Titolo Video", "Link Youtube","Rimuovi"];
 
@@ -146,25 +210,29 @@ function CreateTableFromPlaylist(){
         tr.appendChild(th);
     }
 
+    var col = ["nome","url_film","id_elem"];
+
     // ADD JSON DATA TO THE TABLE AS ROWS.
     for (var i = 0; i < videoPL.length; i++) {
 
         tr = table.insertRow(-1);
 
         for (var j = 0; j < col.length; j++) {
-            if(j==1){
+            if(col[j]=="url_film"){
                 var tabCell = tr.insertCell(-1);
-                console.log(videoPL[i][col[j]])
+                console.log("Sono in url_film "+videoPL[i][col[j]])
                 var link = "<a target='_blank' href="+videoPL[i][col[j]]+">"+"Link al Video</a>"
                 tabCell.innerHTML = link;
             }
-            else if (j==0){
+            else if (col[j]=="nome"){
                 var tabCell = tr.insertCell(-1);
                 tabCell.className = "Titolo";
+                console.log("Sono in nome "+videoPL[i][col[j]])
                 tabCell.innerHTML = videoPL[i][col[j]];
             }
             else{
                 var tabCell = tr.insertCell(-1);
+                console.log("Sono in butt "+videoPL[i][col[j]])
                 tabCell.innerHTML = videoPL[i][col[j]];
             }
         }
@@ -183,6 +251,7 @@ function initLocalVideoPL(Title, plID, cookieID){
     
     videoPL = [];
 
+    
     $.ajax(url).done(function(data) {
         console.log(data);
         console.log(data.playlist.length);
@@ -196,11 +265,12 @@ function initLocalVideoPL(Title, plID, cookieID){
             if(data.playlist[i].url_id == plID){
                 playIndex = i;
                 nVideo = data.playlist[playIndex].numero_elementi;
-                console.log(data.playlist[playIndex].elements.lenghth)
+                console.log(nVideo)
                 for (var z=0; z<nVideo; z++){
                     videoPL.push(data.playlist[playIndex].elements[z])
-                    videoPL[z]["id_item"] = '<button class="btn btn-danger rimuoviVid" style="background-color: red;" id='+data.playlist[playIndex].elements[z]["id_elem"]+'>-</button>'
-                    delete videoPL[z]["id_elem"];
+                    delete videoPL[z].url_id;
+                    console.log(data.playlist[playIndex].elements[z].id_elem);
+                    videoPL[z]["id_elem"] = '<button class="btn btn-danger rimuoviVid" style="background-color: red;" id='+data.playlist[playIndex].elements[z].id_elem+'>-</button>';  
                 } 
             }
         }
@@ -211,6 +281,7 @@ function initLocalVideoPL(Title, plID, cookieID){
 
         alert("Dati recuperati con successo!")  
     });
+    
 }
 
 function getPlaylistDB(cookieID){
@@ -254,6 +325,10 @@ $(document).ready(function() {
     
     $('.mostra').click(function(){
         $("#dettaglioPlaylist").empty();
+        CreateTableFromPlaylist();
+         $('#dettaglioPlaylist').show();
+
+        /*
         if (videoPL.lenght != 0){
             CreateTableFromPlaylist();
             $('#dettaglioPlaylist').show();
@@ -261,6 +336,7 @@ $(document).ready(function() {
         else{
             alert("Non hai ancora recuperato i Dati riguardo questa playlist! Premi il bottone Ispeziona!")
         }
+        */
     });
 
     $("#dettaglioPlaylist").on('click', '.rimuoviVid', function(event) {
