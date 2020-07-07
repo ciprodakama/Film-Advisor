@@ -260,12 +260,19 @@ app.get('/getPlaylist',function(req,res){
             array.push(obj);
             
         };
-        interaction.PlaylistDb(id_us,null,null,null,array);
+        interaction.PlaylistDb(id_us,null,null,null,array,function(status,body){
+            if(status.statusCode == 200){
+                console.log("Retrived Playlist DB SUCCESS!")
+            }
+            else{
+                console.log("Retrived Playlist DB FAILED!")
+            }
+        });
         res.status(200).send(array);
     
     }).catch((err)=>{
         console.log(err);
-        res.redirect('/login');
+        //res.redirect('/login');
     });
 
 
@@ -326,7 +333,9 @@ app.post('/createPlaylist',function(req,res){
     var youtube = google.youtube('v3');
 
     var title = req.body.title;
+    title = title.replace(/\s/g,'') //per chiamata DB
     var description = req.body.description;
+    var status = req.body.status;
 
 
     // plylist resource that I want to create
@@ -336,7 +345,7 @@ app.post('/createPlaylist',function(req,res){
             description: description
         },
         status: {
-           privacyStatus: 'private'
+           privacyStatus: status
         }
     };
 
@@ -344,19 +353,23 @@ app.post('/createPlaylist',function(req,res){
         part : 'snippet,status', //the part parameter identifies the properties that the write operation will set
         resource : resource,
     }).then((response)=>{
-        console.log(response);
+        console.log("Creazione PL YT con Status: "+response.status);
         var playlist_url='https://www.youtube.com/playlist?list='+response.data.id;
-        interaction.PlaylistDb(id_us,title,playlist_url,response.data.id,null); //updated
-
-        res.redirect('/')
-        /*
+        interaction.PlaylistDb(id_us,title,playlist_url,response.data.id,null,function(status,body){
+            if(status.statusCode == 201){
+                console.log("Playlist POST DB SUCCESS!") //updated
+            }
+            else if (status.statusCode == 500){
+                console.log("Playlist POST DB FAILED!")
+            }
+        }); 
         res.send({
             'message':'Created a playlist successfully',
             playlist_url:playlist_url,
-        });*/
+        });
     }).catch((err)=>{
         console.log(err);
-        res.redirect('/login');
+        res.send("Errore nella creazione della Playlist! Prova a rientrare")
     });
 
 })
@@ -504,7 +517,10 @@ app.delete('/playlist/video',async function(req,res){
     }).catch((err)=>{
         console.log('problemi nella rimozione del video');
         console.log(err);
+        res.send({"message": "Success!"});
     })
+    await sleep(300);
+    res.status(200).send({"message": "Success!"});
 })
 
 //Try delete a playlist
@@ -520,11 +536,18 @@ app.delete('/playlist/delete',function(req,res){
         id : pl_id
     }).then((response)=>{
         console.log(response);
-        interaction.deletePL(id_us,title);
-        res.send('Playlist deleted successfully');
+        interaction.deletePL(id_us,title, function(status,body){
+            if(status.statusCode == 200){
+                console.log("Removed from DB SUCCESS!")
+            }
+            else{
+                console.log("Removed from DB FAILED!")
+            }
+        });
+        res.send({"YT response": response.status});
     }).catch((err)=>{
         console.log(err);
-        res.send('error in deleting the playlist');
+        res.send({"YT response": err});
     });
 
 })

@@ -23,6 +23,7 @@ function login(mail,callback){
     },function(err,response,body){
         if(err) {
             console.log(err);
+            callback(error);
         }
         else{
             callback(response);
@@ -32,7 +33,7 @@ function login(mail,callback){
 
 //Add a playlist object in the db of the user identified by userid
 
-function PlaylistDb(userid,nome,url,pl_id,array) {
+function PlaylistDb(userid,nome,url,pl_id,array,callback) {
 
     var request = require('request');
 
@@ -61,9 +62,11 @@ function PlaylistDb(userid,nome,url,pl_id,array) {
     },function(error,response,body){
         if(error){
             console.log(error);
+            callback(error);
         }
         else{
             console.log(body+'\n\n');
+            callback(response);
         }
     });
     
@@ -106,7 +109,7 @@ function VideoDb(userid,pl_name,vd_name,id_elem,vd_id) {
 
 //Delete a playlist pl_name of a user user_id from the db
 
-function deletePL(userid,pl_name) {
+function deletePL(userid,pl_name,callback) {
 
     var request = require('request');
 
@@ -128,12 +131,12 @@ function deletePL(userid,pl_name) {
         if(error) {
             //console.log("error in Int for Cat");
             console.log(error);
-            //callback(error);
+            callback(error);
         }
         else{
             //console.log("body Int for Cat");
-            console.log(body);
-            //callback(response);
+            //console.log(body);
+            callback(response);
         }
     });
 

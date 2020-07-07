@@ -140,7 +140,7 @@ exports.remove_element = (req, res, next ) => {
                             {
                                 ob.elements.shift();
                                 fulfilled.playlist[i] = ob;
-                                fulfilled.playlist.numero_elementi --;
+                                fulfilled.playlist[i].numero_elementi --;
                                 b = 1;
                                 break;
                             }
@@ -148,7 +148,7 @@ exports.remove_element = (req, res, next ) => {
                             {
                                 ob.elements.splice(j, 1);
                                 fulfilled.playlist[i] = ob;
-                                fulfilled.playlist.numero_elementi --;
+                                fulfilled.playlist[i].numero_elementi --;
                                 b = 1;
                                 break;
                             }

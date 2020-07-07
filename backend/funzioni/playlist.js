@@ -148,70 +148,69 @@ exports.create_playlist = (req, res, next) => {
     }
     
     else
-    { 
+    {
+        /* 
         nome_split = nome.split(' ');
         var  len = nome_split.length; 
         if( len > 1 )
             res.status(500).json({
                 message: 'nome playlist non valido, non inserire spazi'
             });
-        else
-        {
-            User.findById(id)
-                .then(fulfilled => {
-                    if (!fulfilled)
-                    {
-                        res.status(404).json({
-                            message: 'Utente non trovato, impossibile creare playlist'
-                        });
-                    }
-                    var num_pl = fulfilled.playlist.length;
-                    var b = 0;
-                    for( var ob of fulfilled.playlist )
-                    {
-                        if( ob.nome === nome)
-                            b = 1;
-                    }
-                    if( b )
-                    {
-                        res.status(500).json({
-                            message: 'Playlist esistente, cambiare url'
-                        })
-                    }
-                    else
-                    {
-                        var pl = new Playlist({
-                            nome: nome,
-                            url: url,
-                            url_id: url_id
-                        })
-                        fulfilled.playlist.push(pl);
-                        if( fulfilled.playlist.length - 1 !== num_pl )
-                            res.status(500).json({
-                                message: 'Errore nella creazione della playlist: ' + pl.nome,
-                                type: 'si è aggiunta una pl in piu\' non desiderata'
-                            })
-                        User.update({_id: id}, {$set: fulfilled}).exec()
-                            .then(result => {
-                                res.status(201).json({
-                                    pl
-                                });
-                            }) 
-                            .catch(rejected => {
-                                res.status(500).json({
-                                    Message: 'Errore nella creazione della pl',
-                                    Error: rejected.message,
-                                })
-                            });
-                    }
-                })
-                .catch(rejected => {
+        */
+        User.findById(id)
+            .then(fulfilled => {
+                if (!fulfilled)
+                {
+                    res.status(404).json({
+                        message: 'Utente non trovato, impossibile creare playlist'
+                    });
+                }
+                var num_pl = fulfilled.playlist.length;
+                var b = 0;
+                for( var ob of fulfilled.playlist )
+                {
+                    if( ob.nome === nome)
+                        b = 1;
+                }
+                if( b )
+                {
                     res.status(500).json({
-                        Message: 'Errore nella creazione della pl',
-                        Error: rejected.message
+                        message: 'Playlist esistente, cambiare url'
                     })
-                });
-            }
+                }
+                else
+                {
+                    var pl = new Playlist({
+                        nome: nome,
+                        url: url,
+                        url_id: url_id
+                    })
+                    fulfilled.playlist.push(pl);
+                    if( fulfilled.playlist.length - 1 !== num_pl )
+                        res.status(500).json({
+                            message: 'Errore nella creazione della playlist: ' + pl.nome,
+                            type: 'si è aggiunta una pl in piu\' non desiderata'
+                        })
+                    User.update({_id: id}, {$set: fulfilled}).exec()
+                        .then(result => {
+                            res.status(201).json({
+                                pl
+                            });
+                        }) 
+                        .catch(rejected => {
+                            res.status(500).json({
+                                Message: 'Errore nella creazione della pl',
+                                Error: rejected.message,
+                            })
+                        });
+                }
+            })
+            .catch(rejected => {
+                res.status(500).json({
+                    Message: 'Errore nella creazione della pl',
+                    Error: rejected.message
+                })
+            });
     }
 };
 

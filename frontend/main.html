@@ -134,16 +134,24 @@
             <form>
                 <div class="form-group">
                   <label for="formGroupExampleInput">Titolo</label>
-                  <input type="text" class="form-control" id="titPlaylist" placeholder="Inserisci il titolo della nuova Playlist">
+                  <input autocomplete="off" type="text" class="form-control" id="titPlaylist" placeholder="Inserisci il titolo della nuova Playlist">
                 </div>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Seleziona la tipologia della Playlist</label>
+                    <select class="form-control" id="tipoPlaylist">
+                      <option id="public">Pubblica</option>
+                      <option id="unlisted">Non in Elenco </option>
+                      <option id="private">Privata</option>
+                    </select>
+                  </div>
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">Descrizione</label>
                     <textarea class="form-control" id="descPlaylist" rows="3"></textarea>
                 </div>
-                <div class="form-row">
-                    <button type="submit" class="btn btn-primary mb-2" id="creaPlaylist">Crea!</button>
-                </div>
             </form>
+            <div class="form-row">
+                <button class="btn btn-primary mb-2" id="creaPlaylist">Crea!</button>
+            </div>
         </div>
         <br>
         <h3 class="text-center">Zona Cerca Trailer</h3>

@@ -274,7 +274,7 @@ $(document).ready(function() {
         console.log(vd_name);
         console.log(Title);
         
-        /*
+        
         $.ajax({           
             type: "DELETE",
             url: url_delVideo,
@@ -285,16 +285,15 @@ $(document).ready(function() {
         }).fail(function(){
             alert("Problema con la rimozione del video!")
         })
-        */
     });
 
+    //TROVARE UN MODO PER REFRESHARE PAGINA QUANDO VA A BUON FINE
     $("#dettaglioPlaylist").on('click', '.rimPlaylist', function(event) {
         event.stopPropagation();
         event.stopImmediatePropagation();
 
         console.log($(this).html())
 
-        /*
         $.ajax({           
             type: "DELETE",
             url: url_delPlaylist,
@@ -303,8 +302,7 @@ $(document).ready(function() {
             //dovrò rifare una get delle playlist ed inserirle nell'URL della pagina come redirect
             alert("Playlist Cancellata!")
         }).fail(function(){
-            alert("Problema con la rimozione del video!")
+            alert("Problema con la rimozione della Playlist!")
         });
-        */
     })
 });

@@ -30,13 +30,15 @@ function sleep(ms) {
 } 
 
 //evito di refreshare pagina on submit
-var form = document.getElementById("cercaTrailer");
+var formTrailer = document.getElementById("cercaTrailer");
+var formPlaylist = document.getElementById("creaPlaylist");
 
 function handleForm(event) { 
     event.preventDefault(); 
 }
 
-form.addEventListener('submit', handleForm);
+formTrailer.addEventListener('submit', handleForm);
+formPlaylist.addEventListener('submit', handleForm);
 
 var play = {
     name: [],
@@ -183,26 +185,29 @@ $(document).ready(function() {
     //DA GESTIRE ANCORA REDIRECT A QUESTA STESSA PAGINA
     $('#creaPlaylist').click(function(){
         var title = $('#titPlaylist').val();
+        var status = $("#tipoPlaylist").find(":selected").attr("id");
         var description = $('#descPlaylist').val();
-        console.log(title);
-        console.log(description);
 
-        /*
+        console.log(title);
+        console.log(status);
+        console.log(description);
+        
         $.ajax({
             url: url_createPlaylist,
             type: 'POST',
-            data: { "title": title, "description": description},
+            data: {"title": title, "description": description, "status": status},
             }).done(function(body){
+                alert("Playlist Creata con Successo!")
                 console.log(JSON.stringify(body));
                 //trailers = JSON.stringify(body);
                 //window.location.href = "http://localhost:5500/frontend/main.html?trailers="+trailers;
             }).fail(function(data){
+                alert("Errore durante la creazione!")
                 //console.log(data)
                 //alert("Errore! Non è stato possibile creare la Playlist!");
                 //window.location.href=data;
             })
         //location.reload(true);
-        */
     });
     //done
 
