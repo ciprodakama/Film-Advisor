@@ -111,8 +111,6 @@ $(document).ready(function() {
         $(this).attr("href",data.videoLink[count_embed]);
         count_embed++;
     })
-    $(".titolo").show;
-    $('.contSuggeriti').css("display","flex");
     //done
 
     //retrieve playlist list and populate local var

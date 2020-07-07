@@ -4,12 +4,8 @@
     justify-content: space-around;
 }
 
-#intro{
-    background-color: ;
-}
-
 .contSuggeriti{
-    display: none;
+    display: flex;
     flex-direction: column;
     justify-content: space-around;
 }
