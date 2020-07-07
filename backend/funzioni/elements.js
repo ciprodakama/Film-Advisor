@@ -74,7 +74,9 @@ exports.add_element = (req, res, next ) => {
             for( var op of fulfilled.playlist )
             {
                 if( op.nome === pl )
-                {
+                {   
+                    console.log("Sto aggiungendo l'elemento\n")
+                    console.log(e)
                     fulfilled.playlist[i].elements.push(e);
                     fulfilled.playlist[i].numero_elementi ++;
                     break;
@@ -90,7 +92,7 @@ exports.add_element = (req, res, next ) => {
             User.update({ _id: id}, { $set: fulfilled }).exec()
             .then( result => {
                 res.status(201).json({
-                    message: 'Elemento aggiunto crrettamente alla playlist: ' + '"' + pl,
+                    message: 'Elemento aggiunto correttamente alla playlist: ' + '"' + pl,
                 });
             })
             .catch( rejected => {

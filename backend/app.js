@@ -428,7 +428,9 @@ app.post('/playlist/insertVideo',function(req,res){
         }).then((response)=>{
             console.log(response);
             //var video_url = 'https://www.youtube.com/watch?v='+resource.snippet.resourceId.videoId;
-            var id_elem = resource.id;
+            var id_elem = response.data.id;
+            console.log("Questa è l'elem ID che mi ha ridato YT")
+            console.log(id_elem)
             interaction.VideoDb(id_us,pl_name,response.data.snippet.title,id_elem,video_id,function(status,body){
                 if(status.statusCode == 201){
                     console.log("Added Video DB SUCCESS!")
