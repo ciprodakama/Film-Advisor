@@ -415,14 +415,21 @@ app.post('/playlist/insertVideo',function(req,res){
     
     var pl_name = req.body.pl_name;
 
+    /*
+    SOL LOLLO PER ID_ELEM
+    var video_url = 'https://www.youtube.com/watch?v='+resource.snippet.resourceId.videoId;
+            var id_elem = resource.id;
+            interaction.VideoDb(id_us,pl_name,response.data.snippet.title,id_elem,video_url);
+    */
+
     youtube.playlistItems.insert({
             part : 'snippet',
             resource : resource,
         }).then((response)=>{
             console.log(response);
             //var video_url = 'https://www.youtube.com/watch?v='+resource.snippet.resourceId.videoId;
-
-            interaction.VideoDb(id_us,pl_name,response.data.snippet.title,null,video_id,function(status,body){
+            var id_elem = resource.id;
+            interaction.VideoDb(id_us,pl_name,response.data.snippet.title,id_elem,video_id,function(status,body){
                 if(status.statusCode == 201){
                     console.log("Added Video DB SUCCESS!")
                 }
@@ -433,6 +440,7 @@ app.post('/playlist/insertVideo',function(req,res){
             res.send({
                 message : 'added video to your playlist',
                 url : 'https://www.youtube.com/playlist?list='+resource.snippet.playlistId,
+                id_elem : id_elem
             });
         }).catch((err)=>{
             console.log(err);
