@@ -418,7 +418,7 @@ app.post('/playlist/insertVideo',function(req,res){
             console.log(response);
             var video_url = 'https://www.youtube.com/watch?v='+resource.snippet.resourceId.videoId;
             var id_elem = resource.id;
-            interaction.VideoDb(id_us,pl_name,response.data.snippet.title,video_url);
+            interaction.VideoDb(id_us,pl_name,response.data.snippet.title,id_elem,video_url);
             res.send({
                 message : 'added video to your playlist',
                 url : 'https://www.youtube.com/playlist?list='+resource.snippet.playlistId,
