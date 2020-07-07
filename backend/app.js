@@ -490,7 +490,7 @@ app.put('/playlist/update',function(req,res){
 
 //Try to remove a video from a playlist
 
-app.delete('/playlist/video',async function(req,res){
+app.delete('/playlist/video', function(req,res){
 
     var youtube = google.youtube('v3');
 
@@ -505,14 +505,24 @@ app.delete('/playlist/video',async function(req,res){
     }).then((response)=>{
         console.log(response);
         console.log('elemento rimosso correttamente');
-        interaction.deleteVd(id_us,pl_name,vd_name);
+        interaction.deleteVd(id_us,pl_name,vd_name,function(status,body){
+            if(status.statusCode == 200){
+                console.log("Deleted Video DB SUCCESS!")
+            }
+            else if(status.statusCode == 500){
+                console.log("Deleted Video DB FAILED!")
+            }
+            else{
+                console.log("Could not find Video DB!")
+            }
+        });
+        res.send({"YT response": response.status});
     }).catch((err)=>{
         console.log('problemi nella rimozione del video');
         console.log(err);
+        res.send({"YT response": err});
     })
-    await sleep(300);
-    res.status(200).send({"message": "Success!"});
-})
+});
 
 //Try delete a playlist
 

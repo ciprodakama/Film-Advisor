@@ -220,7 +220,7 @@ function categories(usrID,cat1,cat2,cat3,cat4,cat5,callback) {
 
 //Delete a video from a playlist (pl_id) of a user (user_id)
 
-function deleteVd (user_id,pl_name,vd_name) {
+function deleteVd (user_id,pl_name,vd_name,callback) {
 
     var request = require('request');
 
@@ -241,9 +241,11 @@ function deleteVd (user_id,pl_name,vd_name) {
     },function(error,response,body){
         if(error) {
             console.log(error);
+            callback(error);
         }
         else{
             console.log(body);
+            callback(response);
         }
     });
 
