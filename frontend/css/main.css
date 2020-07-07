@@ -4,14 +4,14 @@
     justify-content: space-around;
 }
 
+#intro{
+    background-color: ;
+}
+
 .contSuggeriti{
     display: none;
     flex-direction: column;
     justify-content: space-around;
-}
-
-.titolo{
-    display: none;
 }
 
 .box{
@@ -46,11 +46,6 @@
  .form-group{
      padding: 13px;
  }
-
-
- #contSuggeriti{
-    display: none
-}
 
  #contTrailer{
     display: none;

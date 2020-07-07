@@ -9,80 +9,6 @@ var url_delVideo = base_url+"/playlist/video"
 var title_query = "?title="
 var plID_query = "pl_id="
 
-var test = {
-    "_id": "5f046133ed856b1ad88dd9da",
-    "mail": "reti@gmail.com",
-    "playlist": [{
-        "numero_elementi": 3,
-        "elements": [{
-            "nome": "Eternal Eclipse - Dawn of Faith (The OA Part II Trailer Music)",
-            "id_elem": "UExwcXZHdThwbGhnWE1wYlVWQ2VNeDYwNVlfNm5OMmxxcy41NkI0NEY2RDEwNTU3Q0M2",
-            "url_film": "https://www.youtube.com/watch?v=6FTr73B4Wz0"
-        }, {
-            "nome": "Journey 2: The Mysterious Island Official Trailer #1 - Dwayne Johnson, Vanessa Hudgens (2012) HD",
-            "id_elem": "UExwcXZHdThwbGhnWE1wYlVWQ2VNeDYwNVlfNm5OMmxxcy4yODlGNEE0NkRGMEEzMEQy",
-            "url_film": "https://www.youtube.com/watch?v=qdFCjwcK8IE"
-        }, {
-            "nome": "ZOO Official Trailer (2019) NEW Apocalypse Movie Trailers HD",
-            "id_elem": "UExwcXZHdThwbGhnWE1wYlVWQ2VNeDYwNVlfNm5OMmxxcy4wMTcyMDhGQUE4NTIzM0Y5",
-            "url_film": "https://www.youtube.com/watch?v=7VWcfaoGBGo"
-        }],
-        "_id": "5f046ea2753adc0aa8200770",
-        "nome": "ToBeDeleted",
-        "url": "https://www.youtube.com/playlist?list=PLpqvGu8plhgXMpbUVCeMx605Y_6nN2lqs",
-        "url_id": "PLpqvGu8plhgXMpbUVCeMx605Y_6nN2lqs"
-    }, {
-        "numero_elementi": 0,
-        "elements": [],
-        "_id": "5f046ea2753adc0aa8200771",
-        "nome": "Comedy",
-        "url": "https://www.youtube.com/playlist?list=PLpqvGu8plhgVFn42stYS5Q1Teb-OFOTBO",
-        "url_id": "PLpqvGu8plhgVFn42stYS5Q1Teb-OFOTBO"
-    }, {
-        "numero_elementi": 2,
-        "elements": [{
-            "nome": "Suspiria - Official Trailer | Amazon Studios",
-            "id_elem": "UExwcXZHdThwbGhnV3I5TFdJM1hhbG9tWV9rYUloZWg1Ry4yODlGNEE0NkRGMEEzMEQy",
-            "url_film": "https://www.youtube.com/watch?v=BY6QKRl56Ok"
-        }, {
-            "nome": "Sonic The Hedgehog (2020) - New Official Trailer - Paramount Pictures",
-            "id_elem": "UExwcXZHdThwbGhnV3I5TFdJM1hhbG9tWV9rYUloZWg1Ry4wMTcyMDhGQUE4NTIzM0Y5",
-            "url_film": "https://www.youtube.com/watch?v=szby7ZHLnkA"
-        }],
-        "_id": "5f046ea2753adc0aa8200772",
-        "nome": "Horror",
-        "url": "https://www.youtube.com/playlist?list=PLpqvGu8plhgWr9LWI3XalomY_kaIheh5G",
-        "url_id": "PLpqvGu8plhgWr9LWI3XalomY_kaIheh5G"
-    }, {
-        "numero_elementi": 1,
-        "elements": [{
-            "nome": "The foxes that go HEHEHE",
-            "id_elem": "UExwcXZHdThwbGhnV21IUVVCbk52cDJ3clZMdkxfVU1xei41NkI0NEY2RDEwNTU3Q0M2",
-            "url_film": "https://www.youtube.com/watch?v=fQVhppRP4Wo"
-        }],
-        "_id": "5f046ea2753adc0aa8200773",
-        "nome": "Action",
-        "url": "https://www.youtube.com/playlist?list=PLpqvGu8plhgWmHQUBnNvp2wrVLvL_UMqz",
-        "url_id": "PLpqvGu8plhgWmHQUBnNvp2wrVLvL_UMqz"
-    }, {
-        "numero_elementi": 2,
-        "elements": [{
-            "nome": "The Dark Knight (2008) Official Trailer #1 - Christopher Nolan Movie HD",
-            "id_elem": "UExwcXZHdThwbGhnVzNDbDByS3dlYUVRSnFiZ3ZMRkJxSS41NkI0NEY2RDEwNTU3Q0M2",
-            "url_film": "https://www.youtube.com/watch?v=EXeTwQWrcwY"
-        }, {
-            "nome": "Journey 2: The Mysterious Island Official Trailer #1 - Dwayne Johnson, Vanessa Hudgens (2012) HD",
-            "id_elem": "UExwcXZHdThwbGhnVzNDbDByS3dlYUVRSnFiZ3ZMRkJxSS4yODlGNEE0NkRGMEEzMEQy",
-            "url_film": "https://www.youtube.com/watch?v=qdFCjwcK8IE"
-        }],
-        "_id": "5f046ea2753adc0aa820076f",
-        "nome": "Test2",
-        "url": "https://www.youtube.com/playlist?list=PLpqvGu8plhgW3Cl0rKweaEQJqbgvLFBqI",
-        "url_id": "PLpqvGu8plhgW3Cl0rKweaEQJqbgvLFBqI"
-    }]
-}
-
-
 
 //cookie
 function getCookie(cname) {
@@ -108,12 +34,14 @@ function getUrlVars (url) {
     return vars;
 }
 
+/*
 var urlValues = getUrlVars(window.location.href);
 console.log(urlValues)
-var data = JSON.parse(decodeURIComponent(urlValues.playlist));
-console.log(data)
+var data_url = JSON.parse(decodeURIComponent(urlValues.playlist));
+console.log(data_url)
+*/
 
-var play = {
+var data = {
     name: [],
     id: []
 }
@@ -123,11 +51,12 @@ var nVideo;
 var Title;
 var plID;
 
-function CreateTableFromURI() {
+function CreateTableFromDB() {
     var col = ["Titolo Playlist", "Link Youtube", "Ispeziona", "Mostra"];
 
     data['Ispeziona'] = '<button type ="button" class ="btn btn-default btn-sm ispeziona">Recupera Dati</button>';
     data['Mostra'] = '<button type ="button" class ="btn btn-default btn-sm mostra">Mostra Lista</button>';
+
 
     // CREATE DYNAMIC TABLE.
     var table = document.createElement("table");
@@ -182,7 +111,6 @@ function CreateTableFromURI() {
                 tabCell.innerHTML = '<button type ="button" class ="btn btn-default btn-sm mostra" id='+buttonID+'>Mostra Lista</button>';
             }
         }
-        
     }
 
     // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
@@ -192,8 +120,46 @@ function CreateTableFromURI() {
     divContainer.appendChild(table);  
 }
 
+function GetInfoPlaylist(cookieID) {
+    console.log("Retrieving Data from DB")
+
+    $.ajax({
+        url: url_playlist+cookieID,
+        type: 'GET',
+        }).then(function(res){
+            console.log(res);
+            console.log(res.playlist.length);
+
+            for (var j= 0; j<res.playlist.length; j++){
+                //console.log(data[j].url_id)
+                //console.log(data[j].nome)
+                data.name.push(res.playlist[j].nome)
+                data.id.push(res.playlist[j].url_id)
+            }
+            //console.log(play);
+            //console.log(JSON.stringify(play));
+            console.log(data);
+            alert("Dati recuperati con successo!")
+        }).then(function(){
+            console.log(data.id.length)
+            if(data.name.length == 0){
+                var r = confirm("Ci risulta che non possiedi nessuna Playlist! Torna alla pagina precedente e creane una!")
+                if (r == true){
+                    location.reload(true);
+                }
+            }
+            else{
+                CreateTableFromDB();
+            }
+        }).done(function(){
+            //alert("Tabella Pronta!");
+            $("#showPlaylist").hide();
+        }).fail(function(data){
+            alert("Errore tabella PL!")
+    })
+}
+
 function CreateTableFromPlaylist(){
-    
     var Theader = ["Titolo Video", "Link Youtube","Rimuovi"];
 
     // CREATE DYNAMIC TABLE.
@@ -284,59 +250,54 @@ function initLocalVideoPL(Title, plID, cookieID){
     
 }
 
-function getPlaylistDB(cookieID){
-    $.get(url_playlist+cookieID, function(data) {
-        //salvo playlist da mostrare
-        console.log(data);
-        console.log(data.playlist.length);
-
-        for (var j= 0; j<data.playlist.length; j++){
-            //console.log(data[j].url_id)
-            //console.log(data[j].nome)
-            play.name.push(data.playlist[j].nome)
-            play.id.push(data.playlist[j].url_id)
-        }
-        //console.log(play);
-        //console.log(JSON.stringify(play));
-        console.log(play);
-        }).fail(function(resp){
-            //console.log("Sono nella fail della getPlaylist")
-            //var g_url = resp;
-            //console.log("Il server mi ha mandato "+ g_url)
-            //alert("Errore! Non è stato possibile recuperare Playlist.");
-            //$(location).attr("href", g_url);
-    });
-}
-
 $(document).ready(function() {
     var cookieID = getCookie("id");
     console.log(cookieID);
+    
+    $('#showPlaylist').click(function(){
+        GetInfoPlaylist(cookieID);
+        $('#playlistUtente').show();
+    });
 
-    CreateTableFromURI();
+    $("#playlistUtente").on('click', '.ispeziona', function(event) {
+        event.stopPropagation();
+        event.stopImmediatePropagation();
 
-    $('.ispeziona').click(function(){
-        Title = $(this).parent().parent().find(".Titolo").html();
-        plID = $(this).attr("id");
+        curTitle = $(this).parent().parent().find(".Titolo").html();
+        curplID = $(this).attr("id");
+        console.log(curTitle)
+        console.log(curplID)
+
+        if(curTitle == Title && curplID == plID){
+            console.log("Dati già presenti")
+            alert("Dati recuperati con successo!")
+        }
+        else{
+            Title = curTitle;
+            plID = curplID;
+            initLocalVideoPL(Title,plID,cookieID);
+        }
+    });
+
+    $("#playlistUtente").on('click', '.mostra', function(event) {
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+        
+        curTitle = $(this).parent().parent().find(".Titolo").html();
+        curplID = $(this).attr("id");
+        console.log(curTitle)
+        console.log(curplID)
         console.log(Title)
         console.log(plID)
 
-        initLocalVideoPL(Title,plID,cookieID);
-    });
-    
-    $('.mostra').click(function(){
-        $("#dettaglioPlaylist").empty();
-        CreateTableFromPlaylist();
-         $('#dettaglioPlaylist').show();
-
-        /*
-        if (videoPL.lenght != 0){
+        if(((typeof Title == 'undefined')&&(typeof plID == 'undefined')) || (curTitle != Title && curplID != plID)){
+            alert("Non hai ancora recuperato i Dati di questa Playlist!\nPremi 'Recupera Dati'!")
+        }
+        else{
+            $("#dettaglioPlaylist").empty();
             CreateTableFromPlaylist();
             $('#dettaglioPlaylist').show();
         }
-        else{
-            alert("Non hai ancora recuperato i Dati riguardo questa playlist! Premi il bottone Ispeziona!")
-        }
-        */
     });
 
     $("#dettaglioPlaylist").on('click', '.rimuoviVid', function(event) {
@@ -361,9 +322,9 @@ $(document).ready(function() {
         }).fail(function(){
             alert("Problema con la rimozione del video!")
         })
+        $(this).prop('disabled', true);
     });
 
-    //TROVARE UN MODO PER REFRESHARE PAGINA QUANDO VA A BUON FINE
     $("#dettaglioPlaylist").on('click', '.rimPlaylist', function(event) {
         event.stopPropagation();
         event.stopImmediatePropagation();
@@ -375,8 +336,10 @@ $(document).ready(function() {
             url: url_delPlaylist,
             data: { "title": Title, "pl_id": plID},
         }).done(function(data) {
-            //dovrò rifare una get delle playlist ed inserirle nell'URL della pagina come redirect
-            alert("Playlist Cancellata!")
+            var r = confirm("Playlist Cancellata con Successo! Premendo OK la pagina verrà ricaricata!")
+                if (r == true){
+                    location.reload(true);
+                }
         }).fail(function(){
             alert("Problema con la rimozione della Playlist!")
         });

@@ -1,3 +1,14 @@
 #dettaglioPlaylist{
     display: none;
 }
+
+#playlistUtente{
+    display: none;    
+}
+
+#contShow{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+}

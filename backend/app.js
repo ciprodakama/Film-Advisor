@@ -244,12 +244,14 @@ app.get('/getPlaylist',function(req,res){
         part : 'snippet',
         mine : 'true',
     }).then((response)=>{
+        console.log(response.data.items)
         var array = [];
         var num_playlist = response.data.pageInfo.totalResults;
+        console.log(num_playlist)
         for(i=0;i<num_playlist;i++){
-            console.log("Dati della Playlist\n");
-            console.log(response.data.items[i].snippet.title);
-            console.log(response.data.items[i].id);
+            //console.log("Dati della Playlist\n");
+            //console.log(response.data.items[i].snippet.title);
+            //console.log(response.data.items[i].id);
             var url_playlist = 'https://www.youtube.com/playlist?list='+response.data.items[i].id;
             var obj = {
                 nome : response.data.items[i].snippet.title,
@@ -269,7 +271,6 @@ app.get('/getPlaylist',function(req,res){
             }
         });
         res.status(200).send(array);
-    
     }).catch((err)=>{
         console.log(err);
         //res.redirect('/login');

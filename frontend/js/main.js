@@ -141,15 +141,20 @@ $(document).ready(function() {
 
         console.log("nomi disp "+play.name);
         console.log("Numero di nomi "+play.name.length);
-        for(var z=0; z<play.name.length; z++){
-            console.log(play.name[z]);
-            var option = '<option id='+play.id[z]+'>'+play.name[z]+'</option>'
-            $(this).parent().siblings('.list').find(".form-control").append(option);
+
+        if(play.name.length == 0){
+            alert("Ci risulta che non hai nessuna Playlist disponibile, prima di procedere, creane una sul nostro Sito!")
         }
-        
-        $(this).hide();
-        $(this).parent().siblings('.list').show();
-        $(this).parent().siblings('.confirm').show();
+        else{
+            for(var z=0; z<play.name.length; z++){
+                console.log(play.name[z]);
+                var option = '<option id='+play.id[z]+'>'+play.name[z]+'</option>'
+                $(this).parent().siblings('.list').find(".form-control").append(option);
+            }
+            $(this).hide();
+            $(this).parent().siblings('.list').show();
+            $(this).parent().siblings('.confirm').show();
+        }
     })
     //done
 
@@ -213,6 +218,10 @@ $(document).ready(function() {
     //cerca trailer input utente
     $('#findTrailer').click(function(){
         var q = $('#Ins_Title').val();
+        if (q == ""){
+            alert("Per procedere devi inserire un titolo!")
+            return;
+        }
         console.log(q);
         $.get(url_video+q, function(data) {
             //salvo trailer da embeddare
@@ -254,7 +263,12 @@ $(document).ready(function() {
             })
     });
 
+    $("a[href='#top']").click(function() {
+        $("html, body").animate({ scrollTop: 0 }, "slow");
+        return false;
+    });
 
+    /*
     $("#userPlaylist").click(async function(){
         if(play.name != 0){
             var playlist = JSON.stringify(play);
@@ -268,7 +282,7 @@ $(document).ready(function() {
             await sleep(200);
             var playlist = JSON.stringify(play);
             $(this).attr("href", "http://localhost:5500/frontend/playlist.html?playlist="+playlist)
-            */
         }        
     })
+    */
 });
