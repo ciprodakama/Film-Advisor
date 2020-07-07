@@ -3,8 +3,8 @@ const redirect_url = 'http://localhost:3001/oauth2callback';
 //url con fron end      --> http://localhost:5500/firstLogin.html
 //url test no front end --> http://localhost:3001/oauth2callback
 
-//const credential = require('./credentials.json');
-const credential = require('./client_id.json');
+const credential = require('./credentials.json');
+//const credential = require('./client_id.json');
 
 module.exports = {
     port : '3001',
