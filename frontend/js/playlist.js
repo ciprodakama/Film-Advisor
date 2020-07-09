@@ -212,7 +212,7 @@ function CreateTableFromPlaylist(){
     divContainer.appendChild(table);
 }
 
-function initLocalVideoPL(Title, plID, cookieID){
+function initLocalVideoPL(cookieID){
     var url = url_getVideoPL+cookieID;
     
     videoPL = [];
@@ -275,7 +275,7 @@ $(document).ready(function() {
         else{
             Title = curTitle;
             plID = curplID;
-            initLocalVideoPL(Title,plID,cookieID);
+            initLocalVideoPL(cookieID);
         }
     });
 
@@ -315,7 +315,7 @@ $(document).ready(function() {
         $.ajax({           
             type: "DELETE",
             url: url_delVideo,
-            data: { "id_playlistItem": id_playlistItem, "vd_name": vd_name, "pl_name": Title},
+            data: { "id_playlistItem": id_playlistItem, "vd_name": vd_name, "pl_name": Title, "id_us": cookieID},
         }).done(function() {
             alert("Video Rimosso!")
         //da fare lato backend
@@ -334,7 +334,7 @@ $(document).ready(function() {
         $.ajax({           
             type: "DELETE",
             url: url_delPlaylist,
-            data: { "title": Title, "pl_id": plID},
+            data: { "title": Title, "pl_id": plID, "id_us": cookieID},
         }).done(function(data) {
             var r = confirm("Playlist Cancellata con Successo! Premendo OK la pagina verrà ricaricata!")
                 if (r == true){

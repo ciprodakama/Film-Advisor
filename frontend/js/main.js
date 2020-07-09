@@ -45,22 +45,6 @@ var play = {
     id: []
 }
 
-
-var resp = [{
-    "nome": "Horror",
-    "url": "https://www.youtube.com/playlist?list=PLpqvGu8plhgWr9LWI3XalomY_kaIheh5G",
-    "url_id": "PLpqvGu8plhgWr9LWI3XalomY_kaIheh5G"
-}, {
-    "nome": "Comedy",
-    "url": "https://www.youtube.com/playlist?list=PLpqvGu8plhgXNkYhImNpiooVveA3uFJSK",
-    "url_id": "PLpqvGu8plhgXNkYhImNpiooVveA3uFJSK"
-}, {
-    "nome": "Action",
-    "url": "https://www.youtube.com/playlist?list=PLpqvGu8plhgWmHQUBnNvp2wrVLvL_UMqz",
-    "url_id": "PLpqvGu8plhgWmHQUBnNvp2wrVLvL_UMqz"
-}]
-
-
 function getUrlVars (url) {
     var vars = {};
     url.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) { vars[key] = value; });
@@ -99,6 +83,7 @@ function getPlaylistDB(cookieID){
 $(document).ready(function() {
     var cookieID = getCookie("id");
     console.log(cookieID);
+
     //faccio embed di video date categorie
     console.log(data);
     var count_video = 0;
@@ -176,7 +161,7 @@ $(document).ready(function() {
         $.ajax({
             url: url_addvideo,
             type: 'POST',
-            data: { "pl_id": id_selected, "videoId": id_video, "pl_name": pl_name},
+            data: { "pl_id": id_selected, "videoId": id_video, "pl_name": pl_name, "id_us": cookieID},
             }).done(function(body){
                 console.log(JSON.stringify(body));
                 alert("Video Aggiunto con Successo!")
@@ -199,7 +184,7 @@ $(document).ready(function() {
         $.ajax({
             url: url_createPlaylist,
             type: 'POST',
-            data: {"title": title, "description": description, "status": status},
+            data: {"title": title, "description": description, "status": status, "id_us": cookieID},
             }).done(function(body){
                 console.log(JSON.stringify(body));
                 var r = confirm("Playlist Creata con Successo! Premendo OK la pagina verrà ricaricata!")
@@ -252,7 +237,7 @@ $(document).ready(function() {
         $.ajax({
             url: url_addvideo,
             type: 'POST',
-            data: { "pl_id": id_selected, "videoId": id_video, "pl_name": pl_name},
+            data: { "pl_id": id_selected, "videoId": id_video, "pl_name": pl_name, "id_us": cookieID},
             }).done(function(body){
                 console.log(JSON.stringify(body));
                 alert("Video Aggiunto con Successo!")
@@ -265,22 +250,4 @@ $(document).ready(function() {
         $("html, body").animate({ scrollTop: 0 }, "slow");
         return false;
     });
-
-    /*
-    $("#userPlaylist").click(async function(){
-        if(play.name != 0){
-            var playlist = JSON.stringify(play);
-            $(this).attr("href", "http://localhost:5500/frontend/playlist.html?playlist="+playlist)
-        }
-        else{
-            alert("Premi 'Scopri la Lista delle tue Playlist' prima di procedere")
-            /*
-            console.log("play va inizializzata")
-            getPlaylistDB(cookieID).then();
-            await sleep(200);
-            var playlist = JSON.stringify(play);
-            $(this).attr("href", "http://localhost:5500/frontend/playlist.html?playlist="+playlist)
-        }        
-    })
-    */
 });

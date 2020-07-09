@@ -6,7 +6,8 @@ var max_Cat = 5;
 var count = 0;
 
 var body = {
-    "categories": []
+    "categories": [],
+    "id_us": ""
 };
 //salveremo qui in un array gli id delle singole categorie da mandare poi al server
 
@@ -40,6 +41,8 @@ function getCookie(cname) {
 $(document).ready(function(){
     var cookieID = getCookie("id");
     console.log(cookieID);
+    body.id_us = cookieID;
+    console.log(body.id_us)
 
     $.get(base_url+"/initDB?id_us="+cookieID, function(data) {
         console.log(data);
