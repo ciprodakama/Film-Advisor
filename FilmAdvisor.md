@@ -28,18 +28,18 @@ $ npm install
 ## Setup
 Per eseguire la nostra applicazione (easy way):
 ```sh
-- Aprire la cartella tramite VsCode (installare se necessario)
-- Installare il plugin LiveServer (porta 5500)
-- Avviare Index.html con LiveServer (si consiglia Chrome)
-- Dal terminale di VsCode assicurarsi di essere nella cartella backend 
+$ Aprire la cartella tramite VsCode (installare se necessario)
+$ Installare il plugin LiveServer (porta 5500)
+$ Avviare Index.html con LiveServer (si consiglia Chrome)
+$ Dal terminale di VsCode assicurarsi di essere nella cartella backend 
 $ npm start
 ```
 
 Una volta finito il setup, questa sarà la situazione:
 ```sh
-- Front-End --> localhost:5500/frontend/index.html
+$ Front-End --> localhost:5500/frontend/index.html
 
-- Back-End --> localhost:3001
+$ Back-End --> localhost:3001
 ```
 Per supervisionare il tutto, utilizzare il terminale del Back-End (VsCode) & la console di Chrome
 
@@ -60,16 +60,6 @@ Qui una lista delle tante funzionalità offerte:
 - Gestione modulare dei contenuti di ogni singola Playlist (playlist.html)
 - Rimozione Playlist (playlist.html)
 - etc.
-
-## WEBSOCKET
-Al fine di supervisionare i dati di maggiore interesse sul nostro DB, abbiamo deciso di realizzare una pagina che sfruttando le WebSocket,
-Permetta di eseguire una serie di comandi prestabiliti che interrogano il DB, mostrando il tutto a schermo.
-
-Qui una lista dei comandi:
-- _Users --> Numero totale di utenti registrati
-- _Categories --> Top 5 Categorie con il rispettivo numero di entries 
-- _AvgElements --> Numero medio (decimale) di Video presenti nella PlayList
-- _AvgPlaylists --> Numero medio (decimale) di Playlist presenti nel DB
 
 
 ## API REST
