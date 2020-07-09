@@ -73,12 +73,12 @@ const googleOauth = new google.auth.OAuth2(
 google.options({auth: googleOauth});
 
 //init values DB for user with id_us
-function initUserDB(){
+function initUserDB(id_us_test){
     var title_query = "?title="
     var plID_query = "pl_id="
 
-    const url1 = "http://localhost:3001/getPlaylist"
-    const url2 = "http://localhost:3001/playlist/videos"
+    const url1 = "http://localhost:3001/getPlaylist?"+id_us_test;
+    const url2 = "http://localhost:3001/playlist/videos?"+id_us_test;
 
     async function doRequests() {
         let responsePLDef = await rp(url1)
@@ -247,6 +247,8 @@ app.get('/getPlaylist',function(req,res){
 
     var youtube = google.youtube('v3');
 
+    var id_us_prova = req.query.id_us;
+
     //https://www.youtube.com/playlist?list=plylistid
 
     youtube.playlists.list({
@@ -271,7 +273,7 @@ app.get('/getPlaylist',function(req,res){
             array.push(obj);
             
         };
-        interaction.PlaylistDb(id_us,null,null,null,array,function(status,body){
+        interaction.PlaylistDb(id_us_prova,null,null,null,array,function(status,body){
             if(status.statusCode == 200){
                 console.log("Retrived Playlist DB SUCCESS!")
             }
@@ -298,6 +300,8 @@ app.get('/playlist/videos',function(req,res) {
 
     var pl_id = req.query.pl_id;  //youtube id of the playlist useful for getting its videos
 
+    var id_us_prova = req.query.id_us;
+
     var elements = [];
 
     //var nVideo = 0;
@@ -317,7 +321,7 @@ app.get('/playlist/videos',function(req,res) {
             var video_name = response.data.items[j].snippet.title;
             var id_elem = response.data.items[j].id;
             await sleep(300);
-            interaction.VideoDb(id_us,title,video_name,id_elem,video_id,function(status,body){
+            interaction.VideoDb(id_us_prova,title,video_name,id_elem,video_id,function(status,body){
                 if(status.statusCode == 201){
                     console.log("Collected Videos of PL DB SUCCESS!") //updated
                 }
@@ -337,7 +341,7 @@ app.get('/playlist/videos',function(req,res) {
 
     }).catch((err)=>{
         console.log(err);
-        res.send(error);
+        res.status(500).send(err);
     })   
 
 })
@@ -385,7 +389,7 @@ app.post('/createPlaylist',function(req,res){
         });
     }).catch((err)=>{
         console.log(err);
-        res.send("Errore nella creazione della Playlist! Prova a rientrare")
+        res.status(500).send("Error in creating the playlist")
     });
 
 })
@@ -456,7 +460,7 @@ app.post('/playlist/insertVideo',function(req,res){
             });
         }).catch((err)=>{
             console.log(err);
-            res.send('error in adding the video');
+            res.status(500).send('error in adding the video');
     });
     
     
@@ -491,7 +495,7 @@ app.put('/playlist/update',function(req,res){
         });
     }).catch((err)=>{
         console.log(err);
-        res.send('There was an error in updating the palylist');
+        res.status(500).send('There was an error in updating the palylist');
     });
 
 
@@ -529,7 +533,7 @@ app.delete('/playlist/video', function(req,res){
     }).catch((err)=>{
         console.log('problemi nella rimozione del video');
         console.log(err);
-        res.send({"YT response": err});
+        res.status(500).send({"YT response": err});
     })
 });
 
@@ -557,7 +561,7 @@ app.delete('/playlist/delete',function(req,res){
         res.send({"YT response": response.status});
     }).catch((err)=>{
         console.log(err);
-        res.send({"YT response": err});
+        res.status(500).send({"YT response": err});
     });
 
 })
