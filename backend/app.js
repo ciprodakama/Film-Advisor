@@ -33,7 +33,7 @@ var trailers = {
 };
 */
 
-var id_us = ""   //parameter that indicates the user id inside the db
+//var id_us = ""   //parameter that indicates the user id inside the db
 
 //Configurazion for the db
 
@@ -76,9 +76,10 @@ google.options({auth: googleOauth});
 function initUserDB(id_us_test){
     var title_query = "?title="
     var plID_query = "pl_id="
+    var usID_query = "id_us="
 
-    const url1 = "http://localhost:3001/getPlaylist?"+id_us_test;
-    const url2 = "http://localhost:3001/playlist/videos?"+id_us_test;
+    const url1 = "http://localhost:3001/getPlaylist?id_us="+id_us_test;
+    const url2 = "http://localhost:3001/playlist/videos";
 
     async function doRequests() {
         let responsePLDef = await rp(url1)
@@ -93,8 +94,8 @@ function initUserDB(id_us_test){
         for(var i=0; i<responsePL.length; i++){
             var Title = responsePL[i].nome;
             var plID = responsePL[i].url_id;
-            console.log("Attempting to get Videos from "+url2+title_query+Title+"&"+plID_query+plID)
-            responseGetVideo = await rp(url2+title_query+Title+"&"+plID_query+plID)
+            console.log("Attempting to get Videos from "+url2+title_query+Title+"&"+plID_query+plID+"&"+usID_query+id_us_test)
+            responseGetVideo = await rp(url2+title_query+Title+"&"+plID_query+plID+"&"+usID_query+id_us_test)
             success.push(Title+"Done!")
         }
 
@@ -119,6 +120,7 @@ function initUserDB(id_us_test){
 app.get('/login', async function(req,res){
     console.log(req.query);
     var email = req.query.mail;
+    var id_us;
     if ( typeof email !== 'undefined' ){
         console.log("Sono nel controllo mail")
         
@@ -209,7 +211,7 @@ app.get('/oauth2callback',async function(req,res){
 app.get('/initDB', function(req,res){
     var id_us_test = req.query.id_us;
     console.log(id_us_test); 
-    initUserDB();
+    initUserDB(id_us_test);
     res.send("DB POPOLATO!");
 })
 
