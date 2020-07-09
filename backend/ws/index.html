@@ -1,1 +1,49 @@
+<!DOCTYPE html>
+<html land = "en">
+<head>
+    <meta charset="UTF-8">
+    <title> WebSockets</title>
+    <style>
+        div#log {
+            width: 800px;
+            height: 500px;
+            margin: 0 auto;
+            border: 5px solid black;
+            border-radius: 7 px;
+            overflow: scroll;
+            padding: 15px;
+        }
+        div#sendCtrls {
+            width: 325px;
+            margin: 30px auto;      
+        }
+    </style>
+</head>
+<body>
+   
+    <div id = "log"> </div>
+    <div id = "sendCtrls">
+        <input type = "text" paceholder = "write the message here" id = "text">
+        <button>Send</button>
+    </div>
 
+    <script>
+        var socket = new WebSocket ("ws://127.0.0.1:4000");
+        var log = document.getElementById('log');
+
+        socket.onmessage = function( event) {
+            console.log(event);
+            //permette di listare i messaggi inviati dal server sotto alla chatbox
+            log.innerHTML += event.data+"<br>";
+        }
+
+        document.querySelector('button').onclick = function() {
+            var text = document.getElementById('text').value;
+            var You = "You";
+            var color = You.fontcolor("red");
+            socket.send(text);
+            log.innerHTML += color + ": " + text + "<br>";
+        }
+    </script>
+</body>
+</html>

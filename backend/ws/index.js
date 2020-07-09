@@ -72,9 +72,11 @@ let insertionSort = (inputArr) => {
 
 serv.on('connection', function(ws) {
 
+    var s = "**Server**: ";
+    var col = s.fontcolor("blue");
+    ws.send(col + "Benvenuto. Prova a scrivere Ciao");
+    ws.send("");
     ws.on('message', function(msg) {
-        var s = "**Server**: ";
-        var col = s.fontcolor("blue");
         if( msg == "_AvgPlaylists")
         {
             require.get({
@@ -95,8 +97,8 @@ serv.on('connection', function(ws) {
                 }
                 sum = sum / i;
                 ws.send(col + "Il numero di Playlist madio è: " + sum);
+                ws.send("");
             });
-            
         }
         else if( msg == "_AvgElements")
         {
@@ -121,6 +123,7 @@ serv.on('connection', function(ws) {
                 }
                 sum = sum / i;
                 ws.send(col + "Il numero medio di Elementi in una Playlist è: " + sum);
+                ws.send("");
             });
         }
         else if( msg == "_Categories")
@@ -262,6 +265,7 @@ serv.on('connection', function(ws) {
                 }
                 var return_array = translate(return_array);
                 ws.send(col + JSON.stringify(return_array));
+                ws.send("");
             });
         }
         else if( msg == "_Users")
@@ -282,15 +286,26 @@ serv.on('connection', function(ws) {
                     i++;
                 }
                 ws.send(col + "Il numero di utenti nel db è: " + i);
+                ws.send("");
             });
         }
-        else
+        else if( msg == "ciao")
         {
-            ws.send(col + ": Prova con questi comandi:");
+            ws.send(col + "Benvenuto Nel Serer WS. Prova ad usare uno di questi comandi:");
             ws.send("-> _AvgPlaylists");
             ws.send("-> _AvgElements");
             ws.send("-> _Categories");
             ws.send("-> _Users");
+            ws.send("");
+        }
+        else
+        {
+            ws.send(col + " Comando non esistente. Prova con questi comandi:");
+            ws.send("-> _AvgPlaylists");
+            ws.send("-> _AvgElements");
+            ws.send("-> _Categories");
+            ws.send("-> _Users");
+            ws.send("");
         }
     })
 });
