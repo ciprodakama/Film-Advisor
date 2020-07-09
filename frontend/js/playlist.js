@@ -27,20 +27,6 @@ function getCookie(cname) {
     return "";
 }
 
-//get playlist names from main.html
-function getUrlVars (url) {
-    var vars = {};
-    url.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) { vars[key] = value; });
-    return vars;
-}
-
-/*
-var urlValues = getUrlVars(window.location.href);
-console.log(urlValues)
-var data_url = JSON.parse(decodeURIComponent(urlValues.playlist));
-console.log(data_url)
-*/
-
 var data = {
     name: [],
     id: []
@@ -154,8 +140,9 @@ function GetInfoPlaylist(cookieID) {
         }).done(function(){
             //alert("Tabella Pronta!");
             $("#showPlaylist").hide();
+            $('#playlistUtente').show();
         }).fail(function(data){
-            alert("Errore tabella PL!")
+            alert("Errore recupero dati Playlist da DB!")
     })
 }
 
@@ -245,18 +232,21 @@ function initLocalVideoPL(cookieID){
         console.log("This is localVariable from getVideoPL")
         console.log(videoPL);
 
-        alert("Dati recuperati con successo!")  
+        alert("Dati recuperati con successo dal DB!")
+        return true;  
+    }).fail(function(){
+        alert("Errore nel recupero dei dati da DB! Riprova!\nSe il problema si ripropone, prova a rientrare dalla pagina di Login!");
+        return false;
     });
-    
 }
 
 $(document).ready(function() {
+    //al caricamento della pagina salvo cookie user_id
     var cookieID = getCookie("id");
     console.log(cookieID);
     
     $('#showPlaylist').click(function(){
-        GetInfoPlaylist(cookieID);
-        $('#playlistUtente').show();
+        GetInfoPlaylist(cookieID)   
     });
 
     $("#playlistUtente").on('click', '.ispeziona', function(event) {
@@ -318,9 +308,8 @@ $(document).ready(function() {
             data: { "id_playlistItem": id_playlistItem, "vd_name": vd_name, "pl_name": Title, "id_us": cookieID},
         }).done(function() {
             alert("Video Rimosso!")
-        //da fare lato backend
         }).fail(function(){
-            alert("Problema con la rimozione del video!")
+            alert("Problema con la rimozione del video! Per riprovare ricarica la pagina!\nSe il problema si ripropone, prova a rientrare dalla pagina di Login!");
         })
         $(this).prop('disabled', true);
     });
@@ -341,7 +330,7 @@ $(document).ready(function() {
                     location.reload(true);
                 }
         }).fail(function(){
-            alert("Problema con la rimozione della Playlist!")
+            alert("Problema con la rimozione della Playlist! Riprova!\nSe il problema si ripropone, prova a rientrare dalla pagina di Login!");
         });
     })
 });

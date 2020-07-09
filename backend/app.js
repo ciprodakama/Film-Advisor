@@ -40,6 +40,14 @@ var trailers = {
 mongoose.connect('mongodb+srv://admin:admin@cluster0-hjbla.mongodb.net/test?retryWrites=true&w=majority', { useUnifiedTopology: true,useNewUrlParser: true });
 mongoose.set('useCreateIndex', true);
 
+
+function sleep(ms) {
+    return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+    });
+} 
+
+
 app.use(morgan('dev'));
 
 app.use(body_parser.json());
@@ -633,12 +641,6 @@ function getTrailer(titles){
     resolve(videos);    
     })
 }
-
-function sleep(ms) {
-    return new Promise((resolve) => {
-    setTimeout(resolve, ms);
-    });
-} 
 
 app.post('/categories', async function(req,res){
 

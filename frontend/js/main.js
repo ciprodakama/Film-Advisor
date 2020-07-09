@@ -5,7 +5,6 @@ var url_playlist = base_url+"/user/playlist/";
 var url_createPlaylist = base_url+"/createPlaylist";
 var url_addvideo = base_url+"/playlist/insertVideo"
 
-
 //cookie
 function getCookie(cname) {
     var name = cname + "=";
@@ -56,7 +55,7 @@ var urlValues = getUrlVars(window.location.href);
 var data = JSON.parse(decodeURIComponent(urlValues.trailers));
 //console.log(data)
 
-function getPlaylistDB(cookieID){
+function getPlaylistDB(cookieID, active){
     $.get(url_playlist+cookieID, function(data) {
         //salvo playlist da mostrare
         console.log(data);
@@ -68,19 +67,20 @@ function getPlaylistDB(cookieID){
             play.name.push(data.playlist[j].nome)
             play.id.push(data.playlist[j].url_id)
         }
-        //console.log(play);
         //console.log(JSON.stringify(play));
+        console.log("Successo nella GET /user/playlist/ al DB")
         console.log(play);
-        }).fail(function(resp){
-            //console.log("Sono nella fail della getPlaylist")
-            //var g_url = resp;
-            //console.log("Il server mi ha mandato "+ g_url)
-            //alert("Errore! Non è stato possibile recuperare Playlist.");
-            //$(location).attr("href", g_url);
+        }).done(function(){
+            active.hide();
+            active.siblings(".show").show();
+        }).fail(function(){
+            console.log("Errore nella GET /user/playlist/ al DB")
+            alert("Errore durante il recupero delle tue Playlist da DB! Riprova!\nSe il problema si ripropone, prova a rientrare dalla pagina di Login!")
     });
 }
 
 $(document).ready(function() {
+    //al caricamento della pagina salvo cookie user_id
     var cookieID = getCookie("id");
     console.log(cookieID);
 
@@ -88,6 +88,7 @@ $(document).ready(function() {
     console.log(data);
     var count_video = 0;
     var count_embed = 0;
+
     $(".box").children(".video").each(function(){
         $(this).attr("src",data.embedLink[count_video]);
         count_video++;    
@@ -103,17 +104,18 @@ $(document).ready(function() {
         event.stopPropagation();
         event.stopImmediatePropagation();
 
-        if(play.name != 0){
+        var active = $(this);
+        //console.log(active);
+
+        if(play.name.length != 0){
             console.log("play già popolata")
             $(this).hide();
             $(this).siblings(".show").show();
         }
         else{
             console.log("play va inizializzata")
-            getPlaylistDB(cookieID);
-            $(this).hide();
-            $(this).siblings(".show").show();
-        }        
+            getPlaylistDB(cookieID, active)
+        }      
     })
     //done
 
@@ -165,8 +167,8 @@ $(document).ready(function() {
             }).done(function(body){
                 console.log(JSON.stringify(body));
                 alert("Video Aggiunto con Successo!")
-            }).fail(function(data){
-                alert("Errore nell'aggiunta Video! Riprova!")
+            }).fail(function(){
+                alert("Errore nell'aggiunta Video! Riprova!\nSe il problema si ripropone, prova a rientrare dalla pagina di Login!")
             })
     });
 
@@ -191,10 +193,9 @@ $(document).ready(function() {
                 if (r == true){
                     location.reload(true);
                 }
-            }).fail(function(data){
-                alert("Errore durante la creazione! Prova a rientrare!")
+            }).fail(function(){
+                alert("Errore durante la creazione della Playlist! Riprova!\nSe il problema si ripropone, prova a rientrare dalla pagina di Login!")
             })
-        //location.reload(true);
     });
     //done
 
@@ -210,14 +211,10 @@ $(document).ready(function() {
             //salvo trailer da embeddare
             var trailer = data.embedLink;
             $("#risTrailer").attr("src",trailer);
-            }).fail(function(data){
-                //console.log("Sono nell'errore")
-                //console.log(data)
-                alert("Errore! Non è stato possibile cercare Trailer.");
-                //window.location.href = data;
+            $('#contTrailer').css("display","flex");
+            }).fail(function(){
+                alert("Errore nella ricerca Trailer! Riprova!\nSe il problema si ripropone, prova a rientrare dalla pagina di Login!");
          });
-         $('#contTrailer').css("display","flex");
-         //$('#contTrailer').show();
     });
     //done
 
@@ -242,7 +239,7 @@ $(document).ready(function() {
                 console.log(JSON.stringify(body));
                 alert("Video Aggiunto con Successo!")
             }).fail(function(data){
-                alert("Errore nell'aggiunta Video! Riprova!")
+                alert("Errore nell'aggiunta Video! Riprova!\nSe il problema si ripropone, prova a rientrare dalla pagina di Login!");
             })
     });
 

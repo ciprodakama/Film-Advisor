@@ -39,15 +39,22 @@ function getCookie(cname) {
 }
 
 $(document).ready(function(){
+    //al caricamento della pagina salvo cookie user_id
     var cookieID = getCookie("id");
     console.log(cookieID);
     body.id_us = cookieID;
+    //confronto se ho salvato correttamente var locale
     console.log(body.id_us)
 
+    //FUNZ POPOLA DB DATI YOUTUBE
     $.get(base_url+"/initDB?id_us="+cookieID, function(data) {
         console.log(data);
-    })
+    }).fail(function(){
+        console.log("Errore nella popolazione del DB!");
+    });
+    //done
 
+    //aggiunta categorie var locale
     $(".list-group-item").click(function(){
         console.log(body.categories);
         console.log(count);
@@ -76,7 +83,9 @@ $(document).ready(function(){
 
         }
     });
+    //done
 
+    //invio categorie DB + reindirizzamento main.html in base al risultato della POST
     $("#conferma").click(function(){
         if(count < 1){
             alert("Seleziona almeno 1 categoria per poter proseguire!");
@@ -97,4 +106,5 @@ $(document).ready(function(){
                 })
         }
     });
+    //done
 });
