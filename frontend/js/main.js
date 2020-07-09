@@ -182,6 +182,15 @@ $(document).ready(function() {
         console.log(title);
         console.log(status);
         console.log(description);
+
+        if(!title){
+            alert("Inserire un titolo!")
+            return;
+            if(!status){
+                alert("Scegliere uno Status!")
+                return; 
+            }
+        }
         
         $.ajax({
             url: url_createPlaylist,
