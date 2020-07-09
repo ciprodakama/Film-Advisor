@@ -358,6 +358,7 @@ app.post('/createPlaylist',function(req,res){
     title = title.replace(/\s/g,'') //per chiamata DB
     var description = req.body.description;
     var status = req.body.status;
+    var id_us_prova = req.body.id_us;
 
 
     // plylist resource that I want to create
@@ -377,7 +378,7 @@ app.post('/createPlaylist',function(req,res){
     }).then((response)=>{
         console.log("Creazione PL YT con Status: "+response.status);
         var playlist_url='https://www.youtube.com/playlist?list='+response.data.id;
-        interaction.PlaylistDb(id_us,title,playlist_url,response.data.id,null,function(status,body){
+        interaction.PlaylistDb(id_us_prova,title,playlist_url,response.data.id,null,function(status,body){
             if(status.statusCode == 201){
                 console.log("Playlist POST DB SUCCESS!") //updated
             }
@@ -403,6 +404,7 @@ app.post('/playlist/insertVideo',function(req,res){
 
     var pl_id = req.body.pl_id;
     var video_id = req.body.videoId;
+    var id_us_prova = req.body.id_us;
     
     //youtube video resource
     var resource = {
@@ -447,7 +449,7 @@ app.post('/playlist/insertVideo',function(req,res){
             var id_elem = response.data.id;
             console.log("Questa è l'elem ID che mi ha ridato YT")
             console.log(id_elem)
-            interaction.VideoDb(id_us,pl_name,response.data.snippet.title,id_elem,video_id,function(status,body){
+            interaction.VideoDb(id_us_prova,pl_name,response.data.snippet.title,id_elem,video_id,function(status,body){
                 if(status.statusCode == 201){
                     console.log("Added Video DB SUCCESS!")
                 }
@@ -477,6 +479,7 @@ app.put('/playlist/update',function(req,res){
     var vecchio_nome = req.body.vecchio_nome;
     var nuovo_nome = req.body.nuovo_nome;
     var pl_id = req.body.pl_id;
+    var id_us_prova = req.body.id_us;
 
     var resource = {
         id : pl_id,
@@ -490,7 +493,7 @@ app.put('/playlist/update',function(req,res){
         resource : resource
     }).then((response)=>{
         console.log(response);
-        interaction.PlaylistUp(id_us,vecchio_nome,resource.snippet.title);
+        interaction.PlaylistUp(id_us_prova,vecchio_nome,resource.snippet.title);
         res.send({
             message : 'playlist updated successfully',
             link : 'https://www.youtube.com/playlist?list='+response.data.id
@@ -515,12 +518,14 @@ app.delete('/playlist/video', function(req,res){
 
     var pl_name = req.body.pl_name;
 
+    var id_us_prova = req.body.id_us;
+
     youtube.playlistItems.delete({
         id : id_playlistItem
     }).then((response)=>{
         console.log(response);
         console.log('elemento rimosso correttamente');
-        interaction.deleteVd(id_us,pl_name,vd_name,function(status,body){
+        interaction.deleteVd(id_us_prova,pl_name,vd_name,function(status,body){
             if(status.statusCode == 200){
                 console.log("Deleted Video DB SUCCESS!")
             }
@@ -547,12 +552,13 @@ app.delete('/playlist/delete',function(req,res){
 
     var title = req.body.title;
     var pl_id = req.body.pl_id;
+    var id_us_prova = req.body.id_us;
 
     youtube.playlists.delete({
         id : pl_id
     }).then((response)=>{
         console.log("YT response" + response.status);
-        interaction.deletePL(id_us,title, function(status,body){
+        interaction.deletePL(id_us_prova,title, function(status,body){
             if(status.statusCode == 200){
                 console.log("Removed from DB SUCCESS!")
             }
@@ -646,7 +652,7 @@ app.post('/categories', async function(req,res){
     for(var i=0; i<cat_toAdd; i++){
         catDB.push("0");
     }
-    var user = id_us;
+    var user = req.body.id_us;
     var cat1 = catDB[0];
     var cat2 = catDB[1];
     var cat3 = catDB[2];
