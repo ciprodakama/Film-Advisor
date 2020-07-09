@@ -73,7 +73,7 @@ Qui una lista dei comandi:
 
 
 ## API REST
-Per una documentazione completa visitare <<Insert Here>>
+Per una documentazione completa visitare FilmAdvisorAPI.html nella cartella Swagger!
 
 [//]: # (Abbreviazioni per i link utilizzati nella descrizione del progetto)
 [NodeJS]:                   <https://nodejs.org/it/about/>
