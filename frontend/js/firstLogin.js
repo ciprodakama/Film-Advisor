@@ -21,7 +21,30 @@ function findId(id){
     }
 }
 
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+}
+
 $(document).ready(function(){
+    var cookieID = getCookie("id");
+    console.log(cookieID);
+
+    $.get(base_url+"/initDB?id_us="+cookieID, function(data) {
+        console.log(data);
+    })
+
     $(".list-group-item").click(function(){
         console.log(body.categories);
         console.log(count);

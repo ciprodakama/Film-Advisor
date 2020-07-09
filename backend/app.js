@@ -114,7 +114,6 @@ function initUserDB(){
     .catch(err => console.log)
 }
 
-
 //Getting the code
 
 app.get('/login', async function(req,res){
@@ -196,13 +195,22 @@ app.get('/oauth2callback',async function(req,res){
         "<br><br><button onclick='window.location.href=\"/playlist/update\"'>Update Playlist</button>");
         */
     });
+    /*
     console.log("Prima della sleep")
     await sleep(3000)
     console.log("Dopo la sleep")
     initUserDB();
-
+    */
     console.log("Finito di usare getToken")
     res.redirect("http://localhost:5500/frontend/firstLogin.html");
+})
+
+//INIT DB IN FIRST LOGIN
+app.get('/initDB', function(req,res){
+    var id_us_test = req.query.id_us;
+    console.log(id_us_test); 
+    initUserDB();
+    res.send("DB POPOLATO!");
 })
 
 //Try to get a film :)
@@ -228,7 +236,8 @@ app.get('/getVideo',function(req,res){
     }).catch((err)=>{
         console.log("Errore nel getVideo")
         console.log(err);
-        res.redirect('/login');
+        res.status(500).send(err);
+        //res.redirect('/login');
     });
 })
 
@@ -672,12 +681,6 @@ app.post('/categories', async function(req,res){
     console.log("Dopo la sleep")
     res.status(200).send(trailers);
 });
-
-/*
-app.get('/trailers', function(req,res){
-    res.send({trailers: trailers});
-})
-*/
 
 
 module.exports = app;

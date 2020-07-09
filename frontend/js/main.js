@@ -228,7 +228,7 @@ $(document).ready(function() {
             }).fail(function(data){
                 //console.log("Sono nell'errore")
                 //console.log(data)
-                //alert("Errore! Non è stato possibile caricare Trailer.");
+                alert("Errore! Non è stato possibile cercare Trailer.");
                 //window.location.href = data;
          });
          $('#contTrailer').css("display","flex");
