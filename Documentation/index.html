@@ -765,6 +765,84 @@
     }
   }
 };
+            defs.body_category = {
+  "type" : "object",
+  "properties" : {
+    "cat1" : {
+      "type" : "string"
+    },
+    "cat2" : {
+      "type" : "string"
+    },
+    "cat3" : {
+      "type" : "string"
+    },
+    "cat4" : {
+      "type" : "string"
+    },
+    "cat5" : {
+      "type" : "string"
+    }
+  }
+};
+            defs.body_elemento = {
+  "type" : "object",
+  "properties" : {
+    "nome" : {
+      "type" : "string"
+    },
+    "url" : {
+      "type" : "string"
+    }
+  }
+};
+            defs.body_mail = {
+  "type" : "object",
+  "properties" : {
+    "mail" : {
+      "type" : "string"
+    }
+  }
+};
+            defs.body_nome = {
+  "type" : "object",
+  "properties" : {
+    "nome" : {
+      "type" : "string"
+    }
+  }
+};
+            defs.body_post_playlist = {
+  "type" : "object",
+  "properties" : {
+    "nome" : {
+      "type" : "string"
+    },
+    "pl_url" : {
+      "type" : "string"
+    },
+    "url_id" : {
+      "type" : "string"
+    },
+    "array" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    }
+  }
+};
+            defs.body_rename_playlist = {
+  "type" : "object",
+  "properties" : {
+    "vecchio_nome" : {
+      "type" : "string"
+    },
+    "nuovo_nome" : {
+      "type" : "string"
+    }
+  }
+};
             defs.createPl = {
   "type" : "object",
   "properties" : {
@@ -881,13 +959,52 @@
             -->
             <li class="nav-fixed nav-header active" data-group="_"><a href="#api-_">API Summary</a></li>
 
+                  <li class="nav-header" data-group="Elements"><a href="#api-Elements">API Methods - Elements</a></li>
+                    <li data-group="Elements" data-name="userPlaylistElementsUserIDPlNameDelete" class="">
+                      <a href="#api-Elements-userPlaylistElementsUserIDPlNameDelete">userPlaylistElementsUserIDPlNameDelete</a>
+                    </li>
+                    <li data-group="Elements" data-name="userPlaylistElementsUserIDPlNameGet" class="">
+                      <a href="#api-Elements-userPlaylistElementsUserIDPlNameGet">userPlaylistElementsUserIDPlNameGet</a>
+                    </li>
+                    <li data-group="Elements" data-name="userPlaylistElementsUserIDPlNamePost" class="">
+                      <a href="#api-Elements-userPlaylistElementsUserIDPlNamePost">userPlaylistElementsUserIDPlNamePost</a>
+                    </li>
                   <li class="nav-header" data-group="Google"><a href="#api-Google">API Methods - Google</a></li>
                     <li data-group="Google" data-name="loginGet" class="">
                       <a href="#api-Google-loginGet">loginGet</a>
                     </li>
+                  <li class="nav-header" data-group="Playlist"><a href="#api-Playlist">API Methods - Playlist</a></li>
+                    <li data-group="Playlist" data-name="userPlaylistUserIDDelete" class="">
+                      <a href="#api-Playlist-userPlaylistUserIDDelete">userPlaylistUserIDDelete</a>
+                    </li>
+                    <li data-group="Playlist" data-name="userPlaylistUserIDGet" class="">
+                      <a href="#api-Playlist-userPlaylistUserIDGet">userPlaylistUserIDGet</a>
+                    </li>
+                    <li data-group="Playlist" data-name="userPlaylistUserIDPost" class="">
+                      <a href="#api-Playlist-userPlaylistUserIDPost">userPlaylistUserIDPost</a>
+                    </li>
+                    <li data-group="Playlist" data-name="userPlaylistUserIDPut" class="">
+                      <a href="#api-Playlist-userPlaylistUserIDPut">userPlaylistUserIDPut</a>
+                    </li>
                   <li class="nav-header" data-group="TheMovieDb"><a href="#api-TheMovieDb">API Methods - TheMovieDb</a></li>
                     <li data-group="TheMovieDb" data-name="categoriesPost" class="">
                       <a href="#api-TheMovieDb-categoriesPost">categoriesPost</a>
+                    </li>
+                  <li class="nav-header" data-group="User"><a href="#api-User">API Methods - User</a></li>
+                    <li data-group="User" data-name="userGet" class="">
+                      <a href="#api-User-userGet">userGet</a>
+                    </li>
+                    <li data-group="User" data-name="userPost" class="">
+                      <a href="#api-User-userPost">userPost</a>
+                    </li>
+                    <li data-group="User" data-name="userUserIDDelete" class="">
+                      <a href="#api-User-userUserIDDelete">userUserIDDelete</a>
+                    </li>
+                    <li data-group="User" data-name="userUserIDGet" class="">
+                      <a href="#api-User-userUserIDGet">userUserIDGet</a>
+                    </li>
+                    <li data-group="User" data-name="userUserIDPut" class="">
+                      <a href="#api-User-userUserIDPut">userUserIDPut</a>
                     </li>
                   <li class="nav-header" data-group="YouTube"><a href="#api-YouTube">API Methods - YouTube</a></li>
                     <li data-group="YouTube" data-name="createPlaylistPost" class="">
@@ -930,6 +1047,885 @@
           </div>
         </div>
         <div id="sections">
+                <section id="api-Elements">
+                  <h1>Elements</h1>
+                    <div id="api-Elements-userPlaylistElementsUserIDPlNameDelete">
+                      <article id="api-Elements-userPlaylistElementsUserIDPlNameDelete-0" data-group="User" data-name="userPlaylistElementsUserIDPlNameDelete" data-version="0">
+                        <div class="pull-left">
+                          <h1>userPlaylistElementsUserIDPlNameDelete</h1>
+                          <p>Elimina video dalla playlist</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Rimuove dalla Playlist specificata in plName dell&#x27;utente specificato in UserID il video con il nome specificato nel body</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="delete"><code><span class="pln">/User/Playlist/Elements/{UserID}/{plName}</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Elements-userPlaylistElementsUserIDPlNameDelete-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Elements-userPlaylistElementsUserIDPlNameDelete-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Elements-userPlaylistElementsUserIDPlNameDelete-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Elements-userPlaylistElementsUserIDPlNameDelete-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Elements-userPlaylistElementsUserIDPlNameDelete-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Elements-userPlaylistElementsUserIDPlNameDelete-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Elements-userPlaylistElementsUserIDPlNameDelete-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Elements-userPlaylistElementsUserIDPlNameDelete-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Elements-userPlaylistElementsUserIDPlNameDelete-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Elements-userPlaylistElementsUserIDPlNameDelete-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Elements-userPlaylistElementsUserIDPlNameDelete-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Elements-userPlaylistElementsUserIDPlNameDelete-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X DELETE "http://localhost:3001//User/Playlist/Elements/{UserID}/{plName}"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Elements-userPlaylistElementsUserIDPlNameDelete-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.ElementsApi;
+
+import java.io.File;
+import java.util.*;
+
+public class ElementsApiExample {
+
+    public static void main(String[] args) {
+        
+        ElementsApi apiInstance = new ElementsApi();
+          = ; //  | ID dell'utente da cercare
+          = ; //  | nome Playlist da cercare
+        try {
+            apiInstance.userPlaylistElementsUserIDPlNameDelete(, );
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ElementsApi#userPlaylistElementsUserIDPlNameDelete");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Elements-userPlaylistElementsUserIDPlNameDelete-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.ElementsApi;
+
+public class ElementsApiExample {
+
+    public static void main(String[] args) {
+        ElementsApi apiInstance = new ElementsApi();
+          = ; //  | ID dell'utente da cercare
+          = ; //  | nome Playlist da cercare
+        try {
+            apiInstance.userPlaylistElementsUserIDPlNameDelete(, );
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ElementsApi#userPlaylistElementsUserIDPlNameDelete");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Elements-userPlaylistElementsUserIDPlNameDelete-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Elements-userPlaylistElementsUserIDPlNameDelete-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp"> * = ; // ID dell'utente da cercare
+ * = ; // nome Playlist da cercare
+
+ElementsApi *apiInstance = [[ElementsApi alloc] init];
+
+// Elimina video dalla playlist
+[apiInstance userPlaylistElementsUserIDPlNameDeleteWith:
+    :
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Elements-userPlaylistElementsUserIDPlNameDelete-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var FilmAdvisor = require('film_advisor');
+
+var api = new FilmAdvisor.ElementsApi()
+var  = ; // {{}} ID dell'utente da cercare
+var  = ; // {{}} nome Playlist da cercare
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.userPlaylistElementsUserIDPlNameDelete(, , callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Elements-userPlaylistElementsUserIDPlNameDelete-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Elements-userPlaylistElementsUserIDPlNameDelete-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class userPlaylistElementsUserIDPlNameDeleteExample
+    {
+        public void main()
+        {
+
+            var apiInstance = new ElementsApi();
+            var  = new (); //  | ID dell'utente da cercare
+            var  = new (); //  | nome Playlist da cercare
+
+            try
+            {
+                // Elimina video dalla playlist
+                apiInstance.userPlaylistElementsUserIDPlNameDelete(, );
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling ElementsApi.userPlaylistElementsUserIDPlNameDelete: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Elements-userPlaylistElementsUserIDPlNameDelete-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\ApiElementsApi();
+$ = ; //  | ID dell'utente da cercare
+$ = ; //  | nome Playlist da cercare
+
+try {
+    $api_instance->userPlaylistElementsUserIDPlNameDelete($, $);
+} catch (Exception $e) {
+    echo 'Exception when calling ElementsApi->userPlaylistElementsUserIDPlNameDelete: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Elements-userPlaylistElementsUserIDPlNameDelete-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::ElementsApi;
+
+my $api_instance = WWW::SwaggerClient::ElementsApi->new();
+my $ = ; #  | ID dell'utente da cercare
+my $ = ; #  | nome Playlist da cercare
+
+eval { 
+    $api_instance->userPlaylistElementsUserIDPlNameDelete( => $,  => $);
+};
+if ($@) {
+    warn "Exception when calling ElementsApi->userPlaylistElementsUserIDPlNameDelete: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Elements-userPlaylistElementsUserIDPlNameDelete-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.ElementsApi()
+ =  #  | ID dell'utente da cercare
+ =  #  | nome Playlist da cercare
+
+try: 
+    # Elimina video dalla playlist
+    api_instance.user_playlist_elements_user_id_pl_name_delete(, )
+except ApiException as e:
+    print("Exception when calling ElementsApi->userPlaylistElementsUserIDPlNameDelete: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">UserID*</td>
+                                  <td>
+                                  
+                                  
+                                      <div id="d2e199_userPlaylistElementsUserIDPlNameDelete_">
+                                          <div class="json-schema-view">
+                                              <div class="primitive">
+                                                  <span class="type">
+                                                      
+                                                  </span>
+                                  
+                                                      <div class="inner description">
+                                                          ID dell&#x27;utente da cercare
+                                                      </div>
+                                              </div>
+                                                  <div class="inner required">
+                                                      Required
+                                                  </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </tr>
+                                  <tr><td style="width:150px;">plName*</td>
+                                  <td>
+                                  
+                                  
+                                      <div id="d2e199_userPlaylistElementsUserIDPlNameDelete_">
+                                          <div class="json-schema-view">
+                                              <div class="primitive">
+                                                  <span class="type">
+                                                      
+                                                  </span>
+                                  
+                                                      <div class="inner description">
+                                                          nome Playlist da cercare
+                                                      </div>
+                                              </div>
+                                                  <div class="inner required">
+                                                      Required
+                                                  </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </tr>
+                            </table>
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - OK </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 404 - Playlist o Utente non trovato </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 500 - ERROR </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Elements-userPlaylistElementsUserIDPlNameGet">
+                      <article id="api-Elements-userPlaylistElementsUserIDPlNameGet-0" data-group="User" data-name="userPlaylistElementsUserIDPlNameGet" data-version="0">
+                        <div class="pull-left">
+                          <h1>userPlaylistElementsUserIDPlNameGet</h1>
+                          <p>Ritorna nome e url di un video</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Cerca nella Playlist specificata in plName il video con il nome specificato nel body e lo restituisce all&#x27;utente per poter accedere all&#x27;url</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/User/Playlist/Elements/{UserID}/{plName}</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Elements-userPlaylistElementsUserIDPlNameGet-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Elements-userPlaylistElementsUserIDPlNameGet-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Elements-userPlaylistElementsUserIDPlNameGet-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Elements-userPlaylistElementsUserIDPlNameGet-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Elements-userPlaylistElementsUserIDPlNameGet-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Elements-userPlaylistElementsUserIDPlNameGet-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Elements-userPlaylistElementsUserIDPlNameGet-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Elements-userPlaylistElementsUserIDPlNameGet-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Elements-userPlaylistElementsUserIDPlNameGet-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Elements-userPlaylistElementsUserIDPlNameGet-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Elements-userPlaylistElementsUserIDPlNameGet-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Elements-userPlaylistElementsUserIDPlNameGet-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://localhost:3001//User/Playlist/Elements/{UserID}/{plName}"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Elements-userPlaylistElementsUserIDPlNameGet-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.ElementsApi;
+
+import java.io.File;
+import java.util.*;
+
+public class ElementsApiExample {
+
+    public static void main(String[] args) {
+        
+        ElementsApi apiInstance = new ElementsApi();
+          = ; //  | ID dell'utente da cercare
+          = ; //  | nome Playlist da cercare
+        try {
+            apiInstance.userPlaylistElementsUserIDPlNameGet(, );
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ElementsApi#userPlaylistElementsUserIDPlNameGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Elements-userPlaylistElementsUserIDPlNameGet-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.ElementsApi;
+
+public class ElementsApiExample {
+
+    public static void main(String[] args) {
+        ElementsApi apiInstance = new ElementsApi();
+          = ; //  | ID dell'utente da cercare
+          = ; //  | nome Playlist da cercare
+        try {
+            apiInstance.userPlaylistElementsUserIDPlNameGet(, );
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ElementsApi#userPlaylistElementsUserIDPlNameGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Elements-userPlaylistElementsUserIDPlNameGet-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Elements-userPlaylistElementsUserIDPlNameGet-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp"> * = ; // ID dell'utente da cercare
+ * = ; // nome Playlist da cercare
+
+ElementsApi *apiInstance = [[ElementsApi alloc] init];
+
+// Ritorna nome e url di un video
+[apiInstance userPlaylistElementsUserIDPlNameGetWith:
+    :
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Elements-userPlaylistElementsUserIDPlNameGet-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var FilmAdvisor = require('film_advisor');
+
+var api = new FilmAdvisor.ElementsApi()
+var  = ; // {{}} ID dell'utente da cercare
+var  = ; // {{}} nome Playlist da cercare
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.userPlaylistElementsUserIDPlNameGet(, , callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Elements-userPlaylistElementsUserIDPlNameGet-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Elements-userPlaylistElementsUserIDPlNameGet-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class userPlaylistElementsUserIDPlNameGetExample
+    {
+        public void main()
+        {
+
+            var apiInstance = new ElementsApi();
+            var  = new (); //  | ID dell'utente da cercare
+            var  = new (); //  | nome Playlist da cercare
+
+            try
+            {
+                // Ritorna nome e url di un video
+                apiInstance.userPlaylistElementsUserIDPlNameGet(, );
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling ElementsApi.userPlaylistElementsUserIDPlNameGet: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Elements-userPlaylistElementsUserIDPlNameGet-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\ApiElementsApi();
+$ = ; //  | ID dell'utente da cercare
+$ = ; //  | nome Playlist da cercare
+
+try {
+    $api_instance->userPlaylistElementsUserIDPlNameGet($, $);
+} catch (Exception $e) {
+    echo 'Exception when calling ElementsApi->userPlaylistElementsUserIDPlNameGet: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Elements-userPlaylistElementsUserIDPlNameGet-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::ElementsApi;
+
+my $api_instance = WWW::SwaggerClient::ElementsApi->new();
+my $ = ; #  | ID dell'utente da cercare
+my $ = ; #  | nome Playlist da cercare
+
+eval { 
+    $api_instance->userPlaylistElementsUserIDPlNameGet( => $,  => $);
+};
+if ($@) {
+    warn "Exception when calling ElementsApi->userPlaylistElementsUserIDPlNameGet: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Elements-userPlaylistElementsUserIDPlNameGet-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.ElementsApi()
+ =  #  | ID dell'utente da cercare
+ =  #  | nome Playlist da cercare
+
+try: 
+    # Ritorna nome e url di un video
+    api_instance.user_playlist_elements_user_id_pl_name_get(, )
+except ApiException as e:
+    print("Exception when calling ElementsApi->userPlaylistElementsUserIDPlNameGet: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">UserID*</td>
+                                  <td>
+                                  
+                                  
+                                      <div id="d2e199_userPlaylistElementsUserIDPlNameGet_">
+                                          <div class="json-schema-view">
+                                              <div class="primitive">
+                                                  <span class="type">
+                                                      
+                                                  </span>
+                                  
+                                                      <div class="inner description">
+                                                          ID dell&#x27;utente da cercare
+                                                      </div>
+                                              </div>
+                                                  <div class="inner required">
+                                                      Required
+                                                  </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </tr>
+                                  <tr><td style="width:150px;">plName*</td>
+                                  <td>
+                                  
+                                  
+                                      <div id="d2e199_userPlaylistElementsUserIDPlNameGet_">
+                                          <div class="json-schema-view">
+                                              <div class="primitive">
+                                                  <span class="type">
+                                                      
+                                                  </span>
+                                  
+                                                      <div class="inner description">
+                                                          nome Playlist da cercare
+                                                      </div>
+                                              </div>
+                                                  <div class="inner required">
+                                                      Required
+                                                  </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </tr>
+                            </table>
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - OK </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 404 - Playlist o Utente non trovato </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 500 - ERROR </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Elements-userPlaylistElementsUserIDPlNamePost">
+                      <article id="api-Elements-userPlaylistElementsUserIDPlNamePost-0" data-group="User" data-name="userPlaylistElementsUserIDPlNamePost" data-version="0">
+                        <div class="pull-left">
+                          <h1>userPlaylistElementsUserIDPlNamePost</h1>
+                          <p>Aggiunge video ad una Playlist</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Aggiugne alla Playlist specificata in plName il video con il nome e url specificato nel body</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/User/Playlist/Elements/{UserID}/{plName}</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Elements-userPlaylistElementsUserIDPlNamePost-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Elements-userPlaylistElementsUserIDPlNamePost-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Elements-userPlaylistElementsUserIDPlNamePost-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Elements-userPlaylistElementsUserIDPlNamePost-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Elements-userPlaylistElementsUserIDPlNamePost-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Elements-userPlaylistElementsUserIDPlNamePost-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Elements-userPlaylistElementsUserIDPlNamePost-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Elements-userPlaylistElementsUserIDPlNamePost-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Elements-userPlaylistElementsUserIDPlNamePost-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Elements-userPlaylistElementsUserIDPlNamePost-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Elements-userPlaylistElementsUserIDPlNamePost-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Elements-userPlaylistElementsUserIDPlNamePost-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "http://localhost:3001//User/Playlist/Elements/{UserID}/{plName}"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Elements-userPlaylistElementsUserIDPlNamePost-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.ElementsApi;
+
+import java.io.File;
+import java.util.*;
+
+public class ElementsApiExample {
+
+    public static void main(String[] args) {
+        
+        ElementsApi apiInstance = new ElementsApi();
+          = ; //  | ID dell'utente da cercare
+          = ; //  | nome Playlist da cercare
+        try {
+            apiInstance.userPlaylistElementsUserIDPlNamePost(, );
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ElementsApi#userPlaylistElementsUserIDPlNamePost");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Elements-userPlaylistElementsUserIDPlNamePost-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.ElementsApi;
+
+public class ElementsApiExample {
+
+    public static void main(String[] args) {
+        ElementsApi apiInstance = new ElementsApi();
+          = ; //  | ID dell'utente da cercare
+          = ; //  | nome Playlist da cercare
+        try {
+            apiInstance.userPlaylistElementsUserIDPlNamePost(, );
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ElementsApi#userPlaylistElementsUserIDPlNamePost");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Elements-userPlaylistElementsUserIDPlNamePost-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Elements-userPlaylistElementsUserIDPlNamePost-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp"> * = ; // ID dell'utente da cercare
+ * = ; // nome Playlist da cercare
+
+ElementsApi *apiInstance = [[ElementsApi alloc] init];
+
+// Aggiunge video ad una Playlist
+[apiInstance userPlaylistElementsUserIDPlNamePostWith:
+    :
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Elements-userPlaylistElementsUserIDPlNamePost-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var FilmAdvisor = require('film_advisor');
+
+var api = new FilmAdvisor.ElementsApi()
+var  = ; // {{}} ID dell'utente da cercare
+var  = ; // {{}} nome Playlist da cercare
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.userPlaylistElementsUserIDPlNamePost(, , callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Elements-userPlaylistElementsUserIDPlNamePost-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Elements-userPlaylistElementsUserIDPlNamePost-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class userPlaylistElementsUserIDPlNamePostExample
+    {
+        public void main()
+        {
+
+            var apiInstance = new ElementsApi();
+            var  = new (); //  | ID dell'utente da cercare
+            var  = new (); //  | nome Playlist da cercare
+
+            try
+            {
+                // Aggiunge video ad una Playlist
+                apiInstance.userPlaylistElementsUserIDPlNamePost(, );
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling ElementsApi.userPlaylistElementsUserIDPlNamePost: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Elements-userPlaylistElementsUserIDPlNamePost-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\ApiElementsApi();
+$ = ; //  | ID dell'utente da cercare
+$ = ; //  | nome Playlist da cercare
+
+try {
+    $api_instance->userPlaylistElementsUserIDPlNamePost($, $);
+} catch (Exception $e) {
+    echo 'Exception when calling ElementsApi->userPlaylistElementsUserIDPlNamePost: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Elements-userPlaylistElementsUserIDPlNamePost-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::ElementsApi;
+
+my $api_instance = WWW::SwaggerClient::ElementsApi->new();
+my $ = ; #  | ID dell'utente da cercare
+my $ = ; #  | nome Playlist da cercare
+
+eval { 
+    $api_instance->userPlaylistElementsUserIDPlNamePost( => $,  => $);
+};
+if ($@) {
+    warn "Exception when calling ElementsApi->userPlaylistElementsUserIDPlNamePost: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Elements-userPlaylistElementsUserIDPlNamePost-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.ElementsApi()
+ =  #  | ID dell'utente da cercare
+ =  #  | nome Playlist da cercare
+
+try: 
+    # Aggiunge video ad una Playlist
+    api_instance.user_playlist_elements_user_id_pl_name_post(, )
+except ApiException as e:
+    print("Exception when calling ElementsApi->userPlaylistElementsUserIDPlNamePost: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">UserID*</td>
+                                  <td>
+                                  
+                                  
+                                      <div id="d2e199_userPlaylistElementsUserIDPlNamePost_">
+                                          <div class="json-schema-view">
+                                              <div class="primitive">
+                                                  <span class="type">
+                                                      
+                                                  </span>
+                                  
+                                                      <div class="inner description">
+                                                          ID dell&#x27;utente da cercare
+                                                      </div>
+                                              </div>
+                                                  <div class="inner required">
+                                                      Required
+                                                  </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </tr>
+                                  <tr><td style="width:150px;">plName*</td>
+                                  <td>
+                                  
+                                  
+                                      <div id="d2e199_userPlaylistElementsUserIDPlNamePost_">
+                                          <div class="json-schema-view">
+                                              <div class="primitive">
+                                                  <span class="type">
+                                                      
+                                                  </span>
+                                  
+                                                      <div class="inner description">
+                                                          nome Playlist da cercare
+                                                      </div>
+                                              </div>
+                                                  <div class="inner required">
+                                                      Required
+                                                  </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </tr>
+                            </table>
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 201 - Elemento aggiunto alla playlist </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 404 - Playlist o Utente non trovato </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 500 - ERROR </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                  </section>
                 <section id="api-Google">
                   <h1>Google</h1>
                     <div id="api-Google-loginGet">
@@ -1224,6 +2220,1061 @@ except ApiException as e:
                             </div>
 
                             <h3> Status: 500 - Invalid input </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                  </section>
+                <section id="api-Playlist">
+                  <h1>Playlist</h1>
+                    <div id="api-Playlist-userPlaylistUserIDDelete">
+                      <article id="api-Playlist-userPlaylistUserIDDelete-0" data-group="User" data-name="userPlaylistUserIDDelete" data-version="0">
+                        <div class="pull-left">
+                          <h1>userPlaylistUserIDDelete</h1>
+                          <p>Elimina Playlist Utente</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Elimina la playlist il cui nome è specificato nel body. Case Sensitive</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="delete"><code><span class="pln">/User/Playlist/{UserID}</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Playlist-userPlaylistUserIDDelete-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Playlist-userPlaylistUserIDDelete-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Playlist-userPlaylistUserIDDelete-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Playlist-userPlaylistUserIDDelete-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Playlist-userPlaylistUserIDDelete-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Playlist-userPlaylistUserIDDelete-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Playlist-userPlaylistUserIDDelete-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Playlist-userPlaylistUserIDDelete-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Playlist-userPlaylistUserIDDelete-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Playlist-userPlaylistUserIDDelete-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Playlist-userPlaylistUserIDDelete-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Playlist-userPlaylistUserIDDelete-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X DELETE "http://localhost:3001//User/Playlist/{UserID}"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDDelete-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.PlaylistApi;
+
+import java.io.File;
+import java.util.*;
+
+public class PlaylistApiExample {
+
+    public static void main(String[] args) {
+        
+        PlaylistApi apiInstance = new PlaylistApi();
+          = ; //  | ID dell'utente da cercare
+        try {
+            apiInstance.userPlaylistUserIDDelete();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling PlaylistApi#userPlaylistUserIDDelete");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDDelete-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.PlaylistApi;
+
+public class PlaylistApiExample {
+
+    public static void main(String[] args) {
+        PlaylistApi apiInstance = new PlaylistApi();
+          = ; //  | ID dell'utente da cercare
+        try {
+            apiInstance.userPlaylistUserIDDelete();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling PlaylistApi#userPlaylistUserIDDelete");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDDelete-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDDelete-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp"> * = ; // ID dell'utente da cercare
+
+PlaylistApi *apiInstance = [[PlaylistApi alloc] init];
+
+// Elimina Playlist Utente
+[apiInstance userPlaylistUserIDDeleteWith:
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDDelete-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var FilmAdvisor = require('film_advisor');
+
+var api = new FilmAdvisor.PlaylistApi()
+var  = ; // {{}} ID dell'utente da cercare
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.userPlaylistUserIDDelete(, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Playlist-userPlaylistUserIDDelete-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDDelete-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class userPlaylistUserIDDeleteExample
+    {
+        public void main()
+        {
+
+            var apiInstance = new PlaylistApi();
+            var  = new (); //  | ID dell'utente da cercare
+
+            try
+            {
+                // Elimina Playlist Utente
+                apiInstance.userPlaylistUserIDDelete();
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling PlaylistApi.userPlaylistUserIDDelete: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDDelete-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\ApiPlaylistApi();
+$ = ; //  | ID dell'utente da cercare
+
+try {
+    $api_instance->userPlaylistUserIDDelete($);
+} catch (Exception $e) {
+    echo 'Exception when calling PlaylistApi->userPlaylistUserIDDelete: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDDelete-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::PlaylistApi;
+
+my $api_instance = WWW::SwaggerClient::PlaylistApi->new();
+my $ = ; #  | ID dell'utente da cercare
+
+eval { 
+    $api_instance->userPlaylistUserIDDelete( => $);
+};
+if ($@) {
+    warn "Exception when calling PlaylistApi->userPlaylistUserIDDelete: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDDelete-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.PlaylistApi()
+ =  #  | ID dell'utente da cercare
+
+try: 
+    # Elimina Playlist Utente
+    api_instance.user_playlist_user_id_delete()
+except ApiException as e:
+    print("Exception when calling PlaylistApi->userPlaylistUserIDDelete: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">UserID*</td>
+                                  <td>
+                                  
+                                  
+                                      <div id="d2e199_userPlaylistUserIDDelete_">
+                                          <div class="json-schema-view">
+                                              <div class="primitive">
+                                                  <span class="type">
+                                                      
+                                                  </span>
+                                  
+                                                      <div class="inner description">
+                                                          ID dell&#x27;utente da cercare
+                                                      </div>
+                                              </div>
+                                                  <div class="inner required">
+                                                      Required
+                                                  </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </tr>
+                            </table>
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - OK </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 404 - Utente non trovato </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 500 - ERROR </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Playlist-userPlaylistUserIDGet">
+                      <article id="api-Playlist-userPlaylistUserIDGet-0" data-group="User" data-name="userPlaylistUserIDGet" data-version="0">
+                        <div class="pull-left">
+                          <h1>userPlaylistUserIDGet</h1>
+                          <p>Cerca Playlist Utente: tutte o una sola</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Mettendo nel body il nome di una Playlist ne ritorna il contenuto dal profilo dell&#x27;utete specificato in UserID, non mettendolo ritorna tutte le playlist di quel singolo utente</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/User/Playlist/{UserID}</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Playlist-userPlaylistUserIDGet-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Playlist-userPlaylistUserIDGet-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Playlist-userPlaylistUserIDGet-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Playlist-userPlaylistUserIDGet-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Playlist-userPlaylistUserIDGet-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Playlist-userPlaylistUserIDGet-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Playlist-userPlaylistUserIDGet-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Playlist-userPlaylistUserIDGet-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Playlist-userPlaylistUserIDGet-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Playlist-userPlaylistUserIDGet-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Playlist-userPlaylistUserIDGet-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Playlist-userPlaylistUserIDGet-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://localhost:3001//User/Playlist/{UserID}"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDGet-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.PlaylistApi;
+
+import java.io.File;
+import java.util.*;
+
+public class PlaylistApiExample {
+
+    public static void main(String[] args) {
+        
+        PlaylistApi apiInstance = new PlaylistApi();
+          = ; //  | ID dell'utente da cercare
+        try {
+            apiInstance.userPlaylistUserIDGet();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling PlaylistApi#userPlaylistUserIDGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDGet-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.PlaylistApi;
+
+public class PlaylistApiExample {
+
+    public static void main(String[] args) {
+        PlaylistApi apiInstance = new PlaylistApi();
+          = ; //  | ID dell'utente da cercare
+        try {
+            apiInstance.userPlaylistUserIDGet();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling PlaylistApi#userPlaylistUserIDGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDGet-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDGet-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp"> * = ; // ID dell'utente da cercare
+
+PlaylistApi *apiInstance = [[PlaylistApi alloc] init];
+
+// Cerca Playlist Utente: tutte o una sola
+[apiInstance userPlaylistUserIDGetWith:
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDGet-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var FilmAdvisor = require('film_advisor');
+
+var api = new FilmAdvisor.PlaylistApi()
+var  = ; // {{}} ID dell'utente da cercare
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.userPlaylistUserIDGet(, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Playlist-userPlaylistUserIDGet-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDGet-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class userPlaylistUserIDGetExample
+    {
+        public void main()
+        {
+
+            var apiInstance = new PlaylistApi();
+            var  = new (); //  | ID dell'utente da cercare
+
+            try
+            {
+                // Cerca Playlist Utente: tutte o una sola
+                apiInstance.userPlaylistUserIDGet();
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling PlaylistApi.userPlaylistUserIDGet: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDGet-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\ApiPlaylistApi();
+$ = ; //  | ID dell'utente da cercare
+
+try {
+    $api_instance->userPlaylistUserIDGet($);
+} catch (Exception $e) {
+    echo 'Exception when calling PlaylistApi->userPlaylistUserIDGet: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDGet-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::PlaylistApi;
+
+my $api_instance = WWW::SwaggerClient::PlaylistApi->new();
+my $ = ; #  | ID dell'utente da cercare
+
+eval { 
+    $api_instance->userPlaylistUserIDGet( => $);
+};
+if ($@) {
+    warn "Exception when calling PlaylistApi->userPlaylistUserIDGet: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDGet-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.PlaylistApi()
+ =  #  | ID dell'utente da cercare
+
+try: 
+    # Cerca Playlist Utente: tutte o una sola
+    api_instance.user_playlist_user_id_get()
+except ApiException as e:
+    print("Exception when calling PlaylistApi->userPlaylistUserIDGet: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">UserID*</td>
+                                  <td>
+                                  
+                                  
+                                      <div id="d2e199_userPlaylistUserIDGet_">
+                                          <div class="json-schema-view">
+                                              <div class="primitive">
+                                                  <span class="type">
+                                                      
+                                                  </span>
+                                  
+                                                      <div class="inner description">
+                                                          ID dell&#x27;utente da cercare
+                                                      </div>
+                                              </div>
+                                                  <div class="inner required">
+                                                      Required
+                                                  </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </tr>
+                            </table>
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - OK </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 404 - Utente non trovato </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 500 - ERROR </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Playlist-userPlaylistUserIDPost">
+                      <article id="api-Playlist-userPlaylistUserIDPost-0" data-group="User" data-name="userPlaylistUserIDPost" data-version="0">
+                        <div class="pull-left">
+                          <h1>userPlaylistUserIDPost</h1>
+                          <p>Crea Playlist o Aggiorna Playlist</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Crea la playlist per l&#x27;utente il cui ID è specificato in UserID se array è null, mentre aggiorna le sue playlist nel caso contrario</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/User/Playlist/{UserID}</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Playlist-userPlaylistUserIDPost-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Playlist-userPlaylistUserIDPost-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Playlist-userPlaylistUserIDPost-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Playlist-userPlaylistUserIDPost-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Playlist-userPlaylistUserIDPost-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Playlist-userPlaylistUserIDPost-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Playlist-userPlaylistUserIDPost-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Playlist-userPlaylistUserIDPost-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Playlist-userPlaylistUserIDPost-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Playlist-userPlaylistUserIDPost-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Playlist-userPlaylistUserIDPost-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Playlist-userPlaylistUserIDPost-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "http://localhost:3001//User/Playlist/{UserID}"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDPost-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.PlaylistApi;
+
+import java.io.File;
+import java.util.*;
+
+public class PlaylistApiExample {
+
+    public static void main(String[] args) {
+        
+        PlaylistApi apiInstance = new PlaylistApi();
+          = ; //  | ID dell'utente da cercare
+        try {
+            apiInstance.userPlaylistUserIDPost();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling PlaylistApi#userPlaylistUserIDPost");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDPost-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.PlaylistApi;
+
+public class PlaylistApiExample {
+
+    public static void main(String[] args) {
+        PlaylistApi apiInstance = new PlaylistApi();
+          = ; //  | ID dell'utente da cercare
+        try {
+            apiInstance.userPlaylistUserIDPost();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling PlaylistApi#userPlaylistUserIDPost");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDPost-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDPost-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp"> * = ; // ID dell'utente da cercare
+
+PlaylistApi *apiInstance = [[PlaylistApi alloc] init];
+
+// Crea Playlist o Aggiorna Playlist
+[apiInstance userPlaylistUserIDPostWith:
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDPost-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var FilmAdvisor = require('film_advisor');
+
+var api = new FilmAdvisor.PlaylistApi()
+var  = ; // {{}} ID dell'utente da cercare
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.userPlaylistUserIDPost(, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Playlist-userPlaylistUserIDPost-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDPost-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class userPlaylistUserIDPostExample
+    {
+        public void main()
+        {
+
+            var apiInstance = new PlaylistApi();
+            var  = new (); //  | ID dell'utente da cercare
+
+            try
+            {
+                // Crea Playlist o Aggiorna Playlist
+                apiInstance.userPlaylistUserIDPost();
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling PlaylistApi.userPlaylistUserIDPost: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDPost-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\ApiPlaylistApi();
+$ = ; //  | ID dell'utente da cercare
+
+try {
+    $api_instance->userPlaylistUserIDPost($);
+} catch (Exception $e) {
+    echo 'Exception when calling PlaylistApi->userPlaylistUserIDPost: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDPost-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::PlaylistApi;
+
+my $api_instance = WWW::SwaggerClient::PlaylistApi->new();
+my $ = ; #  | ID dell'utente da cercare
+
+eval { 
+    $api_instance->userPlaylistUserIDPost( => $);
+};
+if ($@) {
+    warn "Exception when calling PlaylistApi->userPlaylistUserIDPost: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDPost-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.PlaylistApi()
+ =  #  | ID dell'utente da cercare
+
+try: 
+    # Crea Playlist o Aggiorna Playlist
+    api_instance.user_playlist_user_id_post()
+except ApiException as e:
+    print("Exception when calling PlaylistApi->userPlaylistUserIDPost: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">UserID*</td>
+                                  <td>
+                                  
+                                  
+                                      <div id="d2e199_userPlaylistUserIDPost_">
+                                          <div class="json-schema-view">
+                                              <div class="primitive">
+                                                  <span class="type">
+                                                      
+                                                  </span>
+                                  
+                                                      <div class="inner description">
+                                                          ID dell&#x27;utente da cercare
+                                                      </div>
+                                              </div>
+                                                  <div class="inner required">
+                                                      Required
+                                                  </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </tr>
+                            </table>
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - Playlist Aggiornata Correttamente </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 201 - Playlist Creata Correttamente </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 404 - Utente non trovato </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 500 - ERROR </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Playlist-userPlaylistUserIDPut">
+                      <article id="api-Playlist-userPlaylistUserIDPut-0" data-group="User" data-name="userPlaylistUserIDPut" data-version="0">
+                        <div class="pull-left">
+                          <h1>userPlaylistUserIDPut</h1>
+                          <p>Rinomina Playlist</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Rinomina la Playlist dell&#x27;utente specificato in UserID da vecchio_nome a nuovo_nome</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="put"><code><span class="pln">/User/Playlist/{UserID}</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Playlist-userPlaylistUserIDPut-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Playlist-userPlaylistUserIDPut-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Playlist-userPlaylistUserIDPut-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Playlist-userPlaylistUserIDPut-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Playlist-userPlaylistUserIDPut-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Playlist-userPlaylistUserIDPut-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Playlist-userPlaylistUserIDPut-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Playlist-userPlaylistUserIDPut-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Playlist-userPlaylistUserIDPut-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Playlist-userPlaylistUserIDPut-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Playlist-userPlaylistUserIDPut-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Playlist-userPlaylistUserIDPut-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT "http://localhost:3001//User/Playlist/{UserID}"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDPut-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.PlaylistApi;
+
+import java.io.File;
+import java.util.*;
+
+public class PlaylistApiExample {
+
+    public static void main(String[] args) {
+        
+        PlaylistApi apiInstance = new PlaylistApi();
+          = ; //  | ID dell'utente da cercare
+        try {
+            apiInstance.userPlaylistUserIDPut();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling PlaylistApi#userPlaylistUserIDPut");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDPut-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.PlaylistApi;
+
+public class PlaylistApiExample {
+
+    public static void main(String[] args) {
+        PlaylistApi apiInstance = new PlaylistApi();
+          = ; //  | ID dell'utente da cercare
+        try {
+            apiInstance.userPlaylistUserIDPut();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling PlaylistApi#userPlaylistUserIDPut");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDPut-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDPut-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp"> * = ; // ID dell'utente da cercare
+
+PlaylistApi *apiInstance = [[PlaylistApi alloc] init];
+
+// Rinomina Playlist
+[apiInstance userPlaylistUserIDPutWith:
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDPut-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var FilmAdvisor = require('film_advisor');
+
+var api = new FilmAdvisor.PlaylistApi()
+var  = ; // {{}} ID dell'utente da cercare
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.userPlaylistUserIDPut(, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Playlist-userPlaylistUserIDPut-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDPut-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class userPlaylistUserIDPutExample
+    {
+        public void main()
+        {
+
+            var apiInstance = new PlaylistApi();
+            var  = new (); //  | ID dell'utente da cercare
+
+            try
+            {
+                // Rinomina Playlist
+                apiInstance.userPlaylistUserIDPut();
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling PlaylistApi.userPlaylistUserIDPut: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDPut-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\ApiPlaylistApi();
+$ = ; //  | ID dell'utente da cercare
+
+try {
+    $api_instance->userPlaylistUserIDPut($);
+} catch (Exception $e) {
+    echo 'Exception when calling PlaylistApi->userPlaylistUserIDPut: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDPut-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::PlaylistApi;
+
+my $api_instance = WWW::SwaggerClient::PlaylistApi->new();
+my $ = ; #  | ID dell'utente da cercare
+
+eval { 
+    $api_instance->userPlaylistUserIDPut( => $);
+};
+if ($@) {
+    warn "Exception when calling PlaylistApi->userPlaylistUserIDPut: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Playlist-userPlaylistUserIDPut-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.PlaylistApi()
+ =  #  | ID dell'utente da cercare
+
+try: 
+    # Rinomina Playlist
+    api_instance.user_playlist_user_id_put()
+except ApiException as e:
+    print("Exception when calling PlaylistApi->userPlaylistUserIDPut: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">UserID*</td>
+                                  <td>
+                                  
+                                  
+                                      <div id="d2e199_userPlaylistUserIDPut_">
+                                          <div class="json-schema-view">
+                                              <div class="primitive">
+                                                  <span class="type">
+                                                      
+                                                  </span>
+                                  
+                                                      <div class="inner description">
+                                                          ID dell&#x27;utente da cercare
+                                                      </div>
+                                              </div>
+                                                  <div class="inner required">
+                                                      Required
+                                                  </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </tr>
+                            </table>
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - OK </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 404 - Utente non trovato </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 500 - ERROR </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                             </ul>
@@ -1544,6 +3595,1222 @@ except ApiException as e:
                             </div>
 
                             <h3> Status: 500 - Bad request </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                  </section>
+                <section id="api-User">
+                  <h1>User</h1>
+                    <div id="api-User-userGet">
+                      <article id="api-User-userGet-0" data-group="User" data-name="userGet" data-version="0">
+                        <div class="pull-left">
+                          <h1>userGet</h1>
+                          <p>Ritorna il contenuto del DB</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/User</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-User-userGet-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-User-userGet-0-java">Java</a></li>
+                          <li class=""><a href="#examples-User-userGet-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-User-userGet-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-User-userGet-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-User-userGet-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-User-userGet-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-User-userGet-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-User-userGet-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-User-userGet-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-User-userGet-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-User-userGet-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://localhost:3001//User"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-User-userGet-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.UserApi;
+
+import java.io.File;
+import java.util.*;
+
+public class UserApiExample {
+
+    public static void main(String[] args) {
+        
+        UserApi apiInstance = new UserApi();
+        try {
+            apiInstance.userGet();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling UserApi#userGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-User-userGet-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.UserApi;
+
+public class UserApiExample {
+
+    public static void main(String[] args) {
+        UserApi apiInstance = new UserApi();
+        try {
+            apiInstance.userGet();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling UserApi#userGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-User-userGet-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-User-userGet-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">
+UserApi *apiInstance = [[UserApi alloc] init];
+
+// Ritorna il contenuto del DB
+[apiInstance userGetWithCompletionHandler: 
+              ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-User-userGet-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var FilmAdvisor = require('film_advisor');
+
+var api = new FilmAdvisor.UserApi()
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.userGet(callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-User-userGet-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-User-userGet-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class userGetExample
+    {
+        public void main()
+        {
+
+            var apiInstance = new UserApi();
+
+            try
+            {
+                // Ritorna il contenuto del DB
+                apiInstance.userGet();
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling UserApi.userGet: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-User-userGet-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\ApiUserApi();
+
+try {
+    $api_instance->userGet();
+} catch (Exception $e) {
+    echo 'Exception when calling UserApi->userGet: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-User-userGet-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::UserApi;
+
+my $api_instance = WWW::SwaggerClient::UserApi->new();
+
+eval { 
+    $api_instance->userGet();
+};
+if ($@) {
+    warn "Exception when calling UserApi->userGet: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-User-userGet-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.UserApi()
+
+try: 
+    # Ritorna il contenuto del DB
+    api_instance.user_get()
+except ApiException as e:
+    print("Exception when calling UserApi->userGet: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - OK </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 500 - ERROR </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-User-userPost">
+                      <article id="api-User-userPost-0" data-group="User" data-name="userPost" data-version="0">
+                        <div class="pull-left">
+                          <h1>userPost</h1>
+                          <p>Crea nuovo Utente</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">salva nel DB un nuovo utente specificando la mail nel body</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/User</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-User-userPost-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-User-userPost-0-java">Java</a></li>
+                          <li class=""><a href="#examples-User-userPost-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-User-userPost-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-User-userPost-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-User-userPost-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-User-userPost-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-User-userPost-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-User-userPost-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-User-userPost-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-User-userPost-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-User-userPost-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "http://localhost:3001//User"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-User-userPost-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.UserApi;
+
+import java.io.File;
+import java.util.*;
+
+public class UserApiExample {
+
+    public static void main(String[] args) {
+        
+        UserApi apiInstance = new UserApi();
+        try {
+            apiInstance.userPost();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling UserApi#userPost");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-User-userPost-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.UserApi;
+
+public class UserApiExample {
+
+    public static void main(String[] args) {
+        UserApi apiInstance = new UserApi();
+        try {
+            apiInstance.userPost();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling UserApi#userPost");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-User-userPost-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-User-userPost-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">
+UserApi *apiInstance = [[UserApi alloc] init];
+
+// Crea nuovo Utente
+[apiInstance userPostWithCompletionHandler: 
+              ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-User-userPost-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var FilmAdvisor = require('film_advisor');
+
+var api = new FilmAdvisor.UserApi()
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.userPost(callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-User-userPost-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-User-userPost-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class userPostExample
+    {
+        public void main()
+        {
+
+            var apiInstance = new UserApi();
+
+            try
+            {
+                // Crea nuovo Utente
+                apiInstance.userPost();
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling UserApi.userPost: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-User-userPost-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\ApiUserApi();
+
+try {
+    $api_instance->userPost();
+} catch (Exception $e) {
+    echo 'Exception when calling UserApi->userPost: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-User-userPost-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::UserApi;
+
+my $api_instance = WWW::SwaggerClient::UserApi->new();
+
+eval { 
+    $api_instance->userPost();
+};
+if ($@) {
+    warn "Exception when calling UserApi->userPost: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-User-userPost-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.UserApi()
+
+try: 
+    # Crea nuovo Utente
+    api_instance.user_post()
+except ApiException as e:
+    print("Exception when calling UserApi->userPost: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 201 - Utente Creato correttamente </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 409 - Utente gia creato </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 500 - ERROR </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-User-userUserIDDelete">
+                      <article id="api-User-userUserIDDelete-0" data-group="User" data-name="userUserIDDelete" data-version="0">
+                        <div class="pull-left">
+                          <h1>userUserIDDelete</h1>
+                          <p>Elimina un Utente</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Elimina l&#x27;utente con ID specificato in UserID</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="delete"><code><span class="pln">/User/{UserID}</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-User-userUserIDDelete-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-User-userUserIDDelete-0-java">Java</a></li>
+                          <li class=""><a href="#examples-User-userUserIDDelete-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-User-userUserIDDelete-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-User-userUserIDDelete-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-User-userUserIDDelete-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-User-userUserIDDelete-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-User-userUserIDDelete-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-User-userUserIDDelete-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-User-userUserIDDelete-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-User-userUserIDDelete-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-User-userUserIDDelete-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X DELETE "http://localhost:3001//User/{UserID}"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-User-userUserIDDelete-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.UserApi;
+
+import java.io.File;
+import java.util.*;
+
+public class UserApiExample {
+
+    public static void main(String[] args) {
+        
+        UserApi apiInstance = new UserApi();
+          = ; //  | ID dell'utente da cercare
+        try {
+            apiInstance.userUserIDDelete();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling UserApi#userUserIDDelete");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-User-userUserIDDelete-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.UserApi;
+
+public class UserApiExample {
+
+    public static void main(String[] args) {
+        UserApi apiInstance = new UserApi();
+          = ; //  | ID dell'utente da cercare
+        try {
+            apiInstance.userUserIDDelete();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling UserApi#userUserIDDelete");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-User-userUserIDDelete-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-User-userUserIDDelete-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp"> * = ; // ID dell'utente da cercare
+
+UserApi *apiInstance = [[UserApi alloc] init];
+
+// Elimina un Utente
+[apiInstance userUserIDDeleteWith:
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-User-userUserIDDelete-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var FilmAdvisor = require('film_advisor');
+
+var api = new FilmAdvisor.UserApi()
+var  = ; // {{}} ID dell'utente da cercare
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.userUserIDDelete(, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-User-userUserIDDelete-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-User-userUserIDDelete-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class userUserIDDeleteExample
+    {
+        public void main()
+        {
+
+            var apiInstance = new UserApi();
+            var  = new (); //  | ID dell'utente da cercare
+
+            try
+            {
+                // Elimina un Utente
+                apiInstance.userUserIDDelete();
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling UserApi.userUserIDDelete: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-User-userUserIDDelete-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\ApiUserApi();
+$ = ; //  | ID dell'utente da cercare
+
+try {
+    $api_instance->userUserIDDelete($);
+} catch (Exception $e) {
+    echo 'Exception when calling UserApi->userUserIDDelete: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-User-userUserIDDelete-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::UserApi;
+
+my $api_instance = WWW::SwaggerClient::UserApi->new();
+my $ = ; #  | ID dell'utente da cercare
+
+eval { 
+    $api_instance->userUserIDDelete( => $);
+};
+if ($@) {
+    warn "Exception when calling UserApi->userUserIDDelete: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-User-userUserIDDelete-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.UserApi()
+ =  #  | ID dell'utente da cercare
+
+try: 
+    # Elimina un Utente
+    api_instance.user_user_id_delete()
+except ApiException as e:
+    print("Exception when calling UserApi->userUserIDDelete: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">UserID*</td>
+                                  <td>
+                                  
+                                  
+                                      <div id="d2e199_userUserIDDelete_">
+                                          <div class="json-schema-view">
+                                              <div class="primitive">
+                                                  <span class="type">
+                                                      
+                                                  </span>
+                                  
+                                                      <div class="inner description">
+                                                          ID dell&#x27;utente da cercare
+                                                      </div>
+                                              </div>
+                                                  <div class="inner required">
+                                                      Required
+                                                  </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </tr>
+                            </table>
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - OK </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 404 - Utente non trovato </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 500 - ERROR </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-User-userUserIDGet">
+                      <article id="api-User-userUserIDGet-0" data-group="User" data-name="userUserIDGet" data-version="0">
+                        <div class="pull-left">
+                          <h1>userUserIDGet</h1>
+                          <p>Ritorna un Utente</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Ritorna un utente con ID specificato in UserID</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/User/{UserID}</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-User-userUserIDGet-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-User-userUserIDGet-0-java">Java</a></li>
+                          <li class=""><a href="#examples-User-userUserIDGet-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-User-userUserIDGet-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-User-userUserIDGet-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-User-userUserIDGet-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-User-userUserIDGet-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-User-userUserIDGet-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-User-userUserIDGet-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-User-userUserIDGet-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-User-userUserIDGet-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-User-userUserIDGet-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://localhost:3001//User/{UserID}"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-User-userUserIDGet-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.UserApi;
+
+import java.io.File;
+import java.util.*;
+
+public class UserApiExample {
+
+    public static void main(String[] args) {
+        
+        UserApi apiInstance = new UserApi();
+          = ; //  | ID dell'utente da cercare
+        try {
+            apiInstance.userUserIDGet();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling UserApi#userUserIDGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-User-userUserIDGet-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.UserApi;
+
+public class UserApiExample {
+
+    public static void main(String[] args) {
+        UserApi apiInstance = new UserApi();
+          = ; //  | ID dell'utente da cercare
+        try {
+            apiInstance.userUserIDGet();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling UserApi#userUserIDGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-User-userUserIDGet-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-User-userUserIDGet-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp"> * = ; // ID dell'utente da cercare
+
+UserApi *apiInstance = [[UserApi alloc] init];
+
+// Ritorna un Utente
+[apiInstance userUserIDGetWith:
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-User-userUserIDGet-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var FilmAdvisor = require('film_advisor');
+
+var api = new FilmAdvisor.UserApi()
+var  = ; // {{}} ID dell'utente da cercare
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.userUserIDGet(, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-User-userUserIDGet-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-User-userUserIDGet-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class userUserIDGetExample
+    {
+        public void main()
+        {
+
+            var apiInstance = new UserApi();
+            var  = new (); //  | ID dell'utente da cercare
+
+            try
+            {
+                // Ritorna un Utente
+                apiInstance.userUserIDGet();
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling UserApi.userUserIDGet: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-User-userUserIDGet-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\ApiUserApi();
+$ = ; //  | ID dell'utente da cercare
+
+try {
+    $api_instance->userUserIDGet($);
+} catch (Exception $e) {
+    echo 'Exception when calling UserApi->userUserIDGet: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-User-userUserIDGet-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::UserApi;
+
+my $api_instance = WWW::SwaggerClient::UserApi->new();
+my $ = ; #  | ID dell'utente da cercare
+
+eval { 
+    $api_instance->userUserIDGet( => $);
+};
+if ($@) {
+    warn "Exception when calling UserApi->userUserIDGet: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-User-userUserIDGet-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.UserApi()
+ =  #  | ID dell'utente da cercare
+
+try: 
+    # Ritorna un Utente
+    api_instance.user_user_id_get()
+except ApiException as e:
+    print("Exception when calling UserApi->userUserIDGet: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">UserID*</td>
+                                  <td>
+                                  
+                                  
+                                      <div id="d2e199_userUserIDGet_">
+                                          <div class="json-schema-view">
+                                              <div class="primitive">
+                                                  <span class="type">
+                                                      
+                                                  </span>
+                                  
+                                                      <div class="inner description">
+                                                          ID dell&#x27;utente da cercare
+                                                      </div>
+                                              </div>
+                                                  <div class="inner required">
+                                                      Required
+                                                  </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </tr>
+                            </table>
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - OK </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 404 - Utente non trovato </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 500 - ERROR </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-User-userUserIDPut">
+                      <article id="api-User-userUserIDPut-0" data-group="User" data-name="userUserIDPut" data-version="0">
+                        <div class="pull-left">
+                          <h1>userUserIDPut</h1>
+                          <p>Aggiorna categorie di un Utente</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Aggiorna le categorie dell&#x27;utente specificato in UserID con nuovi valori passati come array</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="put"><code><span class="pln">/User/{UserID}</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-User-userUserIDPut-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-User-userUserIDPut-0-java">Java</a></li>
+                          <li class=""><a href="#examples-User-userUserIDPut-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-User-userUserIDPut-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-User-userUserIDPut-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-User-userUserIDPut-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-User-userUserIDPut-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-User-userUserIDPut-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-User-userUserIDPut-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-User-userUserIDPut-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-User-userUserIDPut-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-User-userUserIDPut-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT "http://localhost:3001//User/{UserID}"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-User-userUserIDPut-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.UserApi;
+
+import java.io.File;
+import java.util.*;
+
+public class UserApiExample {
+
+    public static void main(String[] args) {
+        
+        UserApi apiInstance = new UserApi();
+          = ; //  | ID dell'utente da cercare
+        try {
+            apiInstance.userUserIDPut();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling UserApi#userUserIDPut");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-User-userUserIDPut-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.UserApi;
+
+public class UserApiExample {
+
+    public static void main(String[] args) {
+        UserApi apiInstance = new UserApi();
+          = ; //  | ID dell'utente da cercare
+        try {
+            apiInstance.userUserIDPut();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling UserApi#userUserIDPut");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-User-userUserIDPut-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-User-userUserIDPut-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp"> * = ; // ID dell'utente da cercare
+
+UserApi *apiInstance = [[UserApi alloc] init];
+
+// Aggiorna categorie di un Utente
+[apiInstance userUserIDPutWith:
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-User-userUserIDPut-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var FilmAdvisor = require('film_advisor');
+
+var api = new FilmAdvisor.UserApi()
+var  = ; // {{}} ID dell'utente da cercare
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.userUserIDPut(, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-User-userUserIDPut-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-User-userUserIDPut-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class userUserIDPutExample
+    {
+        public void main()
+        {
+
+            var apiInstance = new UserApi();
+            var  = new (); //  | ID dell'utente da cercare
+
+            try
+            {
+                // Aggiorna categorie di un Utente
+                apiInstance.userUserIDPut();
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling UserApi.userUserIDPut: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-User-userUserIDPut-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\ApiUserApi();
+$ = ; //  | ID dell'utente da cercare
+
+try {
+    $api_instance->userUserIDPut($);
+} catch (Exception $e) {
+    echo 'Exception when calling UserApi->userUserIDPut: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-User-userUserIDPut-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::UserApi;
+
+my $api_instance = WWW::SwaggerClient::UserApi->new();
+my $ = ; #  | ID dell'utente da cercare
+
+eval { 
+    $api_instance->userUserIDPut( => $);
+};
+if ($@) {
+    warn "Exception when calling UserApi->userUserIDPut: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-User-userUserIDPut-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.UserApi()
+ =  #  | ID dell'utente da cercare
+
+try: 
+    # Aggiorna categorie di un Utente
+    api_instance.user_user_id_put()
+except ApiException as e:
+    print("Exception when calling UserApi->userUserIDPut: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">UserID*</td>
+                                  <td>
+                                  
+                                  
+                                      <div id="d2e199_userUserIDPut_">
+                                          <div class="json-schema-view">
+                                              <div class="primitive">
+                                                  <span class="type">
+                                                      
+                                                  </span>
+                                  
+                                                      <div class="inner description">
+                                                          ID dell&#x27;utente da cercare
+                                                      </div>
+                                              </div>
+                                                  <div class="inner required">
+                                                      Required
+                                                  </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </tr>
+                            </table>
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - OK </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 500 - ERROR </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                             </ul>
