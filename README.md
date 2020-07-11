@@ -1,7 +1,7 @@
 # FilmAdvisor
 FilmAdvisor è un progetto full-stack sviluppato per l'esame di Reti di Calcolatori da parte di 3 studenti della facoltà di Ing. Informatica della Sapienza, in particolare George Ciprian Telinoiu, Lorenzo Govoni ed Francesco D'Orazio.
 
-FilmAdvisor è una web app interattiva che permette ai suoi utenti, una volta fatto il login ai servizi Google, di gestire in totale autonomia le proprie Playlist Youtube, nonchè cercare nuovi Trailer e ricevere ogni giorno nuovi suggerimenti sulla base delle categorie che più li appasiona.
+FilmAdvisor è una web app interattiva che permette ai suoi utenti, una volta fatto il login ai servizi Google, di gestire in totale autonomia le proprie Playlist Youtube, nonchè cercare nuovi Trailer e ricevere ogni giorno nuovi suggerimenti sulla base delle categorie che più li appassiona.
 
 ### Tecnologie Utilizzate
 FilmAdvisor si basa sulle seguenti tecnologie per funzionare:
