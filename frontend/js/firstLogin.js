@@ -9,7 +9,6 @@ var body = {
     "categories": [],
     "id_us": ""
 };
-//salveremo qui in un array gli id delle singole categorie da mandare poi al server
 
 var trailers = [];
 

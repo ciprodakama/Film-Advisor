@@ -37,7 +37,7 @@ var trailers = {
 
 //Configurazion for the db
 
-mongoose.connect('mongodb+srv://admin:admin@cluster0-hjbla.mongodb.net/test?retryWrites=true&w=majority', { useUnifiedTopology: true,useNewUrlParser: true });
+mongoose.connect('mongodb+srv://admin:'+config.pass_mongo+'@cluster0-hjbla.mongodb.net/test?retryWrites=true&w=majority', { useUnifiedTopology: true,useNewUrlParser: true });
 mongoose.set('useCreateIndex', true);
 
 
@@ -588,7 +588,7 @@ function getTitles(cat){
     let options = {json: true};
 
     //parameters
-    var key = "27bfe195970e9f6efcfc1a9c0557ae5d";
+    var key = config.tmdb_api_key;
     var lang = "en-US";
     var genres = cat;
 

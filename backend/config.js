@@ -13,6 +13,7 @@ module.exports = {
     redirect_url : redirect_url,
     scopes : [
         'https://www.googleapis.com/auth/youtube'
-    ]
-
+    ],
+    tmdb_api_key: "27bfe195970e9f6efcfc1a9c0557ae5d",
+    pass_mongo: "admin"
 };

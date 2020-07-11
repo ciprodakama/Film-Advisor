@@ -22,12 +22,6 @@ function getCookie(cname) {
     return "";
 }
 
-function sleep(ms) {
-    return new Promise((resolve) => {
-    setTimeout(resolve, ms);
-    });
-} 
-
 //evito di refreshare pagina on submit
 var formTrailer = document.getElementById("cercaTrailer");
 var formPlaylist = document.getElementById("creaPlaylist");
