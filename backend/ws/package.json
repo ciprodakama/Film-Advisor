@@ -8,5 +8,10 @@
     "start": "nodemon"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^5.9.23",
+    "nodemon": "^2.0.4",
+    "ws": "^7.3.1"
+  }
 }
