@@ -80,7 +80,7 @@ serv.on('connection', function(ws) {
         if( msg == "_AvgPlaylists")
         {
             require.get({
-                url: "http://localhost:8888/user",
+                url: "http://localhost:3001/user",
                 header: {
                     'Content-Type' : 'application/json; charset=utf-8'
                 },
@@ -103,7 +103,7 @@ serv.on('connection', function(ws) {
         else if( msg == "_AvgElements")
         {
             require.get({
-                url: "http://localhost:8888/user",
+                url: "http://localhost:3001/user",
                 header: {
                     'Content-Type' : 'application/json; charset=utf-8'
                 },
@@ -129,7 +129,7 @@ serv.on('connection', function(ws) {
         else if( msg == "_Categories")
         {
             require.get({
-                url: "http://localhost:8888/user",
+                url: "http://localhost:3001/user",
                 header: {
                     'Content-Type' : 'application/json; charset=utf-8'
                 },
@@ -271,7 +271,7 @@ serv.on('connection', function(ws) {
         else if( msg == "_Users")
         {
             require.get({
-                url: "http://localhost:8888/user",
+                url: "http://localhost:3001/user",
                 header: {
                     'Content-Type' : 'application/json; charset=utf-8'
                 },
@@ -289,7 +289,7 @@ serv.on('connection', function(ws) {
                 ws.send("");
             });
         }
-        else if( msg == "ciao")
+        else if( msg == "Ciao")
         {
             ws.send(col + "Benvenuto Nel Serer WS. Prova ad usare uno di questi comandi:");
             ws.send("-> _AvgPlaylists");
