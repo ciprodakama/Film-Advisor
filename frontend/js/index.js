@@ -36,7 +36,9 @@ $(document).ready(function() {
                 console.log("Questo è il cookie prima dell'if\n")
                 console.log(getCookie("id"))
                 if (getCookie("id") != data.id){
-                    document.cookie = "id="+data.id+"; path=/; "
+                    let date = new Date(Date.now() + 86400e3);
+                    date = date.toUTCString();
+                    document.cookie = "id="+data.id+"; expires="+date+"; path=/; "
                     console.log("Questo è il cookie dopo l'if\n")
                     console.log(getCookie("id"))
                     window.location.href = data.url;

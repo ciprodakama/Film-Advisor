@@ -26,17 +26,7 @@ var user = require('./db/user');
 
 var interaction = require('./db_interaction/interaction');  //require the function for the interaction with the db
 
-/*
-var trailers = {
-    videoLink: [],
-    embedLink: []
-};
-*/
-
-//var id_us = ""   //parameter that indicates the user id inside the db
-
 //Configurazion for the db
-
 mongoose.connect('mongodb+srv://admin:'+config.pass_mongo+'@cluster0-hjbla.mongodb.net/test?retryWrites=true&w=majority', { useUnifiedTopology: true,useNewUrlParser: true });
 mongoose.set('useCreateIndex', true);
 
@@ -52,24 +42,10 @@ app.use(morgan('dev'));
 
 app.use(body_parser.json());
 
-/*app.use((req, res, next) => {
-    err = new Error('Not Found')
-    err.status = 404;
-    next(err);
-});
-
-//se fallisce una chiamata al DB passa attraverso questo middleware poichè viene lanciato un errore
-app.use((err, req, res, next) => {
-    res.status(err.status||500).json({
-        error: err.message
-    });
-});*/
-
 app.use('/user', user );
 
 
 //Creating the googeOauth object
-
 const googleOauth = new google.auth.OAuth2(
     config.client_id,
     config.client_secret,
@@ -77,7 +53,6 @@ const googleOauth = new google.auth.OAuth2(
 );
 
 //Configure googleapis to use authentication credentials
-
 google.options({auth: googleOauth});
 
 //init values DB for user with id_us
@@ -180,12 +155,10 @@ app.get('/login', async function(req,res){
     
         //questo url viene mandato al client per farlo accedere al suo account
         res.status(200).send(url);
-        //res.send("<br><br><button onclick='window.location.href=\""+url+"\"'>Login</button>");
     }
 });
 
 //Getting the access_token
-
 app.get('/oauth2callback',async function(req,res){
     console.log("Sono nella redirect di Google Login")
     var code = req.query.code;
@@ -196,21 +169,7 @@ app.get('/oauth2callback',async function(req,res){
         }
         googleOauth.credentials = tokens;
         console.log("Token preso")
-        /*
-        res.send('Got the token = '+tokens.access_token+"<br><br><button onclick='window.location.href=\"/getVideo?name=Ready Player One\"'>Get Video</button>"+
-        "<br><br><button onclick='window.location.href=\"/getPlaylist\"'>Get Playlist</button>"+
-        "<br><br><button onclick='window.location.href=\"/createPlaylist?title=La_mia_nuova_playlist&description=Creata tramite restuful API\"'>Create Playlist</button>"+
-        "<br><br><button onclick='window.location.href=\"/playlist/insertVideo\"'>Add Video</button>"+
-        "<br><br><button onclick='window.location.href=\"/playlist/delete\"'>Delete Playlist</button>"+
-        "<br><br><button onclick='window.location.href=\"/playlist/update\"'>Update Playlist</button>");
-        */
     });
-    /*
-    console.log("Prima della sleep")
-    await sleep(3000)
-    console.log("Dopo la sleep")
-    initUserDB();
-    */
     console.log("Finito di usare getToken")
     res.redirect("http://localhost:5500/frontend/firstLogin.html");
 })
@@ -247,19 +206,16 @@ app.get('/getVideo',function(req,res){
         console.log("Errore nel getVideo")
         console.log(err);
         res.status(500).send(err);
-        //res.redirect('/login');
     });
 })
 
-//Try to get all client's playlists on youtube ---> maybe useless!!!!
+//Try to get all client's playlists on youtube
 
 app.get('/getPlaylist',function(req,res){
 
     var youtube = google.youtube('v3');
 
     var id_us_prova = req.query.id_us;
-
-    //https://www.youtube.com/playlist?list=plylistid
 
     youtube.playlists.list({
         part : 'snippet',
@@ -294,7 +250,6 @@ app.get('/getPlaylist',function(req,res){
         res.status(200).send(array);
     }).catch((err)=>{
         console.log(err);
-        //res.redirect('/login');
     });
 
 
@@ -323,7 +278,7 @@ app.get('/playlist/videos',function(req,res) {
         maxResults:20
     }).then(async (response)=>{
         console.log(response);
-        //res.send(response);
+
         var num = response.data.pageInfo.totalResults;
         finalNum = num;
         for(j=0; j<num; j++){
@@ -424,36 +379,15 @@ app.post('/playlist/insertVideo',function(req,res){
                 }
             }
     };
-
-    /*var array = [];
-    var id1 = req.body.video1;
-    var id2 = req.body.video2;
-    var id3 = req.body.video3;
-    var id4 = req.body.video4;
-    var id5 = req.body.video5;
-    array.push(id1);
-    array.push(id2);
-    array.push(id3);
-    array.push(id4);
-    array.push(id5);*/
-
-    //var array = ["CwXOrWvPBPk","2xvEUt8lVNg","zg23CSUm1qk"]  //here go the video_id of the videos selected by the client
     
     var pl_name = req.body.pl_name;
-
-    /*
-    SOL LOLLO PER ID_ELEM
-    var video_url = 'https://www.youtube.com/watch?v='+resource.snippet.resourceId.videoId;
-            var id_elem = resource.id;
-            interaction.VideoDb(id_us,pl_name,response.data.snippet.title,id_elem,video_url);
-    */
 
     youtube.playlistItems.insert({
             part : 'snippet',
             resource : resource,
         }).then((response)=>{
             console.log(response);
-            //var video_url = 'https://www.youtube.com/watch?v='+resource.snippet.resourceId.videoId;
+
             var id_elem = response.data.id;
             console.log("Questa è l'elem ID che mi ha ridato YT")
             console.log(id_elem)
@@ -598,8 +532,8 @@ function getTitles(cat){
     return new Promise(function(resolve, reject){
         request(url, options, (error, res, body) => {
             if (error){
+                console.log(error)
                 reject(error);
-                //return console.log(error)
             } else {
                 body.results.slice(0,4).forEach(element => {
                     titles.push(element.title);
