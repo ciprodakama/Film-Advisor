@@ -291,7 +291,7 @@ serv.on('connection', function(ws) {
         }
         else if( msg == "Ciao")
         {
-            ws.send(col + "Benvenuto Nel Serer WS. Prova ad usare uno di questi comandi:");
+            ws.send(col + "Benvenuto nel Server WS. Prova ad usare uno di questi comandi:");
             ws.send("-> _AvgPlaylists");
             ws.send("-> _AvgElements");
             ws.send("-> _Categories");
