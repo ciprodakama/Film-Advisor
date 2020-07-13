@@ -42,6 +42,8 @@
             var You = "You";
             var color = You.fontcolor("red");
             socket.send(text);
+            var a = document.getElementById("text");
+            a.value = a.defaultValue;
             log.innerHTML += color + ": " + text + "<br>";
         }
     </script>
